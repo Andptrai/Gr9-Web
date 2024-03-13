@@ -1,0 +1,362 @@
+
+.user {
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.banner {
+  display: flex;
+  background: #221b54;
+  gap: 80px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.banner #adduser {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #fffbfb;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.banner #adduser:hover {
+  background-color: white;
+  color: rgb(218, 75, 75);
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-table img {
+  width: auto;
+  /* Thay đổi giá trị này */
+  height: 100px;
+
+}
+
+.boxsuauser {
+  height: 650px;
+  width: 730px;
+  display: none;
+  position: fixed;
+  top: 45%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  padding: 10px 10px 0px 10px;
+  border: 2px solid grey;
+  margin-top: 50px;
+  margin-left: 240px;
+  z-index: 1;
+  overflow: auto;
+  border-radius: 20px;
+}
+.boxsuauser button {
+  margin-left: 660px;
+  border: 2px solid brown;
+  font-size: larger;
+  border-radius: 50%; /* Để có hình dạng tròn, bạn cũng có thể sử dụng giá trị 50% */
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: white;
+  background: brown;
+  transition: background 0.3s; /* Hiệu ứng chuyển động màu sắc khi di chuột vào nút */
+}
+
+.boxsuauser button:hover {
+  background: #221b54;
+}
+
+
+.boxsuauser h2 {
+  text-align: center;
+  padding: 10px;
+}
+
+.boxsuauser .form-group {
+  margin-bottom: 15px;
+
+}
+
+
+.boxsuauser label {
+  display: block;
+  font-weight: bold;
+}
+
+.boxsuauser input[type="text"],
+.boxsuauser input[type="email"],
+.boxsuauser input[type="password"] {
+  width: 100%;
+  height: 35px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+textarea {
+  width: 100%; 
+  height: 100px; 
+  resize: vertical; 
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+.form-group:first-child {
+  display: flex;
+  align-items: center;
+}
+.form-group textarea
+{
+  margin-top: 5px;
+ font-size: 14px;
+ padding: 10px; /* Điều chỉnh padding để thêm khoảng trắng giữa văn bản và viền */
+ border: 1px solid #ccc; /* Thêm viền cho textarea */
+ border-radius: 5px; /* Tùy chọn: Thêm góc cong cho textarea */
+
+}
+
+.edit-button {
+  padding: 4px;
+  background-color: green;
+  color: white;
+  border-radius: 4px;
+  border-color: green;
+  cursor: pointer;
+}
+
+.delete-button {
+  padding: 4px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  border-color: red;
+  cursor: pointer;
+}
+
+#goi {
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.finder{
+  text-align: left;
+}
+.finder select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.finder select option {
+  background-color: #fff;
+  color: #333;
+}
+
+#timnguoidung {
+  padding: 8px;
+  margin-left: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+
+#timnguoidung:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+
+#timnguoidung::placeholder {
+  color: #aaa;
+}
+
+
+#timnguoidung[type="text"] {
+  width: 200px;
+}
+
+.user .user-table {
+  position: relative;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+}
+
+.user-table {
+  padding: 30px;
+}
+
+.user table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.user table thead td {
+  font-weight: 600;
+  background: #221b54;
+  
+  color: #fff;
+
+}
+
+.user .user-table table tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(146, 100, 100, 0.1);
+  font-weight: lighter;
+}
+
+.user .user-table table tbody tr:hover {
+  background-color: #9c9595;
+  color: var(--white);
+}
+
+.user .user-table table tr td {
+  padding: 10px;
+  text-align: center;
+}
+
+.pagination {
+  padding: 10px;
+  text-align: center;
+  list-style: none;
+  font-weight: lighter;
+}
+
+.pagination li {
+  padding: 20px;
+  display: inline-block;
+  margin: 20px 10px;
+  cursor: pointer;
+}
+
+.pagination .hientai {
+  border-bottom: 3px solid rgb(0, 0, 0);
+}
+
+.pagination li:not(.hientai):hover {
+  background-color: rgb(152, 50, 50);
+  border-radius: 10px;
+}
+
+#xoanguoidung {
+  padding: 4px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  border-color: red;
+}
+
+#suanguoidung {
+  padding: 4px;
+  background-color: green;
+  color: white;
+  border-radius: 4px;
+  border-color: green;
+}
+
+#basic {
+  color: green;
+}
+
+#standard {
+  color: blue;
+}
+
+#premium {
+  color: red;
+}
+
+/* ================== Charts JS ============== */
+.chartsBx {
+  margin-left: 20px;
+}
+
+.chartsBx .chart {
+  position: relative;
+  background: #fff;
+  margin-top: 20px;
+  padding: 20px;
+  width: 70%;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  border: 1px solid var(--blue);
+}
+.change_img img{
+  width:auto;
+}
+
+.change_img{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+}
+
+.change_action{
+display: flex;
+}
+
+.change_button{
+width: 100px;
+text-align: center;
+padding: 4px 3px;
+margin: 20px 10px 20px 0;
+border: none;
+border-radius: 3px;
+background-color: #333;
+  color: white;
+cursor: pointer;
+}
+
+.change_button:hover{
+background-color: #DCDCDC;
+  color: #333;
+}
+
+.edit label {
+display: inline-block;
+width: 150px;
+text-align: right;
+font-size: 18px;
+  margin:10px 0;
+  font-weight: bold;
+}
+input[type="file"]{
+	display: none;
+}
+.update{
+  margin: 30px;
+  margin-left: 0;
+}
+.update a{
+	color: rgb(255, 255, 255);
+	border: 2px solid #333;
+  background-color: #333;
+	width: 100px;
+	padding: 5px 10px;
+	border-radius: 4px;
+	text-decoration: none;
+	
+	cursor: pointer;
+}
+
+.update a:hover{
+	border: 1px solid #C92127;
+	background-color: #C92127;
+  color: #fff;
+}

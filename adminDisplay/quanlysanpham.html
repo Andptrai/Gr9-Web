@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/indexadmin.css">
+    <link rel="stylesheet" href="../userDisplay/assets/font/fontawesome-pro-6.5.1-web/css/all.min.css">
+    <link rel="stylesheet" href="css/quanlysanpham.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html" id="active">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- ================ LÀM QUẢN LÝ SẢN PHẨM Ở ĐÂY ================= -->
+            <div class="user">
+                <div class="banner">
+                    <button id="adduser"><a href="themsanpham.html">+ Thêm sản phẩm</a></button>
+                    <div class="finder">
+                        <!-- Dropdown -->
+                        
+
+                        <!-- Box cần thay đổi nội dung -->
+                        <select id="contentBox">
+                            
+                            <option value="KNS-PTCN">Cà phê </option>
+                            <option value="MG-CM">Trà</option>
+                            <option value="NT-VH">Freeze</option>
+                        </select>
+                    </div>
+                    
+                    <input id="timnguoidung" type="text" placeholder="Tên sản phẩm cần tìm">
+                </div>
+                <!-- ================ Add Charts JS ================= -->
+            <div class="chartsBx">
+                <h2>TOP 10 SẢN PHẨM CÓ SỐ LƯỢNG BÁN CAO NHẤT TRONG NĂM 2023</h2>
+                <div class="chart"> <canvas id="chart-4"></canvas> </div>
+            </div>
+            
+                <div class="user-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>STT</td>
+                                <td>Mã SP</td>
+                                <td>Ảnh</td>
+                                <td>Tên SP </td>
+                                <td>Danh mục</td>
+                                <td>Giá</td>
+                                <td>Tồn kho</td>
+                                <td>Ngày cập nhật</td>
+                                <td>Thao tác</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>1</td>
+                                <td>CF01</td>
+                                <td><img src="../userDisplay/assets/img/cfDenDa.png" alt="">
+                                </td>
+                                <td>Cà phê đen</td>
+                                <td>Cà phê</td>
+                                <td>15.000VNĐ</td>
+                                <td>1000</td>
+                                <td>29/11/2023 11:11 </td>
+                                <td>
+                                    <button id="suanguoidung">Sửa</button>
+                                    <button onclick="myFunction()" id="xoanguoidung">Xóa</button>
+                                    <script>
+                                        function myFunction() {
+                                            const confirmation = confirm("Bạn có chắc chắn xóa cà phê đen không?");
+                                            if (confirmation) {
+                                                alert("Đã xóa sản phẩm thành công!");
+
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+                           
+                            <div class="boxsuauser" id="boxsuauser">
+                    
+                                     <button onclick="dongFormChinhSua()">X</button>
+                                     <script>
+                                        function dongFormChinhSua() {
+                                            var boxSuaUser = document.getElementById('boxsuauser');
+                                            boxSuaUser.style.display = 'none';
+                                        }
+                                    </script>
+                                <h2 style="margin-bottom: 10px;">Sửa thông tin sản phẩm </h2>
+                                <form id="suaUserForm">
+                                    <div class="form-group">
+                                        <label for="image1">Ảnh 1:</label>
+                                        <div class="change_img">
+                                            <img src="../userDisplay/assets/img/cfDenDa.png" alt="laptop" class="product_pic">
+                                            <div class="change_action">
+                                                <label for="input_file" class="change_button">Sửa</label>
+                                                <input type="file" class="input_file" accept="image/*">
+                                                <label class="change_button" onclick="del(this)">Xóa</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                     
+                                    <div class="form-group">
+                                        <label for="image1">Ảnh 2:</label>
+                                        <div class="change_img">
+                                            <img src="../userDisplay/assets/img/cfDenDa.png" alt="laptop" class="product_pic">
+                                            <div class="change_action">
+                                                <label for="input_file" class="change_button">Sửa</label>
+                                                <input type="file" class="input_file" accept="image/*">
+                                                <label class="change_button" onclick="del(this)">Xóa</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                    
+                                    <div class="form-group">
+                                        <label for="image1">Ảnh 3:</label>
+                                        <div class="change_img">
+                                            <img src="../userDisplay/assets/img/cfDenDa.png" alt="laptop" class="product_pic">
+                                            <div class="change_action">
+                                                <label for="input_file" class="change_button">Sửa</label>
+                                                <input type="file" class="input_file" accept="image/*">
+                                                <label class="change_button" onclick="del(this)">Xóa</label>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    
+                                    <div class="form-group">
+                                        <label for="email">Mã sản phẩm:</label>
+                                        <input type="text" id="email" value="CF01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Tên sản phẩm:</label>
+                                        <input type="text" id="name" value="Cà phê đen">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email">Giá:</label>
+                                        <input type="text" id="email" value="15.000VNĐ">
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label for="description">Mô tả:</label>
+                                        <textarea id="description">Sự kết hợp hoàn hảo giữa hạt cà phê Robusta & Arabica thượng hạng được trồng trên những vùng cao nguyên Việt Nam màu mỡ, qua những bí quyết rang xay độc đáo, Highlands Coffee chúng tôi tự hào giới thiệu những dòng sản phẩm Cà phê mang hương vị đậm đà và tinh tế.</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="quatyti">Số lượng tồn kho:</label>
+                                        <input type="text" id="quatyti" value="1000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="goi">Danh mục:</label>
+                                        <select id="goi" name="goi">
+                                            <option>Cà phê</option>
+                                            <option>Trà</option>
+                                            <option>Freeze</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="update">
+                                            <a onclick="warning()"><i class="fa-solid fa-download"></i>Cập nhật</a>
+                                        </div>
+                                      
+                                    </div>
+                            
+                                </form>
+                            </div>
+
+                            <tr>
+                                <td>2</td>
+                                <td>CF05</td>
+                                <td><img src="../userDisplay/assets/img/bacXiu.png" alt="">
+                                </td>
+                                <td>Bạc xỉu</td>
+                                <td>Cà phê</td>
+                                <td>22.000VNĐ</td>
+                                <td>1000</td>
+                                <td>15/10/2023 17:19 </td>
+                                <td>
+                                    <button id="suanguoidung">Sửa</button>
+                                    <button onclick="myFunction1()" id="xoanguoidung">Xóa</button>
+                                    <script>
+                                        function myFunction1() {
+                                            const confirmation = confirm("Bạn có chắc chắn xóa bạc xỉu không?");
+                                            if (confirmation) {
+                                                alert("Đã xóa sản phẩm thành công!");
+
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td>T01</td>
+                                <td><img src="../userDisplay/assets/img/traDao.png" alt="">
+                                </td>
+                                <td>Trà đào</td>
+                                <td>Trà</td>
+                                <td>40.000VNĐ</td>
+                                <td>600</td>
+                                <td>10/09/2023 09:11 </td>
+                                <td>
+                                    <button id="suanguoidung">Sửa</button>
+                                    <button onclick="myFunction2()" id="xoanguoidung">Xóa</button>
+                                    <script>
+                                        function myFunction2() {
+                                            const confirmation = confirm("Bạn có chắc chắn xóa trà đào không?");
+                                            if (confirmation) {
+                                                alert("Đã xóa sản phẩm thành công!");
+
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>4</td>
+                                <td>F01</td>
+                                <td><img src="../userDisplay/assets/img/chocolateFreeze.png" alt="">
+                                </td>
+                                <td>Freeze chocolate</td>
+                                <td>Freeze</td>
+                                <td>45.000VNĐ</td>
+                                <td>900</td>
+                                <td>29/11/2023 11:11 </td>
+                                <td>
+                                    <button id="suanguoidung">Sửa</button>
+                                    <button onclick="myFunction3()" id="xoanguoidung">Xóa</button>
+                                    <script>
+                                        function myFunction3() {
+                                            const confirmation = confirm("Bạn có chắc chắn xóa freeze chocolate không?");
+                                            if (confirmation) {
+                                                alert("Đã xóa sản phẩm thành công!");
+
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td>5</td>
+                                <td>T03</td>
+                                <td><img src="../userDisplay/assets/img/traSenVang.png" alt="">
+                                </td>
+                                <td>Trà sen vàng</td>
+                                <td>Trà</td>
+                                <td>35.000VNĐ</td>
+                                <td>800</td>
+                                <td>19/11/2023 11:11 </td>
+                                <td>
+                                    <button id="suanguoidung">Sửa</button>
+                                    <button onclick="myFunction4()" id="xoanguoidung">Xóa</button>
+                                    <script>
+                                        function myFunction4() {
+                                            const confirmation = confirm("Bạn có chắc chắn xóa trà sen vàng không?");
+                                            if (confirmation) {
+                                                alert("Đã xóa sản phẩm thành công!");
+
+                                            }
+                                        }
+                                    </script>
+
+                                </td>
+                            </tr>
+                           
+        
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button class="button" id="startBtn" disabled>
+                      <i class="fa-solid fa-angles-left"></i>
+                    </button>
+                    <button class="button prevNext" id="prev" disabled>
+                      <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                  
+                    <div class="links">
+                      <li id="link" class="active">1</li>
+                      <li id="link">2</li>
+                    </div>
+                  
+                    <button class="button prevNext" id="next">
+                      <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                    <button class="button" id="endBtn">
+                      <i class="fa-solid fa-angles-right"></i>
+                    </button>
+                  </div>
+            </div>
+        </div>
+        <!-- ======= Charts JS ====== -->
+    <script src="js/suasanpham.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="js/chartsachbanchay.js"></script>
+        <!-- ====== ionicons ======= -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

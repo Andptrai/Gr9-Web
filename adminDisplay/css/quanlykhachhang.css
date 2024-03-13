@@ -1,0 +1,304 @@
+
+.user{
+  font-family: 'Poppins', sans-serif;
+}
+.banner{
+  margin: 20px;
+    display: flex;
+    background: #221b54;
+    justify-content: space-between;
+    padding: 10px;
+}
+.banner #adduser{
+    padding: 10px 20px;
+  font-size: 16px;
+  background-color: #fffbfb;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.banner #adduser:hover{
+    background-color: white;
+    color: rgb(218, 75, 75);
+    transform: translateY(-3px);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+/* Màu chủ đạo */
+:root {
+  --primary-color: #221b54;
+  --text-color: #fff;
+}
+
+/* Box style */
+.boxadduser,
+.boxsuauser {
+  display: none;
+  position: fixed;
+  width: 50%;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 1;
+  border: 10px #221b54;
+}
+
+.boxsuauser {
+  margin-left: 240px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+/* Header style */
+.boxadduser h2,
+.boxsuauser h2 {
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Form group style */
+.boxadduser .form-group,
+.boxsuauser .form-group {
+  margin-bottom: 15px;
+}
+
+/* Label style */
+.boxadduser label,
+.boxsuauser label {
+  display: block;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Input style */
+.boxadduser input[type="text"],
+.boxadduser input[type="email"],
+.boxadduser input[type="password"],
+.boxsuauser input[type="text"],
+.boxsuauser input[type="email"],
+.boxsuauser input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Submit button style */
+.boxadduser input[type="submit"],
+.boxsuauser input[type="submit"] {
+  width: 100%;
+  height: 40px;
+  color: var(--text-color);
+  font-size: 15px;
+  background-color: var(--primary-color);
+  font-weight: bold;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  display: block;
+  margin: 20px 0 12px;
+  cursor: pointer;
+}
+
+.boxadduser input[type="submit"]:hover,
+.boxsuauser input[type="submit"]:hover {
+  background-color: #fffcfc;
+  color: var(--primary-color);
+}
+
+/* Select box style */
+#goi,
+#option {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* Option style */
+#goi option,
+#option option {
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#goi option:hover,
+#option option:hover {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+#goi option:checked,
+#option option:checked {
+  background-color: #3498db;
+  color: #fff;
+}
+
+
+#timnguoidung {
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    font-size: 16px; 
+    color: #333; 
+  }
+  
+  
+  #timnguoidung:focus {
+    outline: none; 
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+  
+  
+  #timnguoidung::placeholder {
+    color: #aaa; 
+  }
+  
+ 
+  #timnguoidung[type="text"] {
+    width: 200px; 
+  }
+  .user .user-table {
+    position: relative;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+  }
+  .user-table{
+    padding: 30px;
+  }
+  .user table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: left;
+  }
+  .user table thead td {
+    font-weight: 600;
+    background: #221b54;
+    color: #fff;
+  }
+  .user .user-table table tr {
+    color: var(--black1);
+    border-bottom: 1px solid rgba(146, 100, 100, 0.1);
+    font-weight: lighter;
+  }
+  .user .user-table table tbody tr:hover {
+    background-color: #9c9595;
+    color: var(--white);
+  }
+  .user .user-table table tr td {
+    padding: 10px;
+    text-align: center;
+  }
+ 
+  
+  .xoanguoidung,
+.suanguoidung {
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.xoanguoidung {
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+.suanguoidung {
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+}
+
+  #basic{
+    color:rgba(192, 192, 192, 1) ;
+  }
+  #standard{
+    color: rgba(255, 215, 0, 1)    ;
+  }
+  #premium{
+    color: rgba(0, 191, 255, 0.8)    ;
+  }
+  /* sửa người dùng */
+/* Style your table and popup here */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  padding: 40px;
+  background: #f8f8f8; /* Màu nền */
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+  border-radius: 10px; /* Góc bo tròn */
+  max-width: 800px;
+}
+
+.popup-content {
+  text-align: center;
+  color: #333; /* Màu chữ */
+}
+
+.popup input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; /* Biên */
+  border-radius: 4px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #fff;
+  background: #221b54;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.close:hover {
+  background: #403571;
+}
+/* CSS cho nút "Lưu thay đổi" */
+button[type="button"] {
+  padding: 10px 20px; /* Kích thước padding */
+  background-color: #4CAF50; /* Màu nền */
+  color: #fff; /* Màu chữ */
+  border: none; /* Không có viền */
+  border-radius: 4px; /* Góc bo tròn */
+  cursor: pointer; /* Con trỏ tay khi di chuột vào nút */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+}
+
+button[type="button"]:hover {
+  background-color: #45a049; /* Màu nền khi di chuột vào */
+}
+
+
+
+/* ================== Charts JS ============== */
+.chartsBx{
+  margin-left: 20px;
+}
+.chartsBx .chart{
+  position: relative;
+  background: #fff;
+  margin-top: 10px;
+  padding: 20px;
+  width: 70%;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  border: 1px solid var(--blue);
+}

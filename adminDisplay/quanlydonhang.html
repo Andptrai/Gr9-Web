@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/indexadmin.css">
+    <link rel="stylesheet" href="css/quanlydonhang.css">
+    <link rel="stylesheet" href="../userDisplay/assets/font/fontawesome-pro-6.5.1-web/css/all.min.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html" id="active">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <!-- <div class="hello">
+                    <p>CHÀO MỪNG QUẢN TRỊ CỦA HAT !!!</p>
+                </div> -->
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <a href="quanlydonhang.html"><ion-icon name="search-outline"></ion-icon></a>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ================ LÀM QUẢN LÝ ĐƠN HÀNG Ở ĐÂY ================= -->
+            <div class="order">
+                <!-- ================ LÀM BANNER ================= -->
+                <div class="banner">
+                    <select id="month">
+                        <option>Tháng 12</option>
+                        <option>Tháng 1</option>
+                        <option>Tháng 2</option>
+                        <option>Tháng 3</option>
+                        <option>Tháng 4</option>
+                        <option>Tháng 5</option>
+                        <option>Tháng 6</option>
+                        <option>Tháng 7</option>
+                        <option>Tháng 8</option>
+                        <option>Tháng 9</option>
+                        <option>Tháng 10</option>
+                        <option>Tháng 11</option>
+                    </select>
+                    <select id="month">
+                        <option>Tình trạng</option>
+                        <option>Chờ xác nhận</option>
+                        <option>Đã giao</option>
+                        <option>Đang giao</option>
+                        <option>Bị hủy</option>
+                    </select>
+                    <select id="chon" onchange="showCustomDate()">
+                        <option value="today">Hôm nay</option>
+                        <option value="yesterday">Hôm qua</option>
+                        <option value="last7days">7 ngày trước</option>
+                        <option value="last30days">30 ngày trước</option>
+                        <option value="custom">Tùy chọn</option>
+                    </select>
+
+                    <div id="customDate" style="display: none;">
+                        <label for="fromDate">Từ ngày:</label>
+                        <input type="date" id="fromDate">
+                        <label for="toDate">Đến ngày:</label>
+                        <input type="date" id="toDate">
+                        <label><input onclick="gui()" type="submit"></label>
+                    </div>
+
+                    <script>
+                        function showCustomDate() {
+                            const select = document.getElementById('chon');
+                            const customDate = document.getElementById('customDate');
+
+                            if (select.value === 'custom') {
+                                customDate.style.display = 'block';
+                            } else {
+                                customDate.style.display = 'none';
+                            }
+                        }
+
+                        function gui() {
+                            const fromDate = document.getElementById('fromDate').value;
+                            const toDate = document.getElementById('toDate').value;
+                            const customDate = document.getElementById('customDate');
+
+                            if (fromDate !== '' && toDate !== '') {
+                                alert(`Đã cập nhật các đơn hàng từ ${fromDate} đến ${toDate}`);
+                                customDate.style.display = 'none'; // Ẩn box khi nhấn OK trên alert
+                            } else {
+                                alert("Vui lòng nhập đầy đủ thông tin ngày");
+                            }
+                        }
+                    </script>
+
+                    <div class="finder">
+                        <select id="find">
+                            <option>Tìm theo mã đơn hàng</option>
+                            <option>Tìm theo SĐT</option>
+                            <option>Tìm theo tên người dùng</option>
+                        </select>
+                        <input id="find" type="text" placeholder="Nhập thông tin cần tìm">
+                        <a href="quanlydonhang.html"><input id="find" type="submit" value="TÌM KIẾM"></a>
+                    </div>
+                </div>
+                <div class="chartsBx">
+                    <div class="chart"> <canvas id="myChart"></canvas> </div>
+                    <div class="chart"> <canvas id="chart-3"></canvas> </div>
+                </div>
+                <div class="order-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>STT</td>
+                                <td>Mã đơn hàng</td>
+                                <td>Người đặt</td>
+                                <td>SĐT</td>
+                                <td>Tình trạng</td>
+                                <td>Thời gian</td>
+                                <td>Ghi chú</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="chitietdonhang.html"> ĐH400</a></td>
+                                <td>anphan122</td>
+                                <td>0193123789</td>
+                                <td>Chờ xác nhận</td>
+                                <td>14/12/2023</td>
+                                <td>
+                                    <a href="quanlydonhang1.html"><button id="xoanguoidung">Chưa xử lý</button></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td><a href="chitietdonhang.html"> ĐH401</a></td>
+                                <td>anphan122</td>
+                                <td>0193123789</td>
+                                <td>Chờ xác nhận</td>
+                                <td>15/12/2023</td>
+                                <td>
+
+                                    <a href="quanlydonhang3.html"><button id="xoanguoidung">Chưa xử lý</button></a>
+                                </td>
+                            </tr>
+
+                            
+
+
+
+
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                   
+                        <button class="button prevNext" id="prev" disabled>
+                          <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                      
+                        <div class="links">
+                          <li id="link" class="active">1</li>
+                          <li id="link">2</li>
+                        </div>
+                      
+                        <button class="button prevNext" id="next">
+                          <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                       
+                      </div>
+                </div>
+
+
+
+                <!-- ================ Add Charts JS ================= -->
+
+
+            </div>
+        </div>
+    </div>
+    <!-- ======= Charts JS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="js/chartdonhang.js"></script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

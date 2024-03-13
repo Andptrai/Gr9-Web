@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="../userDisplay/assets/font/fontawesome-pro-6.5.1-web/css/all.min.css">
+    <link rel="stylesheet" href="../adminDisplay/css/indexadmin.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html" id="active">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            
+
+            </ul>
+
+        </div>
+
+    
+        <div class="main">
+            <div class="topbar">
+                <!-- <div class="hello">
+                    <p>Say admin</p>
+                </div> -->
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">1607</div>
+                        <div class="cardName">Lượt truy cập hôm nay</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="eye-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">612</div>
+                        <div class="cardName">Đơn hàng tháng 12</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">99</div>
+                        <div class="cardName">Đánh giá mới</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">20.892.790đ</div>
+                        <div class="cardName">Lợi nhuận tháng 12</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <!-- ================ Order Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>ĐƠN HÀNG GẦN ĐÂY</h2>
+                        <a href="quanlydonhang.html" class="btn">Xem chi tiết</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>MÃ ĐƠN HÀNG</td>
+                                <td>GIÁ</td>
+                                <td>THANH TOÁN</td>
+                                <td>TÌNH TRẠNG ĐƠN</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH613</a></td>
+                                <td>120.000đ</td>
+                                <td>Tiền Mặt</td>
+                                <td><span class="status inProgress">Chờ xác nhận</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH614</a></td>
+                                <td>140.000đ</td>
+                                <td>Chuyển Khoản</td>
+                                <td><span class="status inProgress">Chờ xác nhận</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="/chitietdonhang.html">ĐH611</a></td>
+                                <td>45.000đ</td>
+                                <td>Tiền Mặt</td>
+                                <td><span class="status pending">Đã nhận hàng</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH605</a></td>
+                                <td>90.000đ</td>
+                                <td>Tiền Mặt</td>
+                                <td><span class="status pending">Đã nhận hàng</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH610</a></td>
+                                <td>120.300đ</td>
+                                <td>Tiền Mặt</td>
+                                <td><span class="status return">Bị Hủy</span></td>
+                            </tr>
+
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH600</a></td>
+                                <td>260.000đ</td>
+                                <td>Chuyển Khoản</td>
+                                <td><span class="status delivered">Đã giao</span></td>
+                            </tr>
+                            <tr>
+                                <td><a href="chitietdonhang.html">ĐH603</a></td>
+                                <td>200.000</td>
+                                <td>Chuyển Khoản</td>
+                                <td><span class="status delivered">Đã giao</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ================= New Customers ================ -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>KHÁCH HÀNG MỚI</h2>
+                    </div>
+
+                    <table>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/jennie.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>QueNhi123 <br> <span>Vàng</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/ronaldo.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Tiendat1607<br> <span>Kim Cương</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/user.png" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>anphan122<br> <span>Bạc</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/Rose.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Rose<br> <span>Bạc</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/sita.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>HOngMinh<br> <span>Vàng</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="../userDisplay/assets/img/lisa.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Lisa<br> <span>Vàng</span></h4>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        
+        <h2 class="analize">THỐNG KÊ BÁN HÀNG</h2>
+        
+            <div class="filter">
+                <div class="flex">
+                <span><input type="radio" name="chon" value="ten" id="ten" onclick="checkTen()" checked>Theo tên sản phẩm</span>
+                <span><input type="radio" name="chon" value="loai" id="loai" onclick="checkLoai()">Theo loại sản phẩm</span>
+                <input type="text" name="tenSp" id="tenSp" placeholder="Tên sản phẩm">
+                <select name="loaiSp" id="loaiSp">
+                    <option value="Cà phê">Cà phê</option>
+                    <option value="Trà">Trà</option>
+                    <option value="Freeze">Freeze</option>
+                </select>
+                </div>
+                <div class="date">
+                    <label for="start">Từ ngày: </label>
+                    <input type="date" id="start" name="start" value="2023-12-01" min="2018-01-01" max="2023-12-31">
+                    <label for="start">đến </label>
+                    <input type="date" id="end" name="end" value="2023-12-15" min="2018-01-01" max="2023-12-31">
+                </div>
+                <button class="thongke"><a href="thongke.html">Thống kê</a></button>
+            </div>
+
+            <div id="reportResult">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã ĐH</th>
+                            <th>Người đặt</th>
+                            <th>SĐT</th>
+                            <th>Tình trạng</th>
+                            <th>Thành tiền</th>
+                            <th>Ngày</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH613</a></td>
+                            <td>Rose</td>
+                            <td>0909231312</td>
+                            <td id="premium">Chờ xác nhận</td>
+                            <td>120.000đ</td>
+                            <td>12/15/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH614 </a></td>
+                            <td>Lisa</td>
+                            <td>0910253541</td>
+                            <td id="premium">Chờ xác nhận</td>
+                            <td>140.000đ</td>
+                            <td>12/15/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH555 </a></td>
+                            <td>Tiendat1607</td>
+                            <td>0826277123</td>
+                            <td id="premium">Chờ xác nhận</td>
+                            <td>15.000đ</td>
+                            <td>12/05/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH301</a></td>
+                            <td>Tiendat1607</td>
+                            <td>0826277123</td>
+                            <td id="basic">Đã giao</td>
+                            <td>500.000đ</td>
+                            <td>12/01/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH600</a></td>
+                            <td>QueNhi123</td>
+                            <td>012312312</td>
+                            <td id="basic">Đã giao</td>
+                            <td>260.000đ</td>
+                            <td>12/12/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="chitietdonhang.html"> ĐH567</a></td>
+                            <td>Rose</td>
+                            <td>0909231312</td>
+                            <td id="basic">Đã giao</td>
+                            <td>45.000</td>
+                            <td>12/10/2023</td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <div class="pagination">
+                   
+                    <button class="button prevNext" id="prev" disabled>
+                      <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                  
+                    <div class="links">
+                      <li id="link" class="active">1</li>
+                      <li id="link">2</li>
+                    </div>
+                  
+                    <button class="button prevNext" id="next">
+                      <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                 
+                  </div>
+            </div>
+
+            <script>
+            
+                    ten = document.getElementById("ten");
+                    loai = document.getElementById("loai");
+                    tenSp = document.getElementById("tenSp");
+                    loaiSp = document.getElementById("loaiSp");
+                    function checkTen(){
+                        tenSp.style.display="block";
+                        loaiSp.style.display="none";
+                    }
+        
+                    function checkLoai(){
+                        tenSp.style.display="none";
+                        loaiSp.style.display="block";
+                    }
+                      
+            </script>
+            </div>
+    </div>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

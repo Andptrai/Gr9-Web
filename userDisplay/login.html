@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Say Coffee</title>
+    <link rel="icon" href="assets/img/logo1.png">
+    <link rel="stylesheet" href="assets/css/loginstyle.css" />
+</head>
+
+<body>
+    <section class="wrapper">
+        <div class="form login active">
+            <header>Đăng nhập</header>
+            <form id="loginForm" onsubmit="login(event)">
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Mật khẩu" />
+                <a href="#">Quên mật khẩu?</a>
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+        <div class="form signup">
+            <header>Đăng kí</header>
+            <form id="signupForm" onsubmit="signup(event)">
+                <input type="text" placeholder="Họ tên" />
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Mật khẩu" />
+                <div class="checkbox">
+                    <input type="checkbox" id="signupCheck" />
+                    <label for="signupCheck">Tôi chấp nhận tất cả các điều khoản và điều kiện</label>
+                </div>
+                <input type="submit" value="Signup" />
+            </form>
+        </div>
+
+        <script>
+            const wrapper = document.querySelector(".wrapper"),
+                signupHeader = document.querySelector(".signup header"),
+                loginHeader = document.querySelector(".login header");
+        
+            wrapper.classList.add("active");
+        
+            loginHeader.addEventListener("click", () => {
+                wrapper.classList.add("active");
+            });
+            signupHeader.addEventListener("click", () => {
+                wrapper.classList.remove("active");
+            });
+        
+            function login(event) {
+                event.preventDefault();
+                // Perform login logic here
+                alert("Đăng nhập thành công!");
+                localStorage.setItem("isLoggedIn", "true");
+
+                // Check if window.opener is truthy
+                if (window.opener && window.opener.document) {
+                    // Hide the login button on the index page
+                    const loginBtnIndex = window.opener.document.getElementById("form-open");
+                    if (loginBtnIndex) {
+                        loginBtnIndex.style.display = "none";
+                    }
+
+                    // Show the logout button on the index page
+                    const userIconIndex = window.opener.document.getElementById("userIcon");
+                    if (userIconIndex) {
+                        // Replace the class "fa-regular" with "fa-solid"
+                        userIconIndex.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+                    }
+                }
+
+                // Go back to the previous page
+                window.history.back();
+            }       
+
+            function signup(event) {
+                event.preventDefault();
+                // Perform signup logic here
+                alert("Đăng kí thành công!");
+                localStorage.setItem("isLoggedIn", "true");
+
+                // Check if window.opener is truthy
+                if (window.opener && window.opener.document) {
+                    // Hide the login button on the index page
+                    const loginBtnIndex = window.opener.document.getElementById("form-open");
+                    if (loginBtnIndex) {
+                        loginBtnIndex.style.display = "none";
+                    }
+
+                    // Show the logout button on the index page
+                    const userIconIndex = window.opener.document.getElementById("userIcon");
+                    if (userIconIndex) {
+                        // Replace the class "fa-regular" with "fa-solid"
+                        userIconIndex.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+                    }
+                }
+
+                // Go back to the previous page
+                window.history.back();
+            }
+
+        </script>
+        
+        
+        
+    </section>
+</body>
+
+</html>

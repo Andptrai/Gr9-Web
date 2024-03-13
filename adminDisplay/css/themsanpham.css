@@ -1,0 +1,60 @@
+/* CSS cho form */
+.addproduct {
+    padding: 10px 50px 50px 50px;
+}
+h1{
+    padding: 20px 0;
+}
+/* Giao diện của các form group */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.form-group label {
+    display: block;
+    width: 30%;
+    padding: 6px;
+    font-weight: bold;
+}
+
+/* Input, select, textarea */
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 6px;
+    border: 2px solid #bbb8b8; /* Màu viền */
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Nút Submit */
+.return,
+input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-left: 220px;
+    border: none;
+    border-radius: 4px;
+    background-color: #34db60; /* Màu nền */
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+.return:hover,
+input[type="submit"]:hover {
+    background: #221b54;
+}
+.form-group input[type="file"] {
+    padding: 6px;
+    border: 2px solid #bbb8b8;
+    border-radius: 4px;
+    margin-right: auto;
+}
+.return a{
+    color: white;
+}
+
+
+

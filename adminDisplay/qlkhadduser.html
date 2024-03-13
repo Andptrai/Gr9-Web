@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/indexadmin.css">
+    <link rel="stylesheet" href="css/quanlykhachhang.css">
+    <link rel="stylesheet" href="../userDisplay/assets/font/fontawesome-pro-6.5.1-web/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html" id="active">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+
+            <!-- ================ LÀM QUẢN LÝ KHÁCH HÀNG Ở ĐÂY ================= -->
+            <div class="user">
+                <div class="banner">
+                    <button id="adduser">+ Thêm người dùng</button>
+                    <div class="boxadduser" id="boxadduser">
+                        <h2>Thêm người dùng mới</h2>
+                        <form action="#" method="post" id="addUserForm">
+                            <div class="form-group">
+                                <label for="username">Tên đăng nhập:</label>
+                                <input type="text" id="username" placeholder="andeptrai">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Họ và tên:</label>
+                                <input type="text" id="name" placeholder="Phan Quốc An">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" id="email" placeholder="quocanphan123@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="goi">Gói:</label>
+                                <select id="goi" name="goi">
+                                    <option>Cơ bản</option>
+                                    <option>Tiêu chuẩn</option>
+                                    <option>Cao cấp</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mật khẩu mặc định:</label>
+                                <input type="password" id="password" value="password">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Thêm">
+                            </div>
+                        </form>
+                    </div>
+
+                    <script>
+
+                        const adduserBtn = document.getElementById('adduser');
+                        const boxadduser = document.getElementById('boxadduser');
+                        const addUserForm = document.getElementById('addUserForm');
+
+
+                        adduserBtn.addEventListener('click', function () {
+
+                            if (boxadduser.style.display === 'none' || boxadduser.style.display === '') {
+                                boxadduser.style.display = 'block';
+                            } else {
+                                boxadduser.style.display = 'none';
+                            }
+                        });
+
+                        addUserForm.addEventListener('submit', function (event) {
+                            event.preventDefault();
+
+
+                            alert('Đã thêm người dùng');
+                            window.location.href = 'qlkhadduser.html';
+                        });
+                    </script>
+
+                    <select id="option">
+                        <option>Tất cả</option>
+                        <option>Cơ bản</option>
+                        <option>Tiêu chuẩn</option>
+                        <option>Cao cấp</option>
+                        <option> <a href="#">Đã khóa</a></option>
+                    </select>
+                    <select id="option">
+                        <option>Mới nhất</option>
+                        <option>Cũ nhất</option>
+                    </select>
+                    <input id="timnguoidung" type="text" placeholder="Tên người dùng ...">
+                </div>
+                <div class="user-table">
+                    <!-- ================ Add Charts JS ================= -->
+                <div class="chartsBx">
+                    <h2>THỐNG KÊ LƯỢNG ĐĂNG KÝ NĂM 2023</h2>
+                    <div class="chart"> <canvas id="chart-2"></canvas> </div>
+                </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>STT</td>
+                                <td>Tên đăng nhập </td>
+                                <td>Họ và tên</td>
+                                <td>Email</td>
+                                <td>Gói</td>
+                                <td>Ngày đăng ký</td>
+                                <td>Ghi chú</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <div id="editPopup" class="popup">
+                                <div class="popup-content">
+                                    <span class="close" onclick="closePopup()">&times;</span>
+                                    <h2>Sửa thông tin</h2>
+                                    <!-- Form for editing user -->
+                                    <form id="editForm">
+                                        <!-- Input fields go here -->
+                                        <button type="button" onclick="saveChanges()">Lưu thay đổi</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <script>
+                                const packageMapping = {
+                                    standard: "Vàng",
+                                    basic: "Bạc",
+                                    premium: "Kim cương",
+                                    lock: "Bị khóa"
+                                };
+                                
+                                const userData = [
+                                    { id: 1, username: "QueNhi123", fullName: "Que Nhi", email: "QueNhi123@gmail.com", packageId: "standard", dateRegistered: "14/12/2023" },
+                                    { id: 2, username: "Tiendat1607", fullName: "Nguyễn Xuân Tiến Đạt", email: "nguyenxuantiendat1607@gmail.com", packageId: "basic", dateRegistered: "14/12/2023" },
+                                    { id: 3, username: "Lisa", fullName: "Lisa", email: "lisa@gmail.com", packageId: "premium", dateRegistered: "07/09/2023" },
+                                    { id: 4, username: "anphan122", fullName: "Phan Quốc An", email: "andeptrai@gmail.com", packageId: "premium", dateRegistered: "09/08/2023" },
+                                    { id: 5, username: "andeptrai", fullName: "Phan Quốc An", email: "quocanphan123@gmail.com", packageId: "basic", dateRegistered: "09/08/2023" },
+                                ];
+                                
+                                function populateTable() {
+                                    const tbody = document.querySelector('tbody');
+                                    tbody.innerHTML = '';
+                                
+                                    userData.forEach(user => {
+                                        const row = document.createElement('tr');
+                                        const packageId = user.packageId.toLowerCase(); // Chuyển đổi ID thành chữ thường
+                                
+                                        row.innerHTML = `<td>${user.id}</td>
+                                                        <td>${user.username}</td>
+                                                        <td>${user.fullName}</td>
+                                                        <td>${user.email}</td>
+                                                        <td id="${packageId}" data-original-package="${user.packageId}">${user.isLocked ? 'Bị khóa' : packageMapping[user.packageId]}</td>
+                                                        <td>${user.dateRegistered}</td>
+                                                        <td>
+                                                            <button id="suanguoidung_${user.id}" class="suanguoidung" onclick="openEditPopup(${user.id})">Sửa</button>
+                                                            <button id="xoanguoidung_${user.id}" class="xoanguoidung" onclick="lockUser(${user.id})">Khóa</button>
+                                                        </td>`;
+                                        tbody.appendChild(row);
+                                    });
+                                }
+                                
+                                function openEditPopup(userId) {
+                                    const user = userData.find(u => u.id === userId);
+                                    const editForm = document.getElementById('editForm');
+                                    editForm.innerHTML = `<label for="editUsername">Tên đăng nhập:</label>
+                                                        <input type="text" id="editUsername" value="${user.username}" required><br>
+                                                        <label for="editFullName">Họ và tên:</label>
+                                                        <input type="text" id="editFullName" value="${user.fullName}" required><br>
+                                                        <label for="editEmail">Email:</label>
+                                                        <input type="email" id="editEmail" value="${user.email}" required><br>
+                                                        <label for="editPackage">Gói:</label>
+                                                        <select id="editPackage" required>
+                                                            <option value="standard" ${user.packageId === "standard" ? "selected" : ""}>Vàng</option>
+                                                            <option value="basic" ${user.packageId === "basic" ? "selected" : ""}>Bạc</option>
+                                                            <option value="premium" ${user.packageId === "premium" ? "selected" : ""}>Kim cương</option>
+                                                        </select><br>
+                                                        <label for="editDate">Ngày đăng ký:</label>
+                                                        <input type="text" id="editDate" value="${user.dateRegistered}" required><br>`;
+                                
+                                    const editPopup = document.getElementById('editPopup');
+                                    editPopup.style.display = 'block';
+                                }
+                                
+                                function saveChanges() {
+                                    // Thông báo người dùng
+                                    const confirmSave = confirm("Bạn có chắc chắn muốn lưu thay đổi?");
+                                
+                                    if (confirmSave) {
+                                        alert("Thay đổi đã được lưu!");
+                                        closePopup();
+                                    } else {
+                                        alert("Thay đổi không được lưu.");
+                                    }
+                                }
+                                
+                                // Các hàm khác không thay đổi
+                                function closePopup() {
+                                    const editPopup = document.getElementById('editPopup');
+                                    editPopup.style.display = 'none';
+                                }
+                                
+                                function lockUser(userId) {
+                                    const user = userData.find(u => u.id === userId);
+                                
+                                    if (user) {
+                                        // Ask for confirmation
+                                        const confirmation = confirm(`Bạn có chắc chắn muốn ${user.isLocked ? 'mở khóa' : 'khóa'} người dùng ${user.username}?`);
+                                
+                                        if (confirmation) {
+                                            // Toggle between locked and unlocked
+                                            user.isLocked = !user.isLocked;
+                                
+                                            const lockButton = document.getElementById(`xoanguoidung_${user.id}`);
+                                            lockButton.textContent = user.isLocked ? 'Mở' : 'Khóa';
+                                
+                                            // Update the package status
+                                            
+                                         
+                                
+                                            alert(`Người dùng ${user.username} đã ${user.isLocked ? 'bị khóa' : 'mở khóa'} và gói đã được cập nhật thành ${user.isLocked ? 'Bị khóa' : packageMapping[user.packageId]}!`);
+                                        } else {
+                                            alert("Thao tác đã bị hủy.");
+                                        }
+                                    } else {
+                                        alert(`Không tìm thấy người dùng có ID ${userId}`);
+                                    }
+                                }
+                                
+                                populateTable();
+                                </script>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                  
+                    <button class="button prevNext" id="prev" disabled>
+                      <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                  
+                    <div class="links">
+                      <li id="link" class="active">1</li>
+                      <li id="link">2</li>
+                    </div>
+                  
+                    <button class="button prevNext" id="next">
+                      <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                    
+                  </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- ======= Charts JS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/datepicker@1.8.0/dist/datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="js/chartuser.js"></script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

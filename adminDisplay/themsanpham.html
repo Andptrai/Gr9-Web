@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/indexadmin.css">
+
+    <link rel="stylesheet" href="css/themsanpham.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html" >
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html"id="active">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="hello">
+                    <!-- <p>CHÀO MỪNG QUẢN TRỊ CỦA HAT !!!</p> -->
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- ================ LÀM QUẢN LÝ SẢN PHẨM Ở ĐÂY ================= -->
+            <div class="addproduct">
+                <h1> Thêm sản phẩm mới </h1>
+                <form id="suaUserForm">
+                    <div class="form-group">
+                        <label for="goi">Danh mục:</label>
+                        <select id="goi" name="goi">
+                            <option>Cà phê</option>
+                            <option>Trà</option>
+                            <option>Freeze</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="image1">Ảnh 1:</label>
+                        <input type="file" id="image1" accept="image/*">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="image1">Ảnh 2:</label>
+                        <input type="file" id="image2" accept="image/*">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="image1">Ảnh 3:</label>
+                        <input type="file" id="image3" accept="image/*">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Mã sản phẩm:</label>
+                        <input type="text" id="name" placeholder="CF01">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Tên sản phẩm:</label>
+                        <input type="text" id="name" placeholder="Phin đen đá">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Giá:</label>
+                        <input type="text" id="email" placeholder="15.000VNĐ">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="email">Tác giả:</label>
+                        <input type="text" id="email" placeholder="Dale Carnegie">
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label for="email">Nhà xuất bản:</label>
+                        <input type="text" id="email" placeholder="Văn Học">
+                    </div> -->
+                    <div class="form-group">
+                        <label for="description">Mô tả:</label>
+                        <textarea id="description" placeholder="Sự kết hợp hoàn hảo giữa hạt cà phê Robusta & Arabica thượng hạng được trồng trên những vùng cao nguyên Việt Nam màu mỡ, qua những bí quyết rang xay độc đáo, Highlands Coffee chúng tôi tự hào giới thiệu những dòng sản phẩm Cà phê mang hương vị đậm đà và tinh tế."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quatyti">Số lượng tồn kho:</label>
+                        <input type="text" id="quatyti" placeholder="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Lưu vào Database" onclick="myFunction()">
+                        <button class="return"><a href="quanlysanpham.html">Quay lại</a></button>
+                    </div>
+                </form>
+                <script>
+                    function myFunction() {
+                        const confirmation = confirm("Bạn có chắc chắn với nội dung trên không?");
+                        if (confirmation){
+                            alert("Đã lưu thành công thông tin sản phẩm mới vào Database!");
+                        }
+                        else{
+                            alert("Đã hủy thao tác!");
+                        }
+                        window.location.href="quanlysanpham.html";
+
+                    }
+                </script>
+
+            </div>
+        </div>
+    </div>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="assets/img/logo1.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/font/fontawesome-pro-6.5.1-web/css/all.min.css">
+    
+  </head>
+
+<body>
+
+  <!-- HEADER  -->
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="index.html"><img src="assets/img/logo1.png" alt=""></a></div>
+      
+      <ul class="nav-links">
+        <li><a href="index.html">Trang Chủ</a></li>
+        <li><a href="#">Về Chúng Tôi</a></li>
+        <li>
+          <a href="#" class="desktop-item">Chi Nhánh</a>
+          <input type="checkbox" id="showDrop">
+          <label for="showDrop" class="mobile-item">Chi Nhánh</label>
+          <ul class="drop-menu">
+            <li><a href="#">Hồ Chí Minh</a></li>
+            <li><a href="#">Hà Nội</a></li>
+            <li><a href="#">Đà Nẵng</a></li>
+            <li><a href="#">Nam Định</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="products.html" class="desktop-item">Thực Đơn</a>
+          <input type="checkbox" id="showMega">
+          <label for="showMega" class="mobile-item">Thực Đơn</label>
+          <div class="mega-box">
+            <div class="content">
+              <div class="row">
+                <img src="assets/img/man.png" alt="a man is drinking">
+              </div>
+              <div class="row">
+                <a href="coffee.html"><header>cà phê</header></a>
+                <ul class="mega-links">
+                  <li><a href="details.html?id=1">cà phê đen</a></li>
+                  <li><a href="details.html?id=2">cà phê sữa</a></li>
+                  <li><a href="details.html?id=3">bạc xỉu</a></li>
+                  <li><a href="details.html?id=6">latte</a></li>
+                </ul>
+              </div>
+              <div class="row">
+                <a href="tea.html"><header>trà</header></a>
+                <ul class="mega-links">
+                  <li><a href="details.html?id=4">trà đào</a></li>
+                  <li><a href="details.html?id=5">trà vải</a></li>
+                  <li><a href="details.html?id=7">trà lài</a></li>
+                </ul>
+              </div>
+              <div class="row">
+                <a href="freeze.html"><header>freeze</header></a>
+                <ul class="mega-links">
+                  <li><a href="details.html?id=8">freeze trà xanh</a></li>
+                  <li><a href="details.html?id=9">freeze socola</a></li>
+                  <li><a href="details.html?id=10">caramel freeze</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+      
+      
+      <!--log in o day-->
+      <li>
+        <i id="userIcon"class="fa-regular fa-user"></i>
+        <ul class="drop-user">
+          <li><a href="userInfor.html">Thông tin người dùng</a></li>
+          <li><a href="orderHistory.html">Lịch sử đơn hàng</a></li>
+          <li><a onclick="logout()">Đăng xuất</a></li>
+        </ul>  
+     </li>
+      <a href="login.html"><button class="login-btn" id="form-open">Đăng nhập</button></a>
+
+      <a href="checkout.html" id="cart"><i class="fa-regular fa-cart-shopping"></i></a>
+
+  </div>
+  </nav>
+      <div class="container">
+     
+        <div class="detail">
+            <div class="image">
+                <img src="">
+            </div>
+            <div class="content">
+                <h1 class="name"></h1>
+                <div class="price"></div>
+                <div class="size-select">
+                  <label for="size">Size:</label>
+                  <select id="size" name="size">
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                  </select>
+                </div>
+                <div class="quantity-select">
+                  <label for="quantity">Số lượng :</label>
+                  <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+                <div class="buttons">
+                  
+                  <a href="javascript:void(0);" class="checkOutButton" id="checkoutButton"><button>Thanh toán</button></a>
+                  <button class="addToCartButton">Thêm vào giỏ hàng
+                        <span>
+                          <i class="fa-regular fa-cart-shopping"></i>
+                        </span>
+                    </button>
+                </div>
+                <div class="description"></div>
+            </div>
+        </div>
+
+       
+        <div class="listProduct"></div>
+      </div>
+      
+
+<!-- footer -->
+<footer>
+  <div class="content-footer">  
+        <div class="topic">Contact us</div>
+        <div class="phone">
+          <a href="#"><i class="fas fa-phone-volume"></i>+007 9089 6767</a>
+        </div>
+        <div class="email">
+          <a href="#"><i class="fas fa-envelope"></i>abc@gmail.com</a>
+        </div>
+      <form action="#">
+        <div class="media-icons">
+          <a href="https://web.facebook.com/profile.php?id=100030503524983"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.youtube.com/watch?v=DnIBWk_TdKw"><i class="fab fa-instagram"></i></a>
+          <a href="https://twitter.com/?lang=vi"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.youtube.com/watch?v=DnIBWk_TdKw"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </form>
+     <p>Copyright &#169; 2023 <a href="#">ZinCoffee</a> All rights reserved</p> 
+  </div>
+</footer> 
+
+<script>
+  document.getElementById("checkoutButton").addEventListener("click", function() {
+      // Check if the user is logged in (you need to implement your own login check logic)
+  
+      if (isLoggedIn) {
+          // Redirect to the checkout page
+          window.location.href = "checkout.html";
+      } else {
+          // Redirect to the login page or show a login form
+          Example: window.location.href = "login.html";
+          alert("Bạn cần đăng nhập để tiếp tục thanh toán.");
+      }
+  });
+  </script>
+  
+      <script src="assets/js/details.js"> </script>
+      <script src="assets/js/login.js"></script>
+
+</body>
+</html>

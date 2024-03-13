@@ -1,0 +1,45 @@
+/* CSS để tạo khung bao xung quanh và bo tròn */
+.order-history {
+    width: 80%;
+    margin: 20px auto; /* Để căn giữa theo chiều ngang và tạo khoảng cách 20px ở trên và dưới */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px; /* Để bo tròn góc */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    min-height: calc(100vh - 40px); /* Bổ sung chiều cao tối thiểu cho section */
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước tổng thể */
+}
+
+/* Các tùy chỉnh khác nếu bạn muốn */
+.order-history h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Các tùy chỉnh cho bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+td a {
+    text-decoration: none;
+    color: black;
+}
+
+/* Footer styling */
+

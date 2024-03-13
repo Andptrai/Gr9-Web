@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Say Coffee</title>
+    <link rel="icon" href="../userDisplay/assets/img/logo1.png">
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/indexadmin.css">
+    <link rel="stylesheet" href="css/chitietdonhang.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="logo">
+                            <img src="../userDisplay/assets/img/logo1.png">
+                        </span>
+                        <span class="title">Say Coffee</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="trangchuadmin.html" >
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Bảng điều khiển</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlydonhang.html"id="active">
+                        <span class="icon">
+                            <ion-icon name="cart-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý đơn hàng</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlysanpham.html">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý sản phẩm</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="quanlykhachhang.html">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Quản lý khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm chức năng quản trị">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+            </div>
+            <!-- ======================= Cards ================== -->
+            <div class="chitietdonhang">
+                <div class="madh">
+                    <p id="banner">Mã đơn hàng: ĐH 5728319</p>
+                </div>
+                <div class="capnhatdonhang">
+                    <div class="progress-bar">
+                        <div class="step">
+                            <div class="step-icon">1</div>
+                            <div class="step-text">Đơn hàng được đặt</div>
+
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">2</div>
+                            <div class="step-text">Đã xác nhận</div>
+
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">3</div>
+                            <div class="step-text">Đã giao cho ĐVVC</div>
+
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">4</div>
+                            <div class="step-text">Đã nhận được hàng</div>
+
+                        </div>
+                    </div>
+                </div>
+                <p id="address">ĐỊA CHỈ GIAO HÀNG</p>
+                <div class="diachigiaohang">
+
+                    <div class="thongtinnguoimua">
+                        <p style="font-weight: bold; font-size: large;">Tiến Đạt</p>
+                        <p> (+84) 826277123</p>
+                        <p> 123 Tây Lân,p.Bình Trị Đông A,q.Bình Tân</p>
+                    </div>
+                    <!-- Trong phần HTML -->
+                    <div class="trangthaigiaohang">
+                        <div class="delivery-status">
+                            <div class="status">
+                                <p id="time">15:13 04-12-2023</p>
+                                <p>Đơn hàng đã bàn giao cho đơn vị vận chuyển</p>
+                                <a href="#">Xem ảnh</a>
+                            </div>
+                            <div class="status">
+                                <p id="time">14:37 04-12-2023</p>
+                                <p>Người bán đang chuẩn bị hàng</p>
+                            </div>
+                            <div class="status">
+                                <p id="time">13:44 04-12-2023</p>
+                                <p>Người bán đã xác nhận đơn hàng</p>
+                            </div>
+                            <a href="#">Xem thêm</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <p id="address">THÔNG TIN ĐƠN HÀNG</p>
+                <div class="chitietsanpham">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><img src="../userDisplay/assets/img/bacXiu.png"></td>
+                                <td id="name">Bạc xỉu <br> x1</td>
+                                <td id="price">10.000VNĐ<br> <s style="color: grey; font-size: 14px;">18.000VNĐ</s></td>
+                            </tr>
+                            <tr>
+                                <td><img src="../userDisplay/assets/img/latte.png"></td>
+                                <td id="name">Latte<br> x2</td>
+                                <td id="price">80.000VNĐ<br> <s style="color: grey; font-size: 14px;">110.000VNĐ</s></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table id="thanhtoan">
+                        <tbody>
+                            <tr>
+                                <td>Tổng tiền hàng:</td>
+                                <td>90.000VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>Phí vận chuyển:</td>
+                                <td>15.000VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>Giảm giá phí vận chuyển:</td>
+                                <td>10.000VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>Thành tiền:</td>
+                                <td>95.000VNĐ</td>
+                            </tr>
+                            <tr>
+                                <td>Phương thức thanh toán:</td>
+                                <td>COD</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chon">
+                <button onclick="done()">Đã xử lý</button>
+                <button onclick="tra()">Thu hồi đơn hàng</button>
+                </div>
+                <script>
+                    function done() {
+                        confirm("Bạn có chắc với quyết định này ")
+                        if (confirm){
+                            alert("Xác nhận đơn hàng đã xử lý!!!");
+                        }
+                        else{
+                            alert("Đơn hàng chưa được xác nhận!!!");
+                        }
+                      
+                    }
+                  </script>
+                  <script>
+                    function tra() {
+
+                      confirm("BẠN CÓ CHẮC CHẮN MUỐN THU HỒI ĐƠN HÀNG ???");
+                      if (confirm){
+                        alert("Đơn hàng đã được thu hồi!!!");
+                      }
+                      else{
+                        alert("Đơn hàng chưa được thu hồi!!!");
+                      }
+                    }
+                  </script>
+            </div>
+        </div>
+    </div>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
