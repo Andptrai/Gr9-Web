@@ -200,12 +200,12 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php
+                                        <!-- <?php
                                         // Kết nối với cơ sở dữ liệu
                                         $servername = "localhost";
                                         $username = "root";
                                         $password = ""; // Mật khẩu của bạn, nếu có
-                                        $dbname = "web2"; // Tên cơ sở dữ liệu của bạn
+                                        $dbname = "register"; // Tên cơ sở dữ liệu của bạn
 
                                         $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -234,7 +234,7 @@
                                         }
 
                                         $conn->close();
-                                        ?>
+                                        ?> -->
 
                                     </tbody>
                                 </table>
