@@ -11,6 +11,47 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
+<?php
+
+// Kết nối với cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = ""; // Mật khẩu của bạn, nếu có
+$dbname = "web2"; // Tên cơ sở dữ liệu của bạn
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Lấy dữ liệu từ form
+    $fullName = $_POST['inputFullName'];
+    $userName = $_POST['inputUserName'];
+    $Email = $_POST['inputEmail'];
+    $Password = $_POST['inputPassword'];
+    $address = $_POST['inputAddress'];
+    $phonenumber = $_POST['inputPhoneNumber'];
+
+    // Vì mật khẩu là thông tin nhạy cảm, nên bạn cần mã hóa nó trước khi lưu vào cơ sở dữ liệu.
+    // Có thể sử dụng hàm hash như password_hash() trong PHP.
+    $hashed_password = password_hash($Password, PASSWORD_DEFAULT);
+
+    // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
+    $sql = "INSERT INTO user (fullName, userName, Email,Address,phoneNumber, Password) VALUES ('$fullName', '$userName', '$Email','$address','$phonenumber', '$hashed_password')";
+
+    if ($conn->query($sql) === true) {
+        // Chuyển hướng người dùng về trang index
+        header("Location: index.php");
+        exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau hàm header
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>    
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -20,7 +61,7 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                 <div class="card-body">
-                                    <form action="register.php" method="post" onsubmit="return validateForm()"";> <!-- Thêm action và method vào form -->
+                                    <form action="register.php" method="post" onsubmit="return validateForm()";> <!-- Thêm action và method vào form -->
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3 mb-md-0">
@@ -97,46 +138,9 @@
         </div>
     </div>
 
-            <?php
-        // Kết nối với cơ sở dữ liệu
-        $servername = "localhost";
-        $username = "root";
-        $password = ""; // Mật khẩu của bạn, nếu có
-        $dbname = "web2"; // Tên cơ sở dữ liệu của bạn
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Lấy dữ liệu từ form
-        $fullName = $_POST['inputFullName'];
-        $userName = $_POST['inputUserName'];
-        $Email = $_POST['inputEmail'];
-        $Password = $_POST['inputPassword'];
-        $address = $_POST['inputAddress'];
-        $phonenumber = $_POST['inputPhoneNumber'];
-        // Vì mật khẩu là thông tin nhạy cảm, nên bạn cần mã hóa nó trước khi lưu vào cơ sở dữ liệu. 
-        // Có thể sử dụng hàm hash như password_hash() trong PHP.
-        $hashed_password = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
-
-        // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
-        $sql = "INSERT INTO user (fullName, userName, Email,Address,phoneNumber, Password) VALUES ('$fullName', '$userName', '$Email','$address','$phonenumber', '$Password')";
-
-        if ($conn->query($sql) === TRUE) {
-            // Chuyển hướng người dùng về trang index
-            header("Location: index.php");
-            exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau hàm header
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-
-        $conn->close();
-        ?>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
+
     <script>
         // Function to validate password and confirm password match
         function validatePassword() {
@@ -167,6 +171,8 @@
             return validatePassword() && validatePhoneNumber();
         }
     </script>
+
     
+
 </body>
 </html>
