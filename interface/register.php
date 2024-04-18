@@ -1,60 +1,4 @@
-<?php
-// Kết nối với cơ sở dữ liệu
-$servername = "localhost";
-$username = "root";
-$password = "123"; // Mật khẩu của bạn, nếu có
-$dbname = "register"; // Tên cơ sở dữ liệu của bạn
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-// Lấy dữ liệu từ form và xử lý
-$fullName = $_POST['inputFullName'];
-$userName = $_POST['inputUserName'];
-$email = $_POST['inputEmail'];
-$address = $_POST['inputAddress'];
-$phoneNumber = $_POST['inputPhoneNumber'];
-$password = $_POST['inputPassword'];
-
-// Kiểm tra dữ liệu đầu vào
-if (empty($fullName) || empty($userName) || empty($email) || empty($password) || empty($address) || empty($phoneNumber)) {
-    echo "Vui lòng điền đầy đủ thông tin.";
-    exit();
-}
-
-// Kiểm tra tính hợp lệ của email
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo "Email không hợp lệ.";
-    exit();
-}
-
-// Kiểm tra số điện thoại chỉ chứa các chữ số
-if (!ctype_digit($phoneNumber)) {
-    echo "Số điện thoại chỉ được chứa các chữ số.";
-    exit();
-}
-
-// Băm mật khẩu
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-// Tiến hành thêm dữ liệu vào cơ sở dữ liệu
-$sql = "INSERT INTO registerform (fullName, userName, email, address, phoneNumber, password) VALUES (?, ?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ssssss", $fullName, $userName, $email, $address, $phoneNumber, $hashed_password);
-
-if ($stmt->execute()) {
-    // Chuyển hướng người dùng về trang index
-    header("Location: index.php");
-    exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau hàm header
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
-
-$stmt->close();
-$conn->close();
-?>
 <!-- end php -->
 <!DOCTYPE html>
 <html lang="en">
@@ -69,47 +13,6 @@ $conn->close();
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
-<?php
-
-// Kết nối với cơ sở dữ liệu
-$servername = "localhost";
-$username = "root";
-$password = ""; // Mật khẩu của bạn, nếu có
-$dbname = "web2"; // Tên cơ sở dữ liệu của bạn
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy dữ liệu từ form
-    $fullName = $_POST['inputFullName'];
-    $userName = $_POST['inputUserName'];
-    $Email = $_POST['inputEmail'];
-    $Password = $_POST['inputPassword'];
-    $address = $_POST['inputAddress'];
-    $phonenumber = $_POST['inputPhoneNumber'];
-
-    // Vì mật khẩu là thông tin nhạy cảm, nên bạn cần mã hóa nó trước khi lưu vào cơ sở dữ liệu.
-    // Có thể sử dụng hàm hash như password_hash() trong PHP.
-    $hashed_password = password_hash($Password, PASSWORD_DEFAULT);
-
-    // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
-    $sql = "INSERT INTO user (fullName, userName, Email,Address,phoneNumber, Password) VALUES ('$fullName', '$userName', '$Email','$address','$phonenumber', '$hashed_password')";
-
-    if ($conn->query($sql) === true) {
-        // Chuyển hướng người dùng về trang index
-        header("Location: index.php");
-        exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau hàm header
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$conn->close();
-?>    
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
