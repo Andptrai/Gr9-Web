@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Register - SB Admin</title>
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="../admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">
@@ -103,30 +103,32 @@
         $username = "root";
         $password = ""; // Mật khẩu của bạn, nếu có
         $dbname = "web2"; // Tên cơ sở dữ liệu của bạn
+        $port = 3307;
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username ,$password, $dbname, $port);
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
         // Lấy dữ liệu từ form
-        $fullName = $_POST['inputFullName'];
-        $userName = $_POST['inputUserName'];
-        $Email = $_POST['inputEmail'];
-        $Password = $_POST['inputPassword'];
-        $address = $_POST['inputAddress'];
-        $phonenumber = $_POST['inputPhoneNumber'];
+        $inputFullName = isset($_POST['inputFullName']) ? $_POST['inputFullName'] : '';
+        $inputUserName = isset($_POST['inputUserName']) ? $_POST['inputUserName'] : '';
+        $inputEmail = isset($_POST['inputEmail']) ? $_POST['inputEmail'] : '';
+        $inputPassword = isset($_POST['inputPassword']) ? $_POST['inputPassword'] : '';
+        $inputAddress = isset($_POST['inputAddress']) ? $_POST['inputAddress'] : '';
+        $inputPhoneNumber = isset($_POST['inputPhoneNumber']) ? $_POST['inputPhoneNumber'] : '';
+
         // Vì mật khẩu là thông tin nhạy cảm, nên bạn cần mã hóa nó trước khi lưu vào cơ sở dữ liệu. 
         // Có thể sử dụng hàm hash như password_hash() trong PHP.
-        $hashed_password = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
 
         // Tiến hành thêm dữ liệu vào cơ sở dữ liệu
-        $sql = "INSERT INTO user (fullName, userName, Email,Address,phoneNumber, Password) VALUES ('$fullName', '$userName', '$Email','$address','$phonenumber', '$Password')";
+        $sql = "INSERT INTO user (`fullName`, `userName`, `email`,`address`,`phoneNumber`, `Password`) VALUES ('$inputFullName', 
+        '$inputUserName', '$inputEmail','$inputAddress','$inputPhoneNumber', '$inputPassword')";
 
         if ($conn->query($sql) === TRUE) {
             // Chuyển hướng người dùng về trang index
-            header("Location: index.php");
+            //header("Location: index.php");
             exit(); // Đảm bảo không có mã HTML hoặc mã PHP nào được thực thi sau hàm header
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
