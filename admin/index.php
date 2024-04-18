@@ -203,46 +203,16 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-<<<<<<< HEAD
-                                        <!-- <?php
-                                        // Kết nối với cơ sở dữ liệu
-                                        $servername = "localhost";
-                                        $username = "root";
-                                        $password = ""; // Mật khẩu của bạn, nếu có
-                                        $dbname = "register"; // Tên cơ sở dữ liệu của bạn
-
-                                        $conn = new mysqli($servername, $username, $password, $dbname);
-
-                                        if ($conn->connect_error) {
-                                            die("Connection failed: " . $conn->connect_error);
-                                        }
-
-                                        // Truy vấn dữ liệu từ cơ sở dữ liệu
-                                        $sql = "SELECT fullName, userName, Email, Address, phoneNumber, Password FROM user";
-                                        $result = $conn->query($sql);
-
-                                        if ($result->num_rows > 0) {
-                                            // Duyệt qua từng dòng dữ liệu
-                                            while($row = $result->fetch_assoc()) {
-                                                echo "<tr>";
-                                                echo "<td>".$row["fullName"]."</td>";
-                                                echo "<td>".$row["userName"]."</td>";
-                                                echo "<td>".$row["Email"]."</td>";
-                                                echo "<td>".$row["Address"]."</td>";
-                                                echo "<td>".$row["phoneNumber"]."</td>";
-                                                echo "<td>".$row["Password"]."</td>";
-                                                echo "</tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
-
-                                        $conn->close();
-                                        ?> -->
-
-                                    <?php displayData($data); ?>
-
-
+                                        <?php foreach ($data as $row): ?>
+                                            <tr>
+                                                <td><?php echo $row['fullName']; ?></td>
+                                                <td><?php echo $row['userName']; ?></td>
+                                                <td><?php echo $row['Email']; ?></td>
+                                                <td><?php echo $row['Address']; ?></td>
+                                                <td><?php echo $row['phoneNumber']; ?></td>
+                                                <td><?php echo $row['Password']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?> 
                                     </tbody>
                                 </table>
                             </div>
