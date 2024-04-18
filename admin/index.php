@@ -12,50 +12,7 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-    <?php
-    // Kết nối với cơ sở dữ liệu
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    // Mật khẩu của bạn, nếu có
-    $dbname = "web2";
-    // Tên cơ sở dữ liệu của bạn
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Truy vấn dữ liệu từ cơ sở dữ liệu và sắp xếp theo trường fullName
-    $sql = "SELECT fullName, userName, Email, Address, phoneNumber, Password FROM user ORDER BY fullName";
-    $result = $conn->query($sql);
-    // Khởi tạo một mảng để lưu dữ liệu
-    $data = array();
-    if ($result->num_rows > 0) {
-        // Duyệt qua từng dòng dữ liệu và lưu vào mảng
-        while ($row = $result->fetch_assoc()) {
-            $data[] = $row;
-        }
-    } else {
-        echo "0 results";
-    }
-
-    $conn->close();
-    // Hàm hiển thị dữ liệu lên bảng
-    function displayData($data)
-    {
-        foreach ($data as $row) {
-            echo "<tr>";
-            echo "<td>" . $row["fullName"] . "</td>";
-            echo "<td>" . $row["userName"] . "</td>";
-            echo "<td>" . $row["Email"] . "</td>";
-            echo "<td>" . $row["Address"] . "</td>";
-            echo "<td>" . $row["phoneNumber"] . "</td>";
-            echo "<td>" . $row["Password"] . "</td>";
-            echo "</tr>";
-        }
-    }
-    ?>
+    
 
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
