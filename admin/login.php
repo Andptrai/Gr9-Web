@@ -1,3 +1,27 @@
+<?php 
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "web2";
+    $port = 3307;
+    $conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+    if ($conn->connect_error){
+        die("Connection failed: " . $conn->connect_error);
+    }
+    // lấy dữ liệu từ form
+    $inputEmail = isset($_POST['inputEmail']) ? $_POST['inputEmail'] : NULL;
+    $inputPassword = isset($_POST['inputPassword']) ? $_POST['inputPassword'] : NULL;
+
+    // add the information into dbtable
+    $sql = "INSERT INTO admin_login_logout (`email`, `password`) VALUE ('$inputEmail','$inputPassword')";
+    if ($conn->query($sql) === true){
+        exit();
+    }else {
+        echo "Error: " .$sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,13 +44,13 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form method="post";>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
+                                                <input class="form-control" name="inputEmail" id="inputEmail" type="email" placeholder="name@example.com" />
                                                 <label for="inputEmail">Email address</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                                <input class="form-control" name="inputPassword" id="inputPassword" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
