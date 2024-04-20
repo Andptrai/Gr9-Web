@@ -4,7 +4,7 @@
 	<title>Home</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -16,13 +16,13 @@
 	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
@@ -36,7 +36,7 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-	
+
 	<!-- Header -->
 	<header>
 		<!-- Header desktop -->
@@ -70,8 +70,8 @@
 
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
-					
-					<!-- Logo desktop -->		
+
+					<!-- Logo desktop -->
 					<a href="#" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
@@ -108,7 +108,7 @@
 								<a href="contact.html">Contact</a>
 							</li>
 						</ul>
-					</div>	
+					</div>
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
@@ -125,12 +125,12 @@
 						</a>
 					</div>
 				</nav>
-			</div>	
+			</div>
 		</div>
 
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
-			<!-- Logo moblie -->		
+			<!-- Logo moblie -->
 			<div class="logo-mobile">
 				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
@@ -255,10 +255,10 @@
 					<i class="zmdi zmdi-close"></i>
 				</div>
 			</div>
-			
+
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
+					<!-- <li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
 							<img src="images/item-cart-01.jpg" alt="IMG">
 						</div>
@@ -272,7 +272,7 @@
 								1 x $19.00
 							</span>
 						</div>
-					</li>
+					</li> -->
 
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
@@ -306,7 +306,7 @@
 						</div>
 					</li>
 				</ul>
-				
+
 				<div class="w-full">
 					<div class="header-cart-total w-full p-tb-40">
 						Total: $75.00
@@ -326,7 +326,7 @@
 		</div>
 	</div>
 
-		
+
 
 	<!-- Slider -->
 	<section class="section-slide">
@@ -340,13 +340,13 @@
 									Women Collection 2018
 								</span>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
 									NEW SEASON
 								</h2>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
 								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
@@ -364,13 +364,13 @@
 									Men New-Season
 								</span>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
 									Jackets & Coats
 								</h2>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
 								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
@@ -388,13 +388,13 @@
 									Men Collection 2018
 								</span>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
 								<h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
 									New arrivals
 								</h2>
 							</div>
-								
+
 							<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
 								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 									Shop Now
@@ -540,7 +540,7 @@
 						Search
 					</div>
 				</div>
-				
+
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<div class="bor8 dis-flex p-l-15">
@@ -549,7 +549,7 @@
 						</button>
 
 						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
-					</div>	
+					</div>
 				</div>
 
 				<!-- Filter -->
@@ -748,7 +748,7 @@
     // Dữ liệu mẫu về sản phẩm
     $products = [
         [
-            "name" => "Only Check Trouser",
+            "name" => "Shirt",
             "price" => "$25.50",
             "image" => "images/product-03.jpg",
             "category" => "men"
@@ -836,9 +836,9 @@
 			"price" => "$29.64",
 			"image" => "images/product-16.jpg",
 			"category" => "women"
-		],  
-		
-		
+		],
+
+
 	];
 
     // Lặp qua từng sản phẩm và tạo block tương ứng
@@ -874,9 +874,9 @@
     }
     ?>
 </div>
-				
 
-				
+
+
 			</div>
 
 			<!-- Load more -->
@@ -939,7 +939,7 @@
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+								Returns
 							</a>
 						</li>
 
@@ -1093,7 +1093,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="col-md-6 col-lg-5 p-b-30">
 						<div class="p-r-50 p-t-5 p-lr-0-lg">
 							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
@@ -1107,7 +1107,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							<p class="stext-102 cl3 p-t-23">
 								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
 							</p>
-							
+
 							<!--  -->
 							<div class="p-t-33">
 								<div class="flex-w flex-r-m p-b-10">
@@ -1166,7 +1166,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											Add to cart
 										</button>
 									</div>
-								</div>	
+								</div>
 							</div>
 
 							<!--  -->
@@ -1196,7 +1196,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
@@ -1276,7 +1276,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				swal(nameProduct, "is added to cart !", "success");
 			});
 		});
-	
+
 	</script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -1303,19 +1303,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			var addWishBtn = document.querySelector(".btn-addwish-b2");
 			addWishBtn.addEventListener("click", function(event) {
 				event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
-	
+
 				// Lấy giá trị hiện tại của data-notify và chuyển đổi thành số nguyên
 				var notifyCount = parseInt(document.querySelector(".icon-header-noti").getAttribute("data-notify"));
-	
+
 				// Tăng giá trị của data-notify lên 1
 				notifyCount++;
-	
+
 				// Cập nhật giá trị mới cho data-notify
 				document.querySelector(".icon-header-noti").setAttribute("data-notify", notifyCount);
 			});
 		});
 	</script>
-	
-	
+
+
 </body>
 </html>
