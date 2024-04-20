@@ -1,27 +1,3 @@
-<?php 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "web2";
-    $port = 3307;
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-    if ($conn->connect_error){
-        die("Connection failed: " . $conn->connect_error);
-    }
-    // lấy dữ liệu từ form
-    $inputEmail = isset($_POST['inputEmail']) ? $_POST['inputEmail'] : NULL;
-    $inputPassword = isset($_POST['inputPassword']) ? $_POST['inputPassword'] : NULL;
-
-    // add the information into dbtable
-    $sql = "INSERT INTO admin_login_logout (`email`, `password`) VALUE ('$inputEmail','$inputPassword')";
-    if ($conn->query($sql) === true){
-        exit();
-    }else {
-        echo "Error: " .$sql . "<br>" . $conn->error;
-    }
-    $conn->close();
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -87,7 +63,39 @@
                 </footer>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <?php
+            require 'connect.php';
+
+            // Kiểm tra xem người dùng đã gửi biểu mẫu đăng nhập chưa
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Lấy dữ liệu từ form
+                $inputEmail = isset($_POST['inputEmail']) ? $_POST['inputEmail'] : NULL;
+                $inputPassword = isset($_POST['inputPassword']) ? $_POST['inputPassword'] : NULL;
+
+                // Kiểm tra xem tên người dùng và mật khẩu có khớp với tài khoản quản trị không
+                $sql = "SELECT * FROM admin_login_logout WHERE email = '$inputEmail' AND password = '$inputPassword'";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Đăng nhập thành công
+                    // Bắt đầu một phiên làm việc (SESSION)
+                    session_start();
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["email"] = $inputEmail;
+
+                    // Chuyển hướng đến trang index.php
+                    header("location: index.php");
+                    exit();
+                } else {
+                    // Đăng nhập không thành công, hiển thị thông báo lỗi
+                    echo "Tên người dùng hoặc mật khẩu không chính xác.";
+                }
+            }
+
+            $conn->close();
+            ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
     </body>
+
 </html>
