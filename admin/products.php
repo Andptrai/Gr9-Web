@@ -98,7 +98,7 @@
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Add Product</h1>
-                <form action="process_add_product.php" method="POST" enctype="multipart/form-data">
+                <form action="products.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="productName" name="productName" required>
@@ -133,29 +133,48 @@
 require 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $productName = $_POST['productName'];
-    $productPrice = $_POST['productPrice'];
-    $category = $_POST['category'];
-    $productQuantity = $_POST['productQuantity'];
+    // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
+    if (isset($_POST['productName'], $_POST['productPrice'], $_POST['category'], $_POST['productQuantity'], $_FILES['productImage']) &&
+        !empty($_POST['productName']) && !empty($_POST['productPrice']) && !empty($_POST['category']) && !empty($_POST['productQuantity'])) {
 
-    // Đường dẫn tạm thời của file được upload
-    $image_tmp = $_FILES['productImage']['tmp_name'];
-    // Tên file
-    $image = $_FILES['productImage']['name'];
-    // Đường dẫn lưu trữ file
-    $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/uploads/"; // Thay đổi đường dẫn tùy theo nơi bạn muốn lưu trữ ảnh
-    // Di chuyển file từ thư mục tạm thời vào thư mục bạn muốn lưu trữ
-    move_uploaded_file($image_tmp, $upload_directory . $image);
+        $productName = $_POST['productName'];
+        $productPrice = $_POST['productPrice'];
+        $category = $_POST['category'];
+        $productQuantity = $_POST['productQuantity'];
+        
+        // Kiểm tra loại và kích thước của tệp hình ảnh
+        $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
+        $upload_file = $_FILES['productImage']['name'];
+        $file_extension = pathinfo($upload_file, PATHINFO_EXTENSION);
+        $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/";
 
-    $sql = "INSERT INTO products (`name`, `price`, `category`, `image`, `quantity`) VALUES ('$productName', '$productPrice', '$category', '$image', '$productQuantity')";
+        if (in_array($file_extension, $allowed_types) && $_FILES['productImage']['size'] > 0) {
+            $image_tmp = $_FILES['productImage']['tmp_name'];
+            $image = uniqid() . '.' . $file_extension; // Tạo tên ngẫu nhiên để tránh trùng lặp
+            
+            // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
+            if (move_uploaded_file($image_tmp, $upload_directory . $image)) {
+                // Thêm dữ liệu vào cơ sở dữ liệu
+                $sql = "INSERT INTO products (`name`, `price`, `category`, `image`, `quantity`) VALUES ('$productName', '$productPrice', '$category', '$image', '$productQuantity')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+                if ($conn->query($sql) === TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            } else {
+                echo "Không thể di chuyển file.";
+            }
+        } else {
+            echo "Loại hoặc kích thước của tệp không hợp lệ.";
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Vui lòng điền đầy đủ thông tin sản phẩm.";
     }
 }
 ?>
+
+
 
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
