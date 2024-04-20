@@ -744,135 +744,58 @@
 
 			<div class="row isotope-grid">
 			<div class="row">
-    <?php
-    // Dữ liệu mẫu về sản phẩm
-    $products = [
-        [
-            "name" => "Shirt",
-            "price" => "$25.50",
-            "image" => "images/product-03.jpg",
-            "category" => "men"
-        ],
-        [
-            "name" => "Classic Trench Coat",
-            "price" => "$75.00",
-            "image" => "images/product-04.jpg",
-            "category" => "women"
-        ],
-        [
-            "name" => "Front Pocket Jumper",
-            "price" => "$34.75",
-            "image" => "images/product-05.jpg",
-            "category" => "women"
-        ],
-        [
-            "name" => "Vintage Inspired Classic",
-            "price" => "$93.20",
-            "image" => "images/product-06.jpg",
-            "category" => "watches"
-        ],
-        [
-            "name" => "Shirt in Stretch Cotton",
-            "price" => "$52.66",
-            "image" => "images/product-07.jpg",
-            "category" => "women"
-        ],
-		[
-			"name" => "Pieces Metallic Printed",
-			"price" => "$18.96",
-			"image" => "images/product-08.jpg",
-			"category" => "women"
-		],
-		[
-			"name" => "Converse All Star Hi Plimsolls",
-			"price" => "$75.00",
-			"image" => "images/product-09.jpg",
-			"category" => "shoes"
-		],
-		[
-			"name" => "Femme T-Shirt In Stripe",
-			"price" => "$25.85",
-			"image" => "images/product-10.jpg",
-			"category" => "women"
-		],
-		[
-			"name" => "Herschel supply",
-			"price" => "$63.16",
-			"image" => "images/product-11.jpg",
-			"category" => "men"
-		],
-		[
-			"name" => "Herschel supply",
-			"price" => "$63.15",
-			"image" => "images/product-12.jpg",
-			"category" => "men"
-		],
-		[
-			"name" => "T-Shirt with Sleeve",
-			"price" => "$18.49",
-			"image" => "images/product-13.jpg",
-			"category" => "women"
-		],
-		[
-			"name" => "Pretty Little Thing",
-			"price" => "$54.79",
-			"image" => "images/product-14.jpg",
-			"category" => "women"
-		],
-		[
-			"name" => "Mini Silver Mesh Watch",
-			"price" => "$86.85",
-			"image" => "images/product-15.jpg",
-			"category" => "watches"
-		],
-		[
-			"name" => "Square Neck Back",
-			"price" => "$29.64",
-			"image" => "images/product-16.jpg",
-			"category" => "women"
-		],
-		[
-			"name" => "Square Neck Back",
-			"price" => "$29.64",
-			"image" => "images/product-16.jpg",
-			"category" => "women"
-		],
+			<?php
+// Kết nối đến cơ sở dữ liệu
+require '../admin/connect.php';
 
+// Truy vấn dữ liệu từ bảng products
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
 
-	];
+// Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
+if ($result->num_rows > 0) {
+    // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
+    while($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+} else {
+    echo "Không có sản phẩm nào.";
+}
 
-    // Lặp qua từng sản phẩm và tạo block tương ứng
-    foreach ($products as $product) {
-    ?>
-        <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
-            <div class="block2">
-                <div class="block2-pic hov-img0">
-                    <img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
-                    <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                        Quick View
-                    </a>
-                </div>
-                <div class="block2-txt flex-w flex-t p-t-14">
-                    <div class="block2-txt-child1 flex-col-l ">
-                        <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                            <?php echo $product['name']; ?>
-                        </a>
-                        <span class="stext-105 cl3">
-                            <?php echo $product['price']; ?>
-                        </span>
-                    </div>
-                    <div class="block2-txt-child2 flex-r p-t-3">
-                        <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                            <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                            <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-                        </a>
-                    </div>
-                </div>
+// Đóng kết nối
+$conn->close();
+?>
+
+<?php foreach ($products as $product): ?>
+<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
+    <div class="block2">
+        <div class="block2-pic hov-img0">
+            <img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
+            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                Quick View
+            </a>
+        </div>
+        <div class="block2-txt flex-w flex-t p-t-14">
+            <div class="block2-txt-child1 flex-col-l ">
+                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                    <?php echo $product['name']; ?>
+                </a>
+                <span class="stext-105 cl3">
+                    <?php echo $product['price']; ?>
+                </span>
+            </div>
+            <div class="block2-txt-child2 flex-r p-t-3">
+                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+                </a>
             </div>
         </div>
-    <?php
-    }
-    ?>
+    </div>
+</div>
+<?php endforeach; ?>
+
+    
 </div>
 
 
