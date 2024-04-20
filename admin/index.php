@@ -205,17 +205,7 @@
                                     <tbody>
                                         <?php
                                         // Kết nối với cơ sở dữ liệu
-                                        $servername = "localhost";
-                                        $username = "root";
-                                        $password = ""; // Mật khẩu của bạn, nếu có
-                                        $dbname = "web2"; // Tên cơ sở dữ liệu của bạn
-                                        $port = 3307;
-
-                                        $conn = new mysqli($servername, $username, $password, $dbname,$port);
-
-                                        if ($conn->connect_error) {
-                                            die("Connection failed: " . $conn->connect_error);
-                                        }
+                                        require 'connect.php';
 
                                         // Truy vấn dữ liệu từ cơ sở dữ liệu
                                         $sql = "SELECT fullName, userName, Email, Address, phoneNumber, Password FROM user";
