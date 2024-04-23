@@ -1,3 +1,30 @@
+<?php
+// Kết nối đến cơ sở dữ liệu
+require 'connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
+    if (isset($_POST['productId'], $_POST['productName'], $_POST['productPrice']) &&
+        !empty($_POST['productId']) && !empty($_POST['productName']) && !empty($_POST['productPrice'])) {
+
+        $productId = $_POST['productId'];
+        $productName = $_POST['productName'];
+        $productPrice = $_POST['productPrice'];
+        
+        // Cập nhật thông tin sản phẩm trong cơ sở dữ liệu
+        $sql = "UPDATE products SET name='$productName', price='$productPrice' WHERE idProduct=$productId";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+    } else {
+        echo "Please fill all required fields.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,8 +34,10 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Add-Products - SB Admin</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
 <link href="css/styles.css" rel="stylesheet" />
+
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -128,6 +157,47 @@
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>
             </div>
+
+        <div class="container-fluid px-4">
+        <h1 class="mt-4">Product List</h1>
+        <div class="row">
+                <?php
+                // Kết nối đến cơ sở dữ liệu
+                require 'connect.php';
+
+                // Truy vấn để lấy danh sách sản phẩm
+                $sql = "SELECT * FROM products";
+                $result = $conn->query($sql);
+
+                // Kiểm tra nếu có dữ liệu trả về từ truy vấn
+                if ($result->num_rows > 0) {
+                    // Duyệt qua từng dòng dữ liệu và hiển thị thông tin sản phẩm
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-md-4 mb-4">';
+                        echo '<div class="card">';
+                        echo '<img src="' . $row['image'] . '" class="card-img-top" alt="Product Image">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . $row['name'] . '</h5>';
+                        echo '<p class="card-text">Price: ' . $row['price'] . '</p>';
+                        echo '<p class="card-text">Category: ' . $row['category'] . '</p>';
+                        echo '<p class="card-text">Quantity: ' . $row['quantity'] . '</p>';
+                        // Thêm nút chỉnh sửa với thuộc tính data-productid để lưu trữ ID sản phẩm
+                        echo '<button class="btn btn-primary edit-product" data-productid="' . $row['idProduct'] . '">Edit</button>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                        
+                    }
+                } else {
+                    echo "No products available";
+                }
+
+                // Đóng kết nối cơ sở dữ liệu
+                $conn->close();
+                ?>
+        </div>
+        
+    </div>
         </main>
         <?php
 require 'connect.php';
@@ -150,12 +220,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (in_array($file_extension, $allowed_types) && $_FILES['productImage']['size'] > 0) {
             $image_tmp = $_FILES['productImage']['tmp_name'];
-            $image = uniqid() . '.' . $file_extension; // Tạo tên ngẫu nhiên để tránh trùng lặp
+            $image_path = "../interface/images/" . $upload_file; // Đường dẫn tệp hình ảnh trong thư mục mục tiêu
             
             // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
-            if (move_uploaded_file($image_tmp, $upload_directory . $image)) {
-                // Thêm dữ liệu vào cơ sở dữ liệu
-                $sql = "INSERT INTO products (`name`, `price`, `category`, `image`, `quantity`) VALUES ('$productName', '$productPrice', '$category', '$image', '$productQuantity')";
+            if (move_uploaded_file($image_tmp, $upload_directory . $upload_file)) {
+                // Thêm dữ liệu vào cơ sở dữ liệu với đường dẫn hình ảnh cụ thể
+                $sql = "INSERT INTO products (`name`, `price`, `category`, `image`, `quantity`) VALUES ('$productName', '$productPrice', '$category', '$image_path', '$productQuantity')";
 
                 if ($conn->query($sql) === TRUE) {
                     echo "New record created successfully";
@@ -190,5 +260,91 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </footer>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form để chỉnh sửa thông tin sản phẩm -->
+        <form id="editProductForm" action="update_product.php" method="POST">
+          <input type="hidden" id="productId" name="productId">
+          <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productName" name="productName" required>
+          </div>
+          <div class="mb-3">
+            <label for="productPrice" class="form-label">Price</label>
+            <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+          </div>
+          <!-- Các trường thông tin khác của sản phẩm -->
+          <!-- Bạn có thể thêm các trường khác tùy theo nhu cầu -->
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy danh sách tất cả các nút chỉnh sửa
+    var editButtons = document.querySelectorAll(".edit-product");
+
+    // Lặp qua từng nút và thêm sự kiện click
+    editButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            // Lấy ID sản phẩm từ thuộc tính data-productid
+            var productId = button.getAttribute("data-productid");
+            
+            // Hiển thị cửa sổ popup để chỉnh sửa thông tin sản phẩm
+            // Sử dụng Bootstrap Modal
+            var modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+            modal.show();
+            
+            // Truyền ID sản phẩm vào modal để xác định sản phẩm cần chỉnh sửa
+            document.getElementById('productId').value = productId;
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy form chỉnh sửa sản phẩm
+    var editForm = document.getElementById("editProductForm");
+
+    // Thêm sự kiện submit cho form
+    editForm.addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngăn chặn việc gửi form mặc định
+
+        // Lấy dữ liệu từ form
+        var productId = document.getElementById("productId").value;
+        var productName = document.getElementById("productName").value;
+        var productPrice = document.getElementById("productPrice").value;
+
+        // Gửi dữ liệu đến trang xử lý bằng phương thức POST
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update_product.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Xử lý phản hồi từ trang xử lý ở đây
+                    console.log(xhr.responseText);
+                } else {
+                    // Xử lý lỗi nếu có
+                    console.error("Error:", xhr.statusText);
+                }
+            }
+        };
+        xhr.send("productId=" + encodeURIComponent(productId) + "&productName=" + encodeURIComponent(productName) + "&productPrice=" + encodeURIComponent(productPrice));
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
