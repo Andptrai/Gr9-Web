@@ -232,10 +232,10 @@
 				</button>
 
 				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
+					<button class="flex-c-m trans-04" onclick="searchProducts()">
+    					<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
+					<input class="plh3" type="text" name="search" id="search" placeholder="Search...">
 				</form>
 			</div>
 		</div>
@@ -749,20 +749,40 @@
 require '../admin/connect.php';
 
 // Truy vấn dữ liệu từ bảng products
-$sql = "SELECT * FROM products";
-$result = $conn->query($sql);
+if(isset($_GET['search'])) {
+    // Lấy từ khóa tìm kiếm từ tham số trên URL và làm sạch nó
+    $searchKeyword = $_GET['search'];
+    $searchKeyword = mysqli_real_escape_string($conn, $searchKeyword); // Đảm bảo an toàn khi sử dụng trong truy vấn SQL
 
-// Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
-if ($result->num_rows > 0) {
-    // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
-    while($row = $result->fetch_assoc()) {
-        $products[] = $row;
+    // Truy vấn dữ liệu từ bảng products phù hợp với từ khóa tìm kiếm
+    $sql = "SELECT * FROM products WHERE name LIKE '%$searchKeyword%'";
+    $result = $conn->query($sql);
+
+    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
+    if ($result->num_rows > 0) {
+        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
+        while($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+    } else {
+        echo "Không có sản phẩm nào phù hợp.";
     }
 } else {
-    echo "Không có sản phẩm nào.";
+    // Nếu không có yêu cầu tìm kiếm, truy vấn tất cả các sản phẩm
+    $sql = "SELECT * FROM products";
+    $result = $conn->query($sql);
+
+    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
+    if ($result->num_rows > 0) {
+        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
+        while($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+    } else {
+        echo "Không có sản phẩm nào.";
+    }
 }
 
-// Đóng kết nối
 $conn->close();
 ?>
 
@@ -1118,6 +1138,65 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</div>
+
+
+<!-- search -->
+<script>
+    function searchProducts() {
+        var searchKeyword = document.getElementById('search').value;
+
+        // Tạo một đối tượng XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Xác định phương thức và URL của yêu cầu Ajax
+        var url = 'search.php?keyword=' + encodeURIComponent(searchKeyword);
+        xhr.open('GET', url, true);
+
+        // Xử lý sự kiện khi yêu cầu hoàn thành
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Xử lý dữ liệu phản hồi ở đây
+                var response = xhr.responseText;
+                // Ví dụ: Hiển thị kết quả tìm kiếm trong một vùng HTML
+                document.getElementById('searchResults').innerHTML = response;
+            }
+        };
+
+        // Gửi yêu cầu
+        xhr.send();
+    }
+</script>
+<script>
+    function suggestKeywords() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("keyword-list");
+        li = ul.getElementsByTagName('li');
+        
+        // Xóa tất cả các gợi ý hiện tại
+        ul.innerHTML = "";
+        
+        // Nếu không có từ khóa nhập vào, không hiển thị gợi ý
+        if (filter.length === 0) return;
+        
+        // Hiển thị các gợi ý phù hợp
+        <?php
+        // Danh sách từ khóa gợi ý có thể được lưu trữ trong một mảng PHP
+        $suggestedKeywords = array("shirt", "jacket", "shoes", "pants", "dress");
+        foreach ($suggestedKeywords as $keyword) {
+            echo "if (filter.indexOf('".strtoupper($keyword)."') > -1) {
+                var li = document.createElement('li');
+                li.textContent = '".$keyword."';
+                ul.appendChild(li);
+            }";
+        }
+        ?>
+    }
+
+    // Gán hàm suggestKeywords cho sự kiện input
+    document.getElementById('search').addEventListener('input', suggestKeywords);
+</script>
 
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
