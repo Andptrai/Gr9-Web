@@ -1,6 +1,6 @@
 <?php
 // Kết nối đến cơ sở dữ liệu
-require 'connect.php';
+require '../admin/connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
@@ -200,7 +200,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
         </main>
         <?php
-require 'connect.php';
+require '../admin/connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
@@ -261,17 +261,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+        <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- Form để chỉnh sửa thông tin sản phẩm -->
-        <form id="editProductForm" action="update_product.php" method="POST">
-          <input type="hidden" id="productId" name="productId">
+        <!-- Form để thêm thông tin sản phẩm -->
+        <form id="addProductForm" action="add_product.php" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" required>
@@ -280,14 +279,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="productPrice" class="form-label">Price</label>
             <input type="number" class="form-control" id="productPrice" name="productPrice" required>
           </div>
-          <!-- Các trường thông tin khác của sản phẩm -->
-          <!-- Bạn có thể thêm các trường khác tùy theo nhu cầu -->
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+              <option value="Women">Women</option>
+              <option value="Men">Men</option>
+              <option value="Bag">Bag</option>
+              <option value="Shoes">Shoes</option>
+              <option value="Watches">Watches</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="productImage" class="form-label">Image</label>
+            <input type="file" class="form-control" id="productImage" name="productImage" required>
+          </div>
+          <div class="mb-3">
+            <label for="productQuantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -311,38 +327,43 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Lấy form chỉnh sửa sản phẩm
     var editForm = document.getElementById("editProductForm");
 
-    // Thêm sự kiện submit cho form
-    editForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Ngăn chặn việc gửi form mặc định
+    // Kiểm tra xem editForm có tồn tại không
+    if (editForm) {
+        // Thêm sự kiện submit cho form
+        editForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Ngăn chặn việc gửi form mặc định
 
-        // Lấy dữ liệu từ form
-        var productId = document.getElementById("productId").value;
-        var productName = document.getElementById("productName").value;
-        var productPrice = document.getElementById("productPrice").value;
+            // Lấy dữ liệu từ form
+            var productId = document.getElementById("productId").value;
+            var productName = document.getElementById("productName").value;
+            var productPrice = document.getElementById("productPrice").value;
 
-        // Gửi dữ liệu đến trang xử lý bằng phương thức POST
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "update_product.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    // Xử lý phản hồi từ trang xử lý ở đây
-                    console.log(xhr.responseText);
-                } else {
-                    // Xử lý lỗi nếu có
-                    console.error("Error:", xhr.statusText);
+            // Gửi dữ liệu đến trang xử lý bằng phương thức POST
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "update_product.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Xử lý phản hồi từ trang xử lý ở đây
+                        console.log(xhr.responseText);
+                    } else {
+                        // Xử lý lỗi nếu có
+                        console.error("Error:", xhr.statusText);
+                    }
                 }
-            }
-        };
-        xhr.send("productId=" + encodeURIComponent(productId) + "&productName=" + encodeURIComponent(productName) + "&productPrice=" + encodeURIComponent(productPrice));
-    });
+            };
+            xhr.send("productId=" + encodeURIComponent(productId) + "&productName=" + encodeURIComponent(productName) + "&productPrice=" + encodeURIComponent(productPrice));
+        });
+    }
 });
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
