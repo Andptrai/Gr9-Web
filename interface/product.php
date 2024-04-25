@@ -89,7 +89,7 @@
 							</li>
 
 							<li class="active-menu">
-								<a href="product.html">Shop</a>
+								<a href="product.php">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
@@ -132,7 +132,9 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.php">
+					<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+				</a>
 			</div>
 
 			<!-- Icon header -->
@@ -203,7 +205,7 @@
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product.php">Shop</a>
 				</li>
 
 				<li>
