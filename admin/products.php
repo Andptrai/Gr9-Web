@@ -1,29 +1,4 @@
-<?php
-// Kết nối đến cơ sở dữ liệu
-require '../admin/connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
-    if (isset($_POST['productId'], $_POST['productName'], $_POST['productPrice']) &&
-        !empty($_POST['productId']) && !empty($_POST['productName']) && !empty($_POST['productPrice'])) {
-
-        $productId = $_POST['productId'];
-        $productName = $_POST['productName'];
-        $productPrice = $_POST['productPrice'];
-        
-        // Cập nhật thông tin sản phẩm trong cơ sở dữ liệu
-        $sql = "UPDATE products SET name='$productName', price='$productPrice' WHERE idProduct=$productId";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Record updated successfully";
-        } else {
-            echo "Error updating record: " . $conn->error;
-        }
-    } else {
-        echo "Please fill all required fields.";
-    }
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -270,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="modal-body">
         <!-- Form để thêm thông tin sản phẩm -->
-        <form id="addProductForm" action="add_product.php" method="POST" enctype="multipart/form-data">
+        <form id="addProductForm" action="products.php" method="POST" enctype="multipart/form-data">
           <div class="mb-3">
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" required>
@@ -281,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
-            <select class="form-select" id="category" name="category" required>
+                <select class="form-select" id="category" name="category" required>
               <option value="Women">Women</option>
               <option value="Men">Men</option>
               <option value="Bag">Bag</option>
@@ -297,74 +272,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="productQuantity" class="form-label">Quantity</label>
             <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
           </div>
-          <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
       </div>
     </div>
   </div>
-</div>
+</div>  
 
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Lấy danh sách tất cả các nút chỉnh sửa
-    var editButtons = document.querySelectorAll(".edit-product");
-
-    // Lặp qua từng nút và thêm sự kiện click
-    editButtons.forEach(function(button) {
-        button.addEventListener("click", function() {
-            // Lấy ID sản phẩm từ thuộc tính data-productid
-            var productId = button.getAttribute("data-productid");
-            
-            // Hiển thị cửa sổ popup để chỉnh sửa thông tin sản phẩm
-            // Sử dụng Bootstrap Modal
-            var modal = new bootstrap.Modal(document.getElementById('editProductModal'));
-            modal.show();
-            
-            // Truyền ID sản phẩm vào modal để xác định sản phẩm cần chỉnh sửa
-            document.getElementById('productId').value = productId;
-        });
-    });
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Lấy form chỉnh sửa sản phẩm
-    var editForm = document.getElementById("editProductForm");
-
-    // Kiểm tra xem editForm có tồn tại không
-    if (editForm) {
-        // Thêm sự kiện submit cho form
-        editForm.addEventListener("submit", function(event) {
-            event.preventDefault(); // Ngăn chặn việc gửi form mặc định
-
-            // Lấy dữ liệu từ form
-            var productId = document.getElementById("productId").value;
-            var productName = document.getElementById("productName").value;
-            var productPrice = document.getElementById("productPrice").value;
-
-            // Gửi dữ liệu đến trang xử lý bằng phương thức POST
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "update_product.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Xử lý phản hồi từ trang xử lý ở đây
-                        console.log(xhr.responseText);
-                    } else {
-                        // Xử lý lỗi nếu có
-                        console.error("Error:", xhr.statusText);
-                    }
-                }
-            };
-            xhr.send("productId=" + encodeURIComponent(productId) + "&productName=" + encodeURIComponent(productName) + "&productPrice=" + encodeURIComponent(productPrice));
-        });
-    }
-});
-
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
