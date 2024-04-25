@@ -107,10 +107,10 @@
                         <label for="productName" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="productName" name="productName" required>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="productPrice" class="form-label">Price</label>
                         <input type="number" class="form-control" id="productPrice" name="productPrice" required>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                         <label for="productType" class="form-label">Category</label>
                         <select class="form-select" id="category" name="category" required>
@@ -125,10 +125,10 @@
                         <label for="productImage" class="form-label">Image</label>
                         <input type="file" class="form-control" id="productImage" name="productImage" required>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="productQuantity" class="form-label">Quantity</label>
                         <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>
             </div>
@@ -153,9 +153,7 @@
                         echo '<img src="' . $row['image'] . '" class="card-img-top" alt="Product Image">';
                         echo '<div class="card-body">';
                         echo '<h5 class="card-title">' . $row['name'] . '</h5>';
-                        echo '<p class="card-text">Price: ' . $row['price'] . '</p>';
                         echo '<p class="card-text">Category: ' . $row['category'] . '</p>';
-                        echo '<p class="card-text">Quantity: ' . $row['quantity'] . '</p>';
                         // Thêm nút chỉnh sửa với thuộc tính data-productid để lưu trữ ID sản phẩm
                         echo '<button class="btn btn-primary edit-product" data-productid="' . $row['idProduct'] . '">Edit</button>';
                         echo '</div>';
@@ -179,13 +177,12 @@ require '../admin/connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
-    if (isset($_POST['productName'], $_POST['productPrice'], $_POST['category'], $_POST['productQuantity'], $_FILES['productImage']) &&
-        !empty($_POST['productName']) && !empty($_POST['productPrice']) && !empty($_POST['category']) && !empty($_POST['productQuantity'])) {
+    if (isset($_POST['productName'], $_POST['category'], $_FILES['productImage']) &&
+        !empty($_POST['productName'])  && !empty($_POST['category'])) {
 
         $productName = $_POST['productName'];
-        $productPrice = $_POST['productPrice'];
         $category = $_POST['category'];
-        $productQuantity = $_POST['productQuantity'];
+        // $productQuantity = $_POST['productQuantity'];
         
         // Kiểm tra loại và kích thước của tệp hình ảnh
         $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
@@ -200,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
             if (move_uploaded_file($image_tmp, $upload_directory . $upload_file)) {
                 // Thêm dữ liệu vào cơ sở dữ liệu với đường dẫn hình ảnh cụ thể
-                $sql = "INSERT INTO products (`name`, `price`, `category`, `image`, `quantity`) VALUES ('$productName', '$productPrice', '$category', '$image_path', '$productQuantity')";
+                $sql = "INSERT INTO products (`name`,  `category`, `image`) VALUES ('$productName',  '$category', '$image_path')";
 
                 if ($conn->query($sql) === TRUE) {
                     echo "New record created successfully";
