@@ -1,20 +1,16 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-<meta name="description" content="" />
-<meta name="author" content="" />
-<title>Add-Products - SB Admin</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-<link href="css/styles.css" rel="stylesheet" />
-
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>COZA STORE Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
 <body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand ps-3" href="index.html">COZA STORE</a>
@@ -102,15 +98,11 @@
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Add Product</h1>
-                <form action="products.php" method="POST" enctype="multipart/form-data">
+                <form action="../admin/php/add_products.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="productName" name="productName" required>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label for="productPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="productPrice" name="productPrice" required>
-                    </div> -->
                     <div class="mb-3">
                         <label for="productType" class="form-label">Category</label>
                         <select class="form-select" id="category" name="category" required>
@@ -125,96 +117,90 @@
                         <label for="productImage" class="form-label">Image</label>
                         <input type="file" class="form-control" id="productImage" name="productImage" required>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label for="productQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
-                    </div> -->
                     <button type="submit" class="btn btn-primary">Add Product</button>
                 </form>
             </div>
+            
 
         <div class="container-fluid px-4">
-        <h1 class="mt-4">Product List</h1>
-        <div class="row">
+            <h1 class="mt-4">Product List</h1>
+                <div class="row">
                 <?php
-                // Kết nối đến cơ sở dữ liệu
-                require 'connect.php';
+// Kết nối đến cơ sở dữ liệu
+require '../php/connect.php';
 
-                // Truy vấn để lấy danh sách sản phẩm
-                $sql = "SELECT * FROM products";
-                $result = $conn->query($sql);
+// Truy vấn để lấy danh sách sản phẩm
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
 
-                // Kiểm tra nếu có dữ liệu trả về từ truy vấn
-                if ($result->num_rows > 0) {
-                    // Duyệt qua từng dòng dữ liệu và hiển thị thông tin sản phẩm
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<div class="col-md-4 mb-4">';
-                        echo '<div class="card">';
-                        echo '<img src="' . $row['image'] . '" class="card-img-top" alt="Product Image">';
-                        echo '<div class="card-body">';
-                        echo '<h5 class="card-title">' . $row['name'] . '</h5>';
-                        echo '<p class="card-text">Category: ' . $row['category'] . '</p>';
-                        // Thêm nút chỉnh sửa với thuộc tính data-productid để lưu trữ ID sản phẩm
-                        echo '<button class="btn btn-primary edit-product" data-productid="' . $row['idProduct'] . '">Edit</button>';
-                        echo '</div>';
-                        echo '</div>';
-                        echo '</div>';
-                        
-                    }
-                } else {
-                    echo "No products available";
-                }
+// Kiểm tra nếu có dữ liệu trả về từ truy vấn
+if ($result->num_rows > 0) {
+    // Duyệt qua từng dòng dữ liệu và hiển thị thông tin sản phẩm
+    while ($row = $result->fetch_assoc()) {
+        echo '<div class="col-md-4 mb-4">';
+        echo '<div class="card">';
+        echo '<img src="' . $row['image'] . '" class="card-img-top" alt="Product Image">';
+        echo '<div class="card-body">';
+        echo '<h5 class="card-title">' . $row['name'] . '</h5>';
+        echo '<p class="card-text">Category: ' . $row['category'] . '</p>';
+        echo '<button class="btn btn-primary edit-product" data-productid="' . $row['idProduct'] . '" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>';
+        echo '<button class="btn btn-danger delete-product" data-productid="' . $row['idProduct'] . '">Delete</button>'; // Thêm nút xóa
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
+} else {
+    echo "No products available";
+}
 
-                // Đóng kết nối cơ sở dữ liệu
-                $conn->close();
-                ?>
-        </div>
+// Đóng kết nối cơ sở dữ liệu
+$conn->close();
+?>
+
+                </div>
         
     </div>
         </main>
-        <?php
-require '../admin/connect.php';
+        <!-- Modal -->
+        <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+    <form id="editProductForm" action="../php/update_product.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="productID" id="editProductID" value="">
+        <div class="mb-3">
+            <label for="editProductName" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="editProductName" name="productName" required>
+        </div>
+        <div class="mb-3">
+            <label for="editCategory" class="form-label">Category</label>
+            <select class="form-select" id="editCategory" name="category" required>
+                <option value="Women">Women</option>
+                <option value="Men">Men</option>
+                <option value="Bag">Bag</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Watches">Watches</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="editProductImage" class="form-label">Current Image</label>
+            <img src="" alt="Product Image" id="currentProductImage" style="max-width: 200px;">
+        </div>
+        <div class="mb-3">
+            <label for="editNewProductImage" class="form-label">New Image</label>
+            <input type="file" class="form-control" id="editNewProductImage" name="newProductImage">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Product</button>
+    </form>
+</div>
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
-    if (isset($_POST['productName'], $_POST['category'], $_FILES['productImage']) &&
-        !empty($_POST['productName'])  && !empty($_POST['category'])) {
-
-        $productName = $_POST['productName'];
-        $category = $_POST['category'];
-        // $productQuantity = $_POST['productQuantity'];
-        
-        // Kiểm tra loại và kích thước của tệp hình ảnh
-        $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
-        $upload_file = $_FILES['productImage']['name'];
-        $file_extension = pathinfo($upload_file, PATHINFO_EXTENSION);
-        $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/";
-
-        if (in_array($file_extension, $allowed_types) && $_FILES['productImage']['size'] > 0) {
-            $image_tmp = $_FILES['productImage']['tmp_name'];
-            $image_path = "../interface/images/" . $upload_file; // Đường dẫn tệp hình ảnh trong thư mục mục tiêu
-            
-            // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
-            if (move_uploaded_file($image_tmp, $upload_directory . $upload_file)) {
-                // Thêm dữ liệu vào cơ sở dữ liệu với đường dẫn hình ảnh cụ thể
-                $sql = "INSERT INTO products (`name`,  `category`, `image`) VALUES ('$productName',  '$category', '$image_path')";
-
-                if ($conn->query($sql) === TRUE) {
-                    echo "New record created successfully";
-                } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
-            } else {
-                echo "Không thể di chuyển file.";
-            }
-        } else {
-            echo "Loại hoặc kích thước của tệp không hợp lệ.";
-        }
-    } else {
-        echo "Vui lòng điền đầy đủ thông tin sản phẩm.";
-    }
-}
-?>
+        </div>
+    </div>
+</div>
 
 
 
@@ -232,50 +218,89 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </footer>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Form để thêm thông tin sản phẩm -->
-        <form id="addProductForm" action="products.php" method="POST" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="productName" class="form-label">Product Name</label>
-            <input type="text" class="form-control" id="productName" name="productName" required>
-          </div>
-          <div class="mb-3">
-            <label for="productPrice" class="form-label">Price</label>
-            <input type="number" class="form-control" id="productPrice" name="productPrice" required>
-          </div>
-          <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-                <select class="form-select" id="category" name="category" required>
-              <option value="Women">Women</option>
-              <option value="Men">Men</option>
-              <option value="Bag">Bag</option>
-              <option value="Shoes">Shoes</option>
-              <option value="Watches">Watches</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="productImage" class="form-label">Image</label>
-            <input type="file" class="form-control" id="productImage" name="productImage" required>
-          </div>
-          <div class="mb-3">
-            <label for="productQuantity" class="form-label">Quantity</label>
-            <input type="number" class="form-control" id="productQuantity" name="productQuantity" required>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>  
+<!-- lấy data  -->
+<script>
+// Thêm sự kiện click vào nút "Edit" và thực hiện AJAX khi mở modal
+document.addEventListener('DOMContentLoaded', function() {
+    var editButtons = document.querySelectorAll('.edit-product');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var productId = this.getAttribute('data-productid'); // Lấy ID sản phẩm từ data attribute
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var productInfo = JSON.parse(xhr.responseText); // Parse dữ liệu JSON trả về
+                        // Điền thông tin sản phẩm vào các trường trong form
+                        document.getElementById('editProductID').value = productInfo.id;
+                        document.getElementById('editProductName').value = productInfo.name;
+                        document.getElementById('editCategory').value = productInfo.category;
+                        // Hiển thị hình ảnh sản phẩm trong form (nếu có)
+                        if (productInfo.image) {
+                            var imageElement = document.getElementById('currentProductImage');
+                            imageElement.src = productInfo.image; // Đặt đường dẫn hình ảnh từ dữ liệu JSON
+                            imageElement.style.display = 'block'; // Hiển thị ảnh
+                        }
+                    } else {
+                        console.error('Error: Request failed.');
+                    }
+                }
+            };
+            xhr.open('GET', '../php/get_product_info.php?id=' + productId, true); // Điều chỉnh đường dẫn ở đây
+            xhr.send();
+        });
+    });
+});
 
+</script>
+<!-- delete prod -->
+<script>
+    // Bắt sự kiện khi tài liệu được tải hoàn tất
+document.addEventListener('DOMContentLoaded', function() {
+    // Lấy tất cả các nút xóa sản phẩm
+    var deleteButtons = document.querySelectorAll('.delete-product');
 
+    // Duyệt qua từng nút xóa sản phẩm và gán sự kiện khi được nhấn
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lấy ID sản phẩm từ thuộc tính data của nút xóa
+            var productId = this.getAttribute('data-productid');
+            
+            // Hiển thị hộp thoại xác nhận xóa
+            if (confirm("Are you sure you want to delete this product?")) {
+                // Tạo yêu cầu AJAX để xóa sản phẩm
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Xóa sản phẩm khỏi giao diện nếu xóa thành công
+                            // Ví dụ: có thể xóa hoặc ẩn phần tử thẻ card của sản phẩm
+                            console.log("Product deleted successfully");
+                        } else {
+                            console.error("Error deleting product");
+                        }
+                    }
+                };
+                xhr.open('POST', '../php/delete_product.php', true); // Đường dẫn tới tệp xử lý xóa sản phẩm
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('productID=' + productId); // Truyền ID sản phẩm cần xóa
+            }
+        });
+    });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    
+</script>
 </body>
 </html>

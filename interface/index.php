@@ -746,7 +746,7 @@
 			<div class="row">
 			<?php
 // Kết nối đến cơ sở dữ liệu
-require '../admin/connect.php';
+require '../php/connect.php';
 
 // Truy vấn dữ liệu từ bảng products
 if(isset($_GET['search'])) {

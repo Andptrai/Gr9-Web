@@ -209,7 +209,7 @@
                                     <tbody>
                                         <?php
                                         // Kết nối với cơ sở dữ liệu
-                                        require 'connect.php';
+                                        require '../php/connect.php';
 
                                         // Truy vấn dữ liệu từ cơ sở dữ liệu
                                         $sql = "SELECT fullName, userName, Email, Address, phoneNumber, Password FROM user";

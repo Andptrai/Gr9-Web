@@ -70,7 +70,7 @@
     </div>
 
     <?php
-    require 'connect.php'; // Assuming 'connect.php' contains database connection logic
+        require '../php/connect.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inputEmail = isset($_POST['inputEmail']) ? $_POST['inputEmail'] : NULL;
