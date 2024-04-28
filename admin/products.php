@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 };
-                xhr.open('POST', '../php/delete_product.php', true); // Đường dẫn tới tệp xử lý xóa sản phẩm
+                xhr.open('POST', 'http://localhost/Gr9-Web/php/delete_product.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send('productID=' + productId); // Truyền ID sản phẩm cần xóa
             }
