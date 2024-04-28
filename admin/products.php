@@ -98,7 +98,7 @@
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Add Product</h1>
-                <form action="../admin/php/add_products.php" method="POST" enctype="multipart/form-data">
+                <form action="../php/add_products.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="productName" class="form-label">Product Name</label>
                         <input type="text" class="form-control" id="productName" name="productName" required>
