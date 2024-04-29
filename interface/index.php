@@ -162,21 +162,13 @@ include '../php/check_session.php';
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
+						
 
-						<a href="register.php" class="flex-c-m p-lr-10 trans-04">
+						<a href="../interface/login_singup.html" class="flex-c-m p-lr-10 trans-04">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
-						</a>
+						
 					</div>
 				</li>
 			</ul>
