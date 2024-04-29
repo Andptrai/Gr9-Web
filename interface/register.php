@@ -107,7 +107,7 @@
 
             <?php
         // Kết nối với cơ sở dữ liệu
-        require '../admin/connect.php';
+        require '../php/connect.php';
 
         // Lấy dữ liệu từ form
         $inputFullName = isset($_POST['inputFullName']) ? $_POST['inputFullName'] : '';
