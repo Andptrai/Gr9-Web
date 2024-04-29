@@ -20,6 +20,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // Đăng nhập thành công, lấy thông tin người dùng và xác định vai trò
         $row = $result->fetch_assoc();
         $role = $row['role'];
+        $fullName= $row['fullName'];
+        // Lưu thông tin người dùng vào session
+        $_SESSION['fullName'] = $fullName;
+
 
         // Lưu vai trò vào session và chuyển hướng tới trang tương ứng
         $_SESSION['role'] = $role;
