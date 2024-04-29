@@ -47,22 +47,10 @@
 					<div class="left-top-bar">
 						Free shipping for standard order over $100
 					</div>
-
+					
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="register.php" class="flex-c-m trans-04 p-lr-25">
 							My Account
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
 						</a>
 					</div>
 				</div>
@@ -120,7 +108,7 @@
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="#" id="favoriteButton" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -258,7 +246,7 @@
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
-					<!-- <li class="header-cart-item flex-w flex-t m-b-12">
+					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
 							<img src="images/item-cart-01.jpg" alt="IMG">
 						</div>
@@ -272,7 +260,7 @@
 								1 x $19.00
 							</span>
 						</div>
-					</li> -->
+					</li>
 
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
@@ -417,7 +405,7 @@
 					<div class="block1 wrap-pic-w">
 						<img src="images/banner-01.jpg" alt="IMG-BANNER">
 
-						<a href="product.php" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="#" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3" data-filter=".women">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
@@ -765,7 +753,7 @@ if(isset($_GET['search'])) {
             $products[] = $row;
         }
     } else {
-        echo "Không có sản phẩm nào phù hợp.";
+        echo "Không có sản phẩm nào .";
     }
 } else {
     // Nếu không có yêu cầu tìm kiếm, truy vấn tất cả các sản phẩm
@@ -815,7 +803,7 @@ $conn->close();
 </div>
 <?php endforeach; ?>
 
-    
+
 </div>
 
 
@@ -1197,6 +1185,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     // Gán hàm suggestKeywords cho sự kiện input
     document.getElementById('search').addEventListener('input', suggestKeywords);
 </script>
+
 
 <!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>

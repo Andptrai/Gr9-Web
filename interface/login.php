@@ -23,14 +23,8 @@
                                 <div class="card-body">
                                     <form  method="post" onsubmit="return validateForm()";> <!-- Thêm action và method vào form -->
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    
-                                                    <input class="form-control" id="inputFullName" name="inputFullName" type="text" placeholder="Enter your first name" />
-                                                    <label for="inputFullName">Full Name</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                          
+                                            <div class="col-md">
                                                 <div class="form-floating">
                                            
                                                     <input class="form-control" id="inputUserName" name="inputUserName" type="text" placeholder="Enter your last name" />
@@ -43,46 +37,28 @@
                                             <input class="form-control" id="inputEmail" name="inputEmail" type="email" placeholder="name@example.com" />
                                             <label for="inputEmail">Email address</label>
                                         </div>
+                                       
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                
-                                                    <input class="form-control" id="inputAddress" name="inputAddress" type="text" placeholder="Your address" />
-                                                    <label for="inputAddress">Address</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                
-                                                    <input class="form-control" id="inputPhoneNumber" name="inputPhoneNumber" type="text" placeholder="Your phone number" />
-                                                    <label for="inputPhoneNumber">Phone Number</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md">
                                                 <div class="form-floating mb-3 mb-md-0">
                                                 
                                                     <input class="form-control" id="inputPassword" name="inputPassword" type="password" placeholder="Create a password" />
                                                     <label for="inputPassword">Password</label>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                
-                                                    <input class="form-control" id="inputPasswordConfirm" name="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                    <label for="inputPasswordConfirm">Confirm Password</label>
-                                                </div>
-                                            </div>
+                                          
                                         </div>
                                         <div class="mt-4 mb-0">
                                             <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Create Account</button></div>
                                         </div>
                                     </form>
                                 </div>
+                               
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="login.php">Have an account? Go to login</a></div>
+                                    <div class="small"><a href="register.php">Have an account? Go to signup</a></div>
+                                    <div class="small"><a href="register.php">fogot password</a></div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
