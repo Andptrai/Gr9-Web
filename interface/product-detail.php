@@ -1,6 +1,5 @@
 <?php include '../php/get_product_info.php' ?>
-
-
+<?php require '../php/connect.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

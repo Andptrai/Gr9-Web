@@ -804,9 +804,6 @@ $conn->close();
 
 
 </div>
-
-
-
 			</div>
 
 			<!-- Load more -->

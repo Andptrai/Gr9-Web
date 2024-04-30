@@ -307,10 +307,14 @@
 		</div>
 	</div>
 
-	
-	<!-- Product -->
-	<div class="bg0 m-t-23 p-b-140">
+	<section class="bg0 p-t-23 p-b-140">
 		<div class="container">
+			<div class="p-b-10">
+				<h3 class="ltext-103 cl5">
+					Product Overview
+				</h3>
+			</div>
+
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
@@ -351,7 +355,7 @@
 						Search
 					</div>
 				</div>
-				
+
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
 					<form class="bor8 dis-flex p-l-15">
@@ -555,7 +559,7 @@
 
 			<div class="row isotope-grid">
 			<div class="row">
-			<?php
+<?php
 // Kết nối đến cơ sở dữ liệu
 require '../php/connect.php';
 
@@ -576,7 +580,7 @@ if(isset($_GET['search'])) {
             $products[] = $row;
         }
     } else {
-        echo "Không có sản phẩm nào phù hợp.";
+        echo "Không có sản phẩm nào .";
     }
 } else {
     // Nếu không có yêu cầu tìm kiếm, truy vấn tất cả các sản phẩm
@@ -602,15 +606,17 @@ $conn->close();
     <div class="block2">
         <div class="block2-pic hov-img0">
             <img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
-            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
-                Quick View
-            </a>
+            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-product-id="<?php echo $product['idProduct']; ?>">
+    			Quick View
+			</a>
+
         </div>
         <div class="block2-txt flex-w flex-t p-t-14">
             <div class="block2-txt-child1 flex-col-l ">
-                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                    <?php echo $product['name']; ?>
-                </a>
+				<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+					<?php echo $product['name']; ?>
+				</a>
+
                 <span class="stext-105 cl3">
                     <?php echo $product['price']; ?>
                 </span>
@@ -626,6 +632,10 @@ $conn->close();
 </div>
 <?php endforeach; ?>
 
+
+</div>
+			</div>
+
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
 				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
@@ -633,8 +643,9 @@ $conn->close();
 				</a>
 			</div>
 		</div>
-	</div>
-		
+	</section>
+
+
 	
 	<!-- Footer -->
 	<footer class="bg3 p-t-75 p-b-32">
@@ -686,7 +697,7 @@ $conn->close();
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
+								Returns
 							</a>
 						</li>
 
@@ -771,12 +782,7 @@ $conn->close();
 					</a>
 				</div>
 
-				<p class="stext-107 cl6 txt-center">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
-				</p>
+				<p class="stext-107 cl6 txt-center"> </p>
 			</div>
 		</div>
 	</footer>
