@@ -113,7 +113,9 @@ include '../php/check_session.php';
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <?php
+                                include '../php/check_session.php';
+                        ?>
                     </div>
                 </nav>
             </div>
