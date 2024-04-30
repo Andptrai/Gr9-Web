@@ -29,8 +29,22 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 <!--===============================================================================================-->
 </head>
+
 <body class="animsition">
-	
+	<?php
+		require '../php/connect.php' ;
+		$query = "SELECT * FROM cart"; // Giả sử bạn có một bảng tên là 'cart'
+		$result = mysqli_query($conn, $query);
+
+		$cartItems = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+    	$cartItems[] = $row;
+	}
+
+// Trả về dữ liệu dưới dạng JSON
+header('Content-Type: application/json');
+echo json_encode($cartItems);
+	?>
 	<!-- Header -->
 	<header class="header-v4">
 		<!-- Header desktop -->
@@ -43,12 +57,11 @@
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
-
 					</div>
+
 				</div>
 			</div>
 
@@ -228,7 +241,7 @@
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
 		<div class="s-full js-hide-cart"></div>
-
+	
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
 			<div class="header-cart-title flex-w flex-sb-m p-b-8">
 				<span class="mtext-103 cl2">
