@@ -728,7 +728,7 @@ include '../php/check_session.php';
 
 			<div class="row isotope-grid">
 			<div class="row">
-			<?php
+<?php
 // Kết nối đến cơ sở dữ liệu
 require '../php/connect.php';
 
