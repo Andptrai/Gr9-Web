@@ -195,37 +195,48 @@ $conn->close();
 </div>
 <!-- lấy data  -->
 <script>
-// Thêm sự kiện click vào nút "Edit" và thực hiện AJAX khi mở modal
 document.addEventListener('DOMContentLoaded', function() {
     var editButtons = document.querySelectorAll('.edit-product');
     editButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            var productId = this.getAttribute('data-productid'); // Lấy ID sản phẩm từ data attribute
+            var productId = this.getAttribute('data-productid');
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        var productInfo = JSON.parse(xhr.responseText); // Parse dữ liệu JSON trả về
-                        // Điền thông tin sản phẩm vào các trường trong form
-                        document.getElementById('editProductID').value = productInfo.id;
-                        document.getElementById('editProductName').value = productInfo.name;
-                        document.getElementById('editCategory').value = productInfo.category;
-                        // Hiển thị hình ảnh sản phẩm trong form (nếu có)
-                        if (productInfo.image) {
-                            var imageElement = document.getElementById('currentProductImage');
-                            imageElement.src = productInfo.image; // Đặt đường dẫn hình ảnh từ dữ liệu JSON
-                            imageElement.style.display = 'block'; // Hiển thị ảnh
+                        var productInfo = null;
+                        try {
+                            productInfo = JSON.parse(xhr.responseText);
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                            // Display an error message to the user
+                            return;
+                        }
+                        if (productInfo) {
+                            // Populate modal fields with product information
+                            document.getElementById('editProductID').value = productInfo.id;
+                            document.getElementById('editProductName').value = productInfo.name;
+                            document.getElementById('editCategory').value = productInfo.category;
+                            if (productInfo.image) {
+                                var imageElement = document.getElementById('currentProductImage');
+                                imageElement.src = productInfo.image;
+                                imageElement.style.display = 'block';
+                            }
+                        } else {
+                            console.error('Error: Empty response or invalid JSON.');
                         }
                     } else {
-                        console.error('Error: Request failed.');
+                        console.error('Error: Request failed with status', xhr.status);
+                        // Display an error message to the user
                     }
                 }
             };
-            xhr.open('GET', '../php/get_product_info.php?id=' + productId, true); // Điều chỉnh đường dẫn ở đây
+            xhr.open('GET', '../php/get_product_info.php?id=' + productId, true);
             xhr.send();
         });
     });
 });
+
 
 </script>
 <!-- delete prod -->

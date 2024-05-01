@@ -6,6 +6,9 @@ if (isset($_GET['product_id'])) {
     $productId = $_GET['product_id'];
 
     if(!empty($productId)) {
+        // Sanitize input
+        $productId = intval($productId);
+
         $stmt = $conn->prepare("SELECT * FROM products WHERE idProduct = ?");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
@@ -22,16 +25,26 @@ if (isset($_GET['product_id'])) {
                 'image2' => $row['image2'],
                 'image3' => $row['image3']
             ];
-            
+            // Return JSON response
+            header('Content-Type: application/json');
+            echo json_encode($productInfo);
         } else {
-            echo "Sản phẩm không tồn tại.";
+            // Return JSON response for error
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Sản phẩm không tồn tại.']);
         }
         
         $stmt->close();
     } else {
-        echo "ID sản phẩm không được để trống.";
+        // Return JSON response for error
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'ID sản phẩm không được để trống.']);
     }
 } else {
+    // Handle case where no product ID is provided
+    // Return JSON response for error
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'No product ID provided.']);
 }
 
 $conn->close();
