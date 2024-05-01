@@ -26,11 +26,8 @@ if (isset($_GET['product_id'])) {
                 'image3' => $row['image3']
             ];
             // Return JSON response
-            header('Content-Type: application/json');
-            echo json_encode($productInfo);
         } else {
             // Return JSON response for error
-            header('Content-Type: application/json');
             echo json_encode(['error' => 'Sản phẩm không tồn tại.']);
         }
         

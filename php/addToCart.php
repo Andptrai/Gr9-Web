@@ -73,7 +73,22 @@ function getAllCartItems($iduser) {
     return $cart_items;
 }
 
-// Lấy tổng giá trị của giỏ hàng
+// Lấy tổng số lượng sản phẩm trong giỏ hàng của một người dùng
+function getTotalCartQuantity($iduser) {
+    global $conn;
+    $total_quantity = 0;
+    $select_quantity_query = "SELECT SUM(quantity) AS total_quantity FROM cart_items INNER JOIN carts ON cart_items.cart_id = carts.cart_id WHERE carts.iduser = ?";
+    $stmt = mysqli_prepare($conn, $select_quantity_query);
+    mysqli_stmt_bind_param($stmt, "i", $iduser);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if ($row = mysqli_fetch_assoc($result)) {
+        $total_quantity = $row['total_quantity'];
+    }
+    return $total_quantity;
+}
+$total_quantity = getTotalCartQuantity($iduser);
+
 function getTotalCartPrice($iduser) {
     $cart_items = getAllCartItems($iduser);
     $total_price = 0;
@@ -99,11 +114,16 @@ if(isset($_SESSION['iduser'])) {
 
     // Ví dụ: Thêm một mục vào giỏ hàng
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['idProduct']) && isset($_POST['quantity'])) {
+        $iduser = $_SESSION['iduser'];
         $idProduct = $_POST['idProduct'];
         $quantity = $_POST['quantity'];
-        // Thêm một mục mới vào giỏ hàng
-        addItemToCart($iduser, $idProduct, $quantity);
+        if (addItemToCart($iduser, $idProduct, $quantity)) {
+            echo "success"; // Trả về 'success' nếu thêm vào giỏ hàng thành công
+        } else {
+            echo "failed"; // Trả về 'failed' nếu có lỗi xảy ra
+        }
     }
+    
     // Lấy tất cả các mục trong giỏ hàng của người dùng
     $cart_items = getAllCartItems($iduser);
 
@@ -120,12 +140,10 @@ if(isset($_SESSION['iduser'])) {
     }
 
     // Hiển thị tổng giá trị của giỏ hàng
-    echo "Tổng giá trị giỏ hàng: $" . number_format($total_cart_price, 2);
 
 } else {
     echo "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!";
 }
 
 // Đóng kết nối
-mysqli_close($conn);
 ?>

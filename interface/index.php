@@ -935,24 +935,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Lắng nghe sự kiện click vào nút thêm vào danh sách yêu thích
-			var addWishBtn = document.querySelector(".btn-addwish-b2");
-			addWishBtn.addEventListener("click", function(event) {
-				event.preventDefault(); // Ngăn chặn hành động mặc định của liên kết
-
-				// Lấy giá trị hiện tại của data-notify và chuyển đổi thành số nguyên
-				var notifyCount = parseInt(document.querySelector(".icon-header-noti").getAttribute("data-notify"));
-
-				// Tăng giá trị của data-notify lên 1
-				notifyCount++;
-
-				// Cập nhật giá trị mới cho data-notify
-				document.querySelector(".icon-header-noti").setAttribute("data-notify", notifyCount);
-			});
-		});
-	</script>
+	
 <script>
 	$(document).ready(function() {
     $('.js-show-modal1').click(function(e) {

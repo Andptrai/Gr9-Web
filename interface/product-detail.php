@@ -1,6 +1,6 @@
 <?php
 include '../php/header.php';
-
+include '../php//get_product_info.php'
 ?>
 
 
@@ -1045,7 +1045,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
-document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
+	document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
 
     var productId = this.getAttribute('data-product-id');
