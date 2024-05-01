@@ -167,81 +167,48 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var editButtons = document.querySelectorAll('.edit-product');
-    editButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var productId = this.getAttribute('data-productid');
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        var productInfo = null;
-                        try {
-                            productInfo = JSON.parse(xhr.responseText);
-                        } catch (error) {
-                            console.error('Error parsing JSON:', error);
-                            // Display an error message to the user
-                            return;
-                        }
-                        if (productInfo) {
-                            // Populate modal fields with product information
-                            document.getElementById('editProductID').value = productInfo.id;
-                            document.getElementById('editProductName').value = productInfo.name;
-                            document.getElementById('editCategory').value = productInfo.category;
-                            if (productInfo.image) {
-                                var imageElement = document.getElementById('currentProductImage');
-                                imageElement.src = productInfo.image;
-                                imageElement.style.display = 'block';
-                            }
-                        } else {
-                            console.error('Error: Empty response or invalid JSON.');
-                        }
-                    } else {
-                        console.error('Error: Request failed with status', xhr.status);
-                        // Display an error message to the user
-                    }
-                }
-            };
-            xhr.open('GET', '../php/get_product_info.php?id=' + productId, true);
-            xhr.send();
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+    // Xử lý sự kiện khi nút chỉnh sửa được nhấn
+    // Xử lý sự kiện khi nút chỉnh sửa được nhấn
+const editButtons = document.querySelectorAll('.edit-product');
+editButtons.forEach(button => {
+    button.addEventListener('click', function(event) {
+        const productId = button.getAttribute('data-productid');
+        const productName = button.parentNode.querySelector('.card-title').textContent;
+        const category = button.parentNode.querySelector('.card-text').textContent.split(':')[1].trim();
+
+        // Điền thông tin sản phẩm vào form chỉnh sửa
+        document.getElementById('editProductID').value = productId;
+        document.getElementById('editProductName').value = productName;
+        document.getElementById('editCategory').value = category;
+
+        // Hiển thị hình ảnh sản phẩm hiện tại (nếu có)
+        const currentImage = button.parentNode.querySelector('.card-img-top').src;
+        document.getElementById('currentProductImage').src = currentImage;
     });
 });
 
 
-</script>
-<!-- delete prod -->
-<script>
-    // Bắt sự kiện khi tài liệu được tải hoàn tất
-document.addEventListener('DOMContentLoaded', function() {
-    // Lấy tất cả các nút xóa sản phẩm
-    var deleteButtons = document.querySelectorAll('.delete-product');
+    // Xử lý sự kiện khi nút xóa được nhấn
+    const deleteButtons = document.querySelectorAll('.delete-product');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const productId = button.getAttribute('data-productid');
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+                // Gửi yêu cầu xóa sản phẩm đến product_action.php bằng phương thức POST
+                const formData = new FormData();
+                formData.append('deleteProductID', productId);
 
-    // Duyệt qua từng nút xóa sản phẩm và gán sự kiện khi được nhấn
-    deleteButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            // Lấy ID sản phẩm từ thuộc tính data của nút xóa
-            var productId = this.getAttribute('data-productid');
-
-            // Hiển thị hộp thoại xác nhận xóa
-            if (confirm("Are you sure you want to delete this product?")) {
-                // Tạo yêu cầu AJAX để xóa sản phẩm
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            // Xóa sản phẩm khỏi giao diện nếu xóa thành công
-                            // Ví dụ: có thể xóa hoặc ẩn phần tử thẻ card của sản phẩm
-                            console.log("Product deleted successfully");
-                        } else {
-                            console.error("Error deleting product");
-                        }
-                    }
-                };
-                xhr.open('POST', 'http://localhost/Gr9-Web/php/delete_product.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send('productID=' + productId); // Truyền ID sản phẩm cần xóa
+                fetch('../php/product_action.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // Hiển thị thông báo từ product_action.php
+                    location.reload(); // Tải lại trang sau khi xóa sản phẩm
+                })
+                .catch(error => console.error('Error:', error));
             }
         });
     });

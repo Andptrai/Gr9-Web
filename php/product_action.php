@@ -1,62 +1,65 @@
 <?php
-// product_action.php
-// Kết nối đến cơ sở dữ liệu
-require '../php/connect.php';
+// Kiểm tra xem yêu cầu là từ form chỉnh sửa hay nút xóa
+if(isset($_POST['editProductID']) && isset($_POST['productName']) && isset($_POST['category'])) {
+    // Kết nối đến cơ sở dữ liệu
+    require 'connect.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Xử lý yêu cầu chỉnh sửa sản phẩm
-    if (isset($_POST['edit_product'])) {
-        $productID = $_POST['idProduct'];
-        $productName = $_POST['name'];
-        $category = $_POST['category'];
+    // Lấy dữ liệu từ form chỉnh sửa
+    $productID = $_POST['editProductID'];
+    $productName = $_POST['productName'];
+    $category = $_POST['category'];
 
-        // Kiểm tra nếu có hình ảnh mới được tải lên
-        if ($_FILES['newProductImage']['size'] > 0) {
-            $newProductImage = $_FILES['newProductImage'];
-            $target_dir = "../uploads/";
-            $target_file = $target_dir . basename($newProductImage["name"]);
+    // Kiểm tra xem có hình mới được tải lên không
+    if(isset($_FILES['newProductImage']) && $_FILES['newProductImage']['error'] === UPLOAD_ERR_OK) {
+        // Xử lý hình mới
+        $newImage = $_FILES['newProductImage'];
+        $uploadDir = "../uploads/"; // Thay đổi đường dẫn nếu cần
+        $imageName = uniqid() . "_" . basename($newImage["name"]);
+        $targetFile = $uploadDir . $imageName;
 
-            // Di chuyển hình ảnh mới vào thư mục uploads
-            if (move_uploaded_file($newProductImage["tmp_name"], $target_file)) {
-                // Cập nhật thông tin sản phẩm với hình ảnh mới
-                $sql = "UPDATE products SET name='$productName', category='$category', image='$target_file' WHERE idProduct='$productID'";
+        // Di chuyển hình mới đến thư mục upload
+        if(move_uploaded_file($newImage["tmp_name"], $targetFile)) {
+            // Cập nhật thông tin sản phẩm với hình mới
+            $sql = "UPDATE products SET name='$productName', category='$category', image='$targetFile' WHERE idProduct='$productID'";
+            if($conn->query($sql) === TRUE) {
+                echo "Sản phẩm đã được cập nhật thành công";
             } else {
-                // Lỗi khi di chuyển hình ảnh
-                echo "Sorry, there was an error uploading your file.";
+                echo "Lỗi: " . $sql . "<br>" . $conn->error;
             }
         } else {
-            // Không có hình ảnh mới được tải lên, chỉ cập nhật thông tin sản phẩm
-            $sql = "UPDATE products SET name='$productName', category='$category' WHERE idProduct='$productID'";
+            echo "Có lỗi khi tải lên hình mới";
         }
-
-        // Thực hiện truy vấn cập nhật
-        if ($conn->query($sql) === TRUE) {
-            // Chuyển hướng trở lại trang product.php sau khi cập nhật thành công
-            header("Location: products.php");
-            exit();
+    } else {
+        // Không có hình mới, chỉ cập nhật thông tin sản phẩm
+        $sql = "UPDATE products SET name='$productName', category='$category' WHERE idProduct='$productID'";
+        if($conn->query($sql) === TRUE) {
+            echo "Sản phẩm đã được cập nhật thành công";
         } else {
-            echo "Error updating record: " . $conn->error;
+            echo "Lỗi: " . $sql  . "<br>" . $conn->error;
         }
     }
 
-    // Xử lý yêu cầu xóa sản phẩm
-    if (isset($_POST['delete_product'])) {
-        $productID = $_POST['productID'];
+    // Đóng kết nối cơ sở dữ liệu
+    $conn->close();
+} elseif(isset($_POST['deleteProductID'])) {
+    // Xử lý xóa sản phẩm
+    require 'connect.php';
 
-        // Xóa sản phẩm khỏi cơ sở dữ liệu
-        $sql = "DELETE FROM products WHERE idProduct='$productID'";
+    $productID = $_POST['deleteProductID'];
 
-        // Thực hiện truy vấn xóa
-        if ($conn->query($sql) === TRUE) {
-            // Chuyển hướng trở lại trang product.php sau khi xóa thành công
-            header("Location: products.php");
-            exit();
-        } else {
-            echo "Error deleting record: " . $conn->error;
-        }
+    // Xóa sản phẩm từ cơ sở dữ liệu
+    $sql = "DELETE FROM products WHERE idProduct='$productID'";
+    if($conn->query($sql) === TRUE) {
+        echo "Sản phẩm đã được xóa thành công";
+    } else {
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
     }
+
+    // Đóng kết nối cơ sở dữ liệu
+    $conn->close();
+} else {
+    // Nếu không có dữ liệu từ form hoặc nút xóa, chuyển hướng về trang không tồn tại hoặc trang chính
+    header("Location: http://localhost/Gr9-Web/admin/products.php"); // Thay đổi đường dẫn nếu cần
+    exit();
 }
-
-// Đóng kết nối cơ sở dữ liệu
-$conn->close();
 ?>
