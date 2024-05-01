@@ -167,53 +167,86 @@
 </div>
 
 <script>
-
-// Xử lý sự kiện khi nhấp vào nút "Edit"
-document.querySelectorAll('.edit-product').forEach(item => {
-    item.addEventListener('click', event => {
-        const productId = item.getAttribute('data-productid');
-        // Gửi yêu cầu AJAX để lấy thông tin sản phẩm cần chỉnh sửa và hiển thị trong modal
-        fetch('../php/get_product_info.php?id=' + productId)
-            .then(response => response.json())
-            .then(data => {
-                // Cập nhật các trường thông tin sản phẩm trong modal
-                document.getElementById('editProductID').value = data.idProduct;
-                document.getElementById('editProductName').value = data.name;
-                document.getElementById('editCategory').value = data.category;
-                document.getElementById('currentProductImage').src = data.image;
-                // Hiển thị modal chỉnh sửa sản phẩm
-                var editProductModal = new bootstrap.Modal(document.getElementById('editProductModal'));
-                editProductModal.show();
-            })
-            .catch(error => console.error('Error:', error));
-    });
-});
-
-
-// Xử lý sự kiện khi nhấp vào nút "Delete"
-document.querySelectorAll('.delete-product').forEach(item => {
-    item.addEventListener('click', event => {
-        if (confirm('Are you sure you want to delete this product?')) {
-            const productId = item.getAttribute('data-productid');
-            // Gửi yêu cầu AJAX để xóa sản phẩm
-            const formData = new FormData();
-            formData.append('delete_product', true);
-            formData.append('productID', productId);
-            fetch('../php/product_action.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.redirected) {
-                    window.location.href = 'products.php'; // Chuyển hướng lại trang product.php sau khi xóa
-                } else {
-                    // Xử lý lỗi nếu cần
+document.addEventListener('DOMContentLoaded', function() {
+    var editButtons = document.querySelectorAll('.edit-product');
+    editButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var productId = this.getAttribute('data-productid');
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var productInfo = null;
+                        try {
+                            productInfo = JSON.parse(xhr.responseText);
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                            // Display an error message to the user
+                            return;
+                        }
+                        if (productInfo) {
+                            // Populate modal fields with product information
+                            document.getElementById('editProductID').value = productInfo.id;
+                            document.getElementById('editProductName').value = productInfo.name;
+                            document.getElementById('editCategory').value = productInfo.category;
+                            if (productInfo.image) {
+                                var imageElement = document.getElementById('currentProductImage');
+                                imageElement.src = productInfo.image;
+                                imageElement.style.display = 'block';
+                            }
+                        } else {
+                            console.error('Error: Empty response or invalid JSON.');
+                        }
+                    } else {
+                        console.error('Error: Request failed with status', xhr.status);
+                        // Display an error message to the user
+                    }
                 }
-            })
-            .catch(error => console.error('Error:', error));
-        }
+            };
+            xhr.open('GET', '../php/get_product_info.php?id=' + productId, true);
+            xhr.send();
+        });
     });
 });
+
+
+</script>
+<!-- delete prod -->
+<script>
+    // Bắt sự kiện khi tài liệu được tải hoàn tất
+document.addEventListener('DOMContentLoaded', function() {
+    // Lấy tất cả các nút xóa sản phẩm
+    var deleteButtons = document.querySelectorAll('.delete-product');
+
+    // Duyệt qua từng nút xóa sản phẩm và gán sự kiện khi được nhấn
+    deleteButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lấy ID sản phẩm từ thuộc tính data của nút xóa
+            var productId = this.getAttribute('data-productid');
+
+            // Hiển thị hộp thoại xác nhận xóa
+            if (confirm("Are you sure you want to delete this product?")) {
+                // Tạo yêu cầu AJAX để xóa sản phẩm
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Xóa sản phẩm khỏi giao diện nếu xóa thành công
+                            // Ví dụ: có thể xóa hoặc ẩn phần tử thẻ card của sản phẩm
+                            console.log("Product deleted successfully");
+                        } else {
+                            console.error("Error deleting product");
+                        }
+                    }
+                };
+                xhr.open('POST', 'http://localhost/Gr9-Web/php/delete_product.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send('productID=' + productId); // Truyền ID sản phẩm cần xóa
+            }
+        });
+    });
+});
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
