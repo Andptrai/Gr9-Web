@@ -729,47 +729,7 @@ include '../php/get_product_info.php'
 
 			<div class="row isotope-grid">
 			<div class="row">
-<?php
-// Kết nối đến cơ sở dữ liệu
-require '../php/connect.php';
-
-// Truy vấn dữ liệu từ bảng products
-if(isset($_GET['search'])) {
-    // Lấy từ khóa tìm kiếm từ tham số trên URL và làm sạch nó
-    $searchKeyword = $_GET['search'];
-    $searchKeyword = mysqli_real_escape_string($conn, $searchKeyword); // Đảm bảo an toàn khi sử dụng trong truy vấn SQL
-
-    // Truy vấn dữ liệu từ bảng products phù hợp với từ khóa tìm kiếm
-    $sql = "SELECT * FROM products WHERE name LIKE '%$searchKeyword%'";
-    $result = $conn->query($sql);
-
-    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
-    if ($result->num_rows > 0) {
-        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
-        while($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-    } else {
-        echo "Không có sản phẩm nào .";
-    }
-} else {
-    // Nếu không có yêu cầu tìm kiếm, truy vấn tất cả các sản phẩm
-    $sql = "SELECT * FROM products";
-    $result = $conn->query($sql);
-
-    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
-    if ($result->num_rows > 0) {
-        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
-        while($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-    } else {
-        echo "Không có sản phẩm nào.";
-    }
-}
-
-$conn->close();
-?>
+			
 
 <?php foreach ($products as $product): ?>
 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
@@ -808,7 +768,7 @@ $conn->close();
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+				<a href="product.php" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More
 				</a>
 			</div>

@@ -396,11 +396,11 @@
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							<?php echo $productInfo['name']; ?> <!-- Hiển thị tên sản phẩm từ dữ liệu trả về từ yêu cầu AJAX -->
+							<?php echo $productInfo['name']; ?> 
 						</h4>
 
 						<span class="mtext-106 cl2">
-						<?php echo "$" . $productInfo['price']; ?> <!-- Hiển thị giá sản phẩm từ dữ liệu trả về từ yêu cầu AJAX -->
+						<?php echo "$" . $productInfo['price']; ?> 
 						</span>
 
 						<p class="stext-102 cl3 p-t-23">
