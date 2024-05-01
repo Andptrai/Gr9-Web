@@ -2,6 +2,44 @@
 include '../php/check_session.php';
 include '../php/get_product_info.php'  
 ?>
+<?php
+// Kết nối đến cơ sở dữ liệu
+require '../php/connect.php';
+
+if(isset($_GET['search'])) {
+    $searchKeyword = $_GET['search'] ?? '';
+    
+    if(!empty($searchKeyword)) {
+        $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ?");
+        $searchKeyword = "%$searchKeyword%";
+        $stmt->bind_param("s", $searchKeyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $products = $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            echo "Không có sản phẩm nào.";
+        }
+        
+        $stmt->close();
+    } else {
+        echo "Từ khóa tìm kiếm không được để trống.";
+    }
+} else {
+    $sql = "SELECT * FROM products";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $products = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        echo "Không có sản phẩm nào.";
+    }
+}
+
+$conn->close();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -243,53 +281,27 @@ include '../php/get_product_info.php'
 
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full">
+					
+					
+				<?php foreach ($products as $product): ?>
+
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
+							<img src="<?php echo $product['image']; ?>" alt="IMG">
 						</div>
 
 						<div class="header-cart-item-txt p-t-8">
 							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
+							<?php echo $product['name']; ?>
 							</a>
 
 							<span class="header-cart-item-info">
-								1 x $19.00
+								1 x<?php echo $product['price']; ?>
 							</span>
 						</div>
 					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
+				<?php endforeach; ?>
+	
 				</ul>
 
 				<div class="w-full">
@@ -729,7 +741,7 @@ include '../php/get_product_info.php'
 
 			<div class="row isotope-grid">
 			<div class="row">
-			
+
 
 <?php foreach ($products as $product): ?>
 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
@@ -768,7 +780,7 @@ include '../php/get_product_info.php'
 
 			<!-- Load more -->
 			<div class="flex-c-m flex-w w-full p-t-45">
-				<a href="product.php" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
 					Load More
 				</a>
 			</div>

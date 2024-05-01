@@ -18,6 +18,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của bạn
-header("Location: ../interface/login_singup.html");
+header("Location: ../interface/index.php");
 exit();
 ?>

@@ -12,9 +12,9 @@
     <form action="../php/process_signup.php" method="post"> <!-- Thay đổi action thành tên tập lệnh xử lý dữ liệu -->
         <h1>Create Account</h1>
         <input type="text" name="fullName" placeholder="Name" /> <!-- Đặt thuộc tính name cho các trường nhập liệu -->
-        <input type="text" name="userName" placeholder="Username" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
+        <input type="text" name="userName" placeholder="Username"required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required/>
         <input type="text" name="address" placeholder="Address" />
         <input type="text" name="phoneNumber" placeholder="Phone Number" />
         <button type="submit">Sign Up</button>

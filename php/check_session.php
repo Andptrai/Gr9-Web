@@ -1,28 +1,17 @@
 <?php
 session_start();
 
-// Hàm để kiểm tra xem người dùng đã đăng nhập hay chưa
-function isLoggedIn() {
-    return isset($_SESSION['fullName']);
-}
+// Kiểm tra xem người dùng đã đăng nhập hay chưa
+if (isset($_SESSION['fullName']) && isset($_SESSION['iduser'])) {
+    // Người dùng đã đăng nhập, lấy thông tin từ session
+    $fullName = $_SESSION['fullName'];
+    $iduser = $_SESSION['iduser'];
 
-// Hàm để đăng nhập và lưu thông tin người dùng vào session
-function login($fullName) {
-    $_SESSION['fullName'] = $fullName;
-}
-
-// Hàm để đăng xuất và xóa thông tin người dùng từ session
-function logout() {
-    unset($_SESSION['fullName']);
-}
-
-// Hàm để lưu giỏ hàng vào cookies
-function saveCartToCookies($cart) {
-    setcookie('cart', serialize($cart), time() + (86400 * 30), "/"); // Lưu trong 30 ngày
-}
-
-// Hàm để lấy giỏ hàng từ cookies
-function getCartFromCookies() {
-    return isset($_COOKIE['cart']) ? unserialize($_COOKIE['cart']) : array();
+    // Hiển thị thông báo chào mừng và nút đăng xuất
+    echo "Xin chào, $fullName. Bạn đã đăng nhập thành công.";
+    echo "<a href='../php/logout.php'>Đăng xuất</a>";
+} else {
+    // Người dùng chưa đăng nhập, hiển thị nội dung đăng nhập
+    echo "Xin chào, bạn chưa đăng nhập. <a href='../interface/login_singup.html'>Đăng nhập</a>";
 }
 ?>

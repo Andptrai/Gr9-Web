@@ -1,5 +1,45 @@
-<?php include '../php/get_product_info.php' ?>
-<?php require '../php/connect.php' ?>
+<?php 
+include '../php/get_product_info.php' ;
+include '../php/addToCart.php';
+?>
+<?php
+// Kết nối đến cơ sở dữ liệu
+require '../php/connect.php';
+
+if(isset($_GET['search'])) {
+    $searchKeyword = $_GET['search'] ?? '';
+    
+    if(!empty($searchKeyword)) {
+        $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ?");
+        $searchKeyword = "%$searchKeyword%";
+        $stmt->bind_param("s", $searchKeyword);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $products = $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            echo "Không có sản phẩm nào.";
+        }
+        
+        $stmt->close();
+    } else {
+        echo "Từ khóa tìm kiếm không được để trống.";
+    }
+} else {
+    $sql = "SELECT * FROM products";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $products = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        echo "Không có sản phẩm nào.";
+    }
+}
+
+$conn->close();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -245,88 +285,60 @@
 
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
-		<div class="s-full js-hide-cart"></div>
+    <div class="s-full js-hide-cart"></div>
 
-		<div class="header-cart flex-col-l p-l-65 p-r-25">
-			<div class="header-cart-title flex-w flex-sb-m p-b-8">
-				<span class="mtext-103 cl2">
-					Your Cart
-				</span>
+    <div class="header-cart flex-col-l p-l-65 p-r-25">
+        <div class="header-cart-title flex-w flex-sb-m p-b-8">
+            <span class="mtext-103 cl2">
+                Your Cart
+            </span>
 
-				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-					<i class="zmdi zmdi-close"></i>
-				</div>
-			</div>
-			
-			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full">
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-01.jpg" alt="IMG">
-						</div>
+            <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                <i class="zmdi zmdi-close"></i>
+            </div>
+        </div>
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
-							</a>
+        <div class="header-cart-content flex-w js-pscroll">
+            <ul class="header-cart-wrapitem w-full">
+                <?php foreach ($cart_items as $item): ?>
+                    <li class="header-cart-item flex-w flex-t m-b-12">
+                        <div class="header-cart-item-img">
+                            <img src="<?php echo $item['product_img']; ?>" alt="IMG">
+                        </div>
 
-							<span class="header-cart-item-info">
-								1 x $19.00
-							</span>
-						</div>
-					</li>
+                        <div class="header-cart-item-txt p-t-8">
+                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                <?php echo $item['product_name']; ?>
+                            </a>
 
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-02.jpg" alt="IMG">
-						</div>
+                            <span class="header-cart-item-info">
+                                <?php echo $item['quantity']; ?> x <?php echo $item['price']; ?>
+                            </span>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
+            <div class="w-full">
+                <div class="header-cart-total w-full p-tb-40">
+                    Total: $<?php echo number_format($total_cart_price, 2); ?> <!-- Hiển thị tổng giá trị của giỏ hàng -->
+                </div>
 
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
+                <div class="header-cart-buttons flex-w w-full">
+                    <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+                        View Cart
+                    </a>
 
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="images/item-cart-03.jpg" alt="IMG">
-						</div>
+                    <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                        Check Out
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
 
-							<span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-						</div>
-					</li>
-				</ul>
-				
-				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
-					</div>
-
-					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
-							View Cart
-						</a>
-
-						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
-							Check Out
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 	<!-- breadcrumb -->
@@ -349,7 +361,7 @@
 	</div>
 		
 	<!-- Product Detail -->
-	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+	<form class="sec-product-detail bg0 p-t-65 p-b-60" >
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
@@ -461,9 +473,15 @@
 										</div>
 									</div>
 
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<button type="button" id="btn-add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+										data-product-id="<?php echo $productInfo['id']; ?>"
+										data-product-name="<?php echo $productInfo['name']; ?>"
+										data-product-price="<?php echo $productInfo['price']; ?>">
 										Add to cart
 									</button>
+
+
+
 								</div>
 							</div>	
 						</div>
@@ -676,7 +694,7 @@
 				Categories: Jacket, <?php echo $productInfo['category']; ?> 
 			</span>
 		</div>
-	</section>
+	</form>
 
 
 	<!-- Related Products -->
@@ -1361,6 +1379,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script>
+document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    var productId = this.getAttribute('data-product-id');
+    var productName = this.getAttribute('data-product-name');
+    var productPrice = this.getAttribute('data-product-price');
+    var quantity = document.querySelector('.num-product').value;
+
+    // Send AJAX request to addToCart.php
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../php/addToCart.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle the response from addToCart.php if needed
+            console.log(xhr.responseText);
+        }
+    };
+    xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
+});
+</script>
+
 
 </body>
 </html>

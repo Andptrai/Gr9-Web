@@ -1,3 +1,4 @@
+<!-- customer.php -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,6 +11,9 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+       
+
+
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -42,54 +46,6 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <!--<div class="sb-sidenav-menu-heading">Core</div>
-                             <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div> -->
                             <div class="sb-sidenav-menu-heading">Management</div>
                             <a class="nav-link" href="index.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -115,17 +71,7 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Khách hàng</h1>
-                        <!-- <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tables</li>
-                        </ol> -->
-                        <!-- <div class="card mb-4">
-                            <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
-                            </div>
-                        </div> -->
+                       
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -135,47 +81,65 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            
                                             <th>Full name</th>
                                             <th>User name</th>
                                             <th>Email</th>
                                             <th>Address</th>
                                             <th>PhoneNumber</th>
                                             <th>Password</th>
+                                            <th>Actions</th>
+                                            <!-- <th>locked</th> -->
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            
                                             <th>Full name</th>
                                             <th>User name</th>
                                             <th>Email</th>
                                             <th>Address</th>
                                             <th>PhoneNumber</th>
                                             <th>Password</th>
+                                            <!-- <th>locked</th> -->
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <?php
+                                    <?php
                                         // Kết nối với cơ sở dữ liệu
                                         require '../php/connect.php';
 
                                         // Truy vấn dữ liệu từ cơ sở dữ liệu
-                                        $sql = "SELECT fullName, userName, Email, Address, phoneNumber, Password FROM user";
+                                        $sql = "SELECT  iduser,fullName, userName, email, address, phoneNumber, Password, locked FROM user";
                                         $result = $conn->query($sql);
 
                                         if ($result->num_rows > 0) {
                                             // Duyệt qua từng dòng dữ liệu
                                             while($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
+                                                // Hiển thị thông tin người dùng
                                                 echo "<td>".$row["fullName"]."</td>";
                                                 echo "<td>".$row["userName"]."</td>";
-                                                echo "<td>".$row["Email"]."</td>";
-                                                echo "<td>".$row["Address"]."</td>";
+                                                echo "<td>".$row["email"]."</td>";
+                                                echo "<td>".$row["address"]."</td>";
                                                 echo "<td>".$row["phoneNumber"]."</td>";
                                                 echo "<td>".$row["Password"]."</td>";
+                                                echo "<td>";
+                                                if ($row["locked"] == 1) {
+                                                    // Nếu người dùng đã bị khóa, hiển thị nút Unlock
+                                                    echo "<button class='btn btn-success' onclick='performAction(\"unlock\", \"". $row['iduser'] ."\")'>Unlock</button>";
+                                                } else {
+                                                    // Nếu không, hiển thị nút Lock
+                                                    echo "<button class='btn btn-warning' onclick='performAction(\"lock\", \"". $row['iduser'] ."\")'>Lock</button>";
+                                                }
+                                                // Hiển thị nút Delete
+                                                echo "<button class='btn btn-danger' onclick='performAction(\"delete\", \"". $row['iduser'] ."\")'>Delete</button>";
+                                                echo "</td>";
                                                 echo "</tr>";
                                             }
+                                                                            
                                         } else {
-                                            echo "0 results";
+                                            echo "<tr><td colspan='7'>0 results</td></tr>";
                                         }
 
                                         $conn->close();
@@ -201,6 +165,43 @@
                 </footer>
             </div>
         </div>
+        <script>
+    function performAction(action, id) {
+        // Xác nhận hành động trước khi thực hiện
+        var confirmMessage = "";
+        switch (action) {
+            case 'delete':
+                confirmMessage = "Are you sure you want to delete this user?";
+                break;
+            case 'lock':
+                confirmMessage = "Are you sure you want to lock this user?";
+                break;
+            case 'unlock':
+                confirmMessage = "Are you sure you want to unlock this user?";
+                break;
+            default:
+                confirmMessage = "Are you sure you want to perform this action?";
+        }
+
+        if (confirm(confirmMessage)) {
+            // Tạo đối tượng XMLHttpRequest
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Nếu yêu cầu thành công, làm mới trang
+                    location.reload();
+                }
+            };
+            // Gửi yêu cầu POST đến customer_action.php
+            xhttp.open("POST", "../php/customer_action.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // Gửi dữ liệu hành động và id của người dùng
+            xhttp.send("action=" + action + "&iduser=" + id);
+        }
+    }
+</script>
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
