@@ -40,4 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Vui lòng điền đầy đủ thông tin sản phẩm.";
     }
 }
+header('Location: ' . $_SERVER['HTTP_REFERER']);
+
 ?>
