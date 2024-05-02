@@ -38,7 +38,7 @@ include '../php/check_session.php';
                         <li><a class="dropdown-item" href="#!">login</a></li>
                         <li><a class="dropdown-item" href="#!">register</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="../php/logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
