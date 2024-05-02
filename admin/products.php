@@ -15,7 +15,7 @@
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3" href="index.php">Start Bootstrap</a>
+    <a class="navbar-brand ps-3" href="index.php">Coza Store</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
     <!-- Navbar Search-->
@@ -170,12 +170,12 @@
     document.addEventListener('DOMContentLoaded', function() {
     // Xử lý sự kiện khi nút chỉnh sửa được nhấn
     // Xử lý sự kiện khi nút chỉnh sửa được nhấn
-const editButtons = document.querySelectorAll('.edit-product');
-editButtons.forEach(button => {
-    button.addEventListener('click', function(event) {
-        const productId = button.getAttribute('data-productid');
-        const productName = button.parentNode.querySelector('.card-title').textContent;
-        const category = button.parentNode.querySelector('.card-text').textContent.split(':')[1].trim();
+        const editButtons = document.querySelectorAll('.edit-product');
+        editButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const productId = button.getAttribute('data-productid');
+            const productName = button.parentNode.querySelector('.card-title').textContent;
+            const category = button.parentNode.querySelector('.card-text').textContent.split(':')[1].trim();
 
         // Điền thông tin sản phẩm vào form chỉnh sửa
         document.getElementById('editProductID').value = productId;
@@ -183,8 +183,12 @@ editButtons.forEach(button => {
         document.getElementById('editCategory').value = category;
 
         // Hiển thị hình ảnh sản phẩm hiện tại (nếu có)
-        const currentImage = button.parentNode.querySelector('.card-img-top').src;
-        document.getElementById('currentProductImage').src = currentImage;
+        const cardImgTop = button.parentNode.querySelector('.card-img-top');
+        if (cardImgTop) {
+            const currentImage = cardImgTop.src;
+            document.getElementById('currentProductImage').src = currentImage;
+        }
+
     });
 });
 
