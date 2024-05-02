@@ -1,3 +1,4 @@
+<!-- product_action.php -->
 <?php
 // Kiểm tra xem yêu cầu là từ form chỉnh sửa hay nút xóa
 if(isset($_POST['editProductID']) && isset($_POST['productName']) && isset($_POST['category'])) {
