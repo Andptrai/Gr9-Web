@@ -22,7 +22,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $role = $row['role'];
         $iduser= $row['iduser'];
         $fullName= $row['fullName'];
-        // Lưu thông tin người dùng vào session
+        
+        $_SESSION['isLoggedIn'] = true;
+
         $_SESSION['fullName'] = $fullName;
         $_SESSION['iduser'] = $iduser;
 

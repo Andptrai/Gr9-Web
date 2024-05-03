@@ -1045,10 +1045,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
+	function isLoggedIn() {
+        var isLoggedIn = <?php echo ($isLoggedIn ? 'true' : 'false'); ?>;
+}	
 	document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
-
-    var productId = this.getAttribute('data-product-id');
+	if(isLoggedIn){
+		var productId = this.getAttribute('data-product-id');
     var productName = this.getAttribute('data-product-name');
     var productPrice = this.getAttribute('data-product-price');
     var quantity = document.querySelector('.num-product').value;
@@ -1064,6 +1067,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         }
     };
     xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
+	}else{
+		window.location.href='../interface/login_singup.html';
+	}
+    
 });
 </script>
 

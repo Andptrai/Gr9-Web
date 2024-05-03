@@ -77,14 +77,19 @@ function getAllCartItems($iduser) {
 function getTotalCartQuantity($iduser) {
     global $conn;
     $total_quantity = 0;
-    $select_quantity_query = "SELECT SUM(quantity) AS total_quantity FROM cart_items INNER JOIN carts ON cart_items.cart_id = carts.cart_id WHERE carts.iduser = ?";
-    $stmt = mysqli_prepare($conn, $select_quantity_query);
-    mysqli_stmt_bind_param($stmt, "i", $iduser);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    if ($row = mysqli_fetch_assoc($result)) {
-        $total_quantity = $row['total_quantity'];
+
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    if(isset($iduser)) {
+        $select_quantity_query = "SELECT SUM(quantity) AS total_quantity FROM cart_items INNER JOIN carts ON cart_items.cart_id = carts.cart_id WHERE carts.iduser = ?";
+        $stmt = mysqli_prepare($conn, $select_quantity_query);
+        mysqli_stmt_bind_param($stmt, "i", $iduser);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $total_quantity = $row['total_quantity'];
+        }
     }
+    
     return $total_quantity;
 }
 $total_quantity = getTotalCartQuantity($iduser);
@@ -136,13 +141,13 @@ if(isset($_SESSION['iduser'])) {
             // Hiển thị các mục trong giỏ hàng
         }
     } else {
-        echo "Không có mục trong giỏ hàng.";
     }
 
     // Hiển thị tổng giá trị của giỏ hàng
 
 } else {
-    echo "Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!";
+    $total_quantity = getTotalCartQuantity(null);
+    
 }
 
 // Đóng kết nối
