@@ -169,7 +169,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     // Xử lý sự kiện khi nút chỉnh sửa được nhấn
-    // Xử lý sự kiện khi nút chỉnh sửa được nhấn
         const editButtons = document.querySelectorAll('.edit-product');
         editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
@@ -189,8 +188,8 @@
             document.getElementById('currentProductImage').src = currentImage;
         }
 
+        });
     });
-});
 
 
     // Xử lý sự kiện khi nút xóa được nhấn

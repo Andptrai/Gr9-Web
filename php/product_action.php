@@ -1,3 +1,4 @@
+<!-- product_action.php -->
 <?php
 require '../php/connect.php';
 
