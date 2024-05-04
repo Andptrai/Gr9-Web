@@ -138,7 +138,7 @@ include '../php//get_product_info.php'
 										</div>
 									</div>
 
-									<button type="button" id="btn-add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail "onclick="addtoCart()"
+									<button type="button" id="btn-add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail "onclick="addtoCart()" 
 										data-product-id="<?php echo $productInfo['id']; ?>"
 										data-product-name="<?php echo $productInfo['name']; ?>"
 										data-product-price="<?php echo $productInfo['price']; ?>">
@@ -1045,38 +1045,42 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
-	function isLoggedIn() {
-        var isLoggedIn = <?php echo ($isLoggedIn ? 'true' : 'false'); ?>;
-}	
-	document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-	if(isLoggedIn){
-		var productId = this.getAttribute('data-product-id');
-    var productName = this.getAttribute('data-product-name');
-    var productPrice = this.getAttribute('data-product-price');
-    var quantity = document.querySelector('.num-product').value;
+		function isLoggedIn() {
+			return <?php echo ($isLoggedIn ? 'true' : 'false'); ?>;
+		}
 
-    // Send AJAX request to addToCart.php
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../php/addToCart.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Handle the response from addToCart.php if needed
-            console.log(xhr.responseText);
-        }
-    };
-    xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
-	}else{
-		window.location.href='../interface/login_singup.html';
-	}
-    
-});
-function addtoCart(){
-	location.reload();
-}
+		document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
+			event.preventDefault(); // Prevent the default form submission behavior
 
-</script>
+			if(isLoggedIn()) {
+				var productId = this.getAttribute('data-product-id');
+				var productName = this.getAttribute('data-product-name');
+				var productPrice = this.getAttribute('data-product-price');
+				var quantity = document.querySelector('.num-product').value;
+
+				// Send AJAX request to addToCart.php
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '../php/addToCart.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// Handle the response from addToCart.php if needed
+						console.log(xhr.responseText);
+					}
+				};
+				xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
+			} else {
+				alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng.");
+				window.location.href = '../interface/login_singup.html';
+			}
+		});
+
+		function addtoCart() {
+			location.reload();
+		}
+	</script>
+
+
 
 
 </body>

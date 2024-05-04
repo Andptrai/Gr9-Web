@@ -91,7 +91,7 @@ $conn->close();
 					</div>
 
 					<div class="top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25" style="text-decoration: none;">
+						<a href="#" class="flex-c-m trans-04 p-lr-25" style="color: black;">
 							My Account
 						</a>
 					</div>
