@@ -25,12 +25,9 @@ if (isset($_GET['product_id'])) {
                 'image2' => $row['image2'],
                 'image3' => $row['image3']
             ];
-            // Return JSON response
-        } else {
-            // Return JSON response for error
-            echo json_encode(['error' => 'Sản phẩm không tồn tại.']);
-        }
-        
+            header('Content-Type: application/json');
+            echo json_encode($productInfo);
+        } // Thiếu cặp dấu ngoặc đóng ở đây
         $stmt->close();
     } else {
         // Return JSON response for error

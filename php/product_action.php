@@ -1,50 +1,83 @@
-<!-- product_action.php -->
 <?php
-require '../php/connect.php';
+require 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy thông tin sản phẩm từ biến POST
-    $productId = $_POST['productID']; // Nhận giá trị ID của sản phẩm từ trường input ẩn
-    $productName = $_POST['productName'];
-    $productCategory = $_POST['category'];
+    if (isset($_POST['editProductID'], $_POST['productName'], $_POST['category'])) {
+        // Sanitize input data
+        $productID = mysqli_real_escape_string($conn, $_POST['editProductID']);
+        $productName = mysqli_real_escape_string($conn, $_POST['productName']);
+        $category = mysqli_real_escape_string($conn, $_POST['category']);
 
-    // Kiểm tra xem idProduct có giá trị không trống
-    if (!empty($productId)) {
-        // Xử lý hình ảnh mới nếu được cung cấp
-        if (isset($_FILES['newProductImage']) && $_FILES['newProductImage']['error'] === UPLOAD_ERR_OK) {
-            $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/";
-            $upload_file = basename($_FILES['newProductImage']['name']);
-            $image_path = "../interface/images/" . $upload_file;
+        // Check for file uploads
+        if (isset($_FILES['newProductImage1'], $_FILES['newProductImage2'], $_FILES['newProductImage3'])) {
+            $uploadDir = "../interface/images/";
 
-            // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
-            if (move_uploaded_file($_FILES['newProductImage']['tmp_name'], $upload_directory . $upload_file)) {
-                // Cập nhật đường dẫn hình ảnh mới vào cơ sở dữ liệu
-                $sql = "UPDATE products SET name='$productName', category='$productCategory', image='$image_path' WHERE idProduct='$productId'";
-
-                if ($conn->query($sql) === TRUE) {
-                    echo "Product updated successfully";
+            // Handle image uploads
+            $imagePaths = [];
+            $uploadSuccess = true;
+            $targetFiles = [];
+            $newImages = [$_FILES['newProductImage1'], $_FILES['newProductImage2'], $_FILES['newProductImage3']];
+            foreach ($newImages as $key => $newImage) {
+                $imageName = uniqid() . "_" . basename($newImage["name"]);
+                $targetFile = $uploadDir . $imageName;
+                if (move_uploaded_file($newImage["tmp_name"], $targetFile)) {
+                    $imagePaths[] = $targetFile;
+                    $targetFiles[] = "image" . ($key + 1);
                 } else {
-                    echo "Error updating product: " . $conn->error;
+                    $uploadSuccess = false;
+                    echo "Lỗi khi tải lên hình ảnh " . ($key + 1);
+                    break;
                 }
-            } else {
-                echo "Không thể di chuyển file.";
+            }
+
+            if ($uploadSuccess) {
+                // Update product information
+                // Update product information
+                $sql = "UPDATE products SET name=?, category=?, image=?, image2=?, image3=? WHERE idProduct=?";
+                $stmt = $conn->prepare($sql);
+                // Bind parameters
+                $stmt->bind_param("sssssi", $productName, $category, $imagePaths[0], $imagePaths[1], $imagePaths[2], $productID);
+
+                if ($stmt->execute()) {
+                    echo "Sản phẩm đã được cập nhật thành công";
+                } else {
+                    echo "Lỗi khi cập nhật sản phẩm: " . $stmt->error;
+                }
+                $stmt->close();
             }
         } else {
-            // Nếu không có hình ảnh mới được cung cấp, chỉ cập nhật thông tin sản phẩm
-            $sql = "UPDATE products SET name='$productName', category='$productCategory' WHERE idProduct='$productId'";
-
-            if ($conn->query($sql) === TRUE) {
-                echo "Product updated successfully";
+            // No new images, update product information only
+            $sql = "UPDATE products SET name=?, category=? WHERE idProduct=?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssi", $productName, $category, $productID);
+            if ($stmt->execute()) {
+                echo "Sản phẩm đã được cập nhật thành công";
             } else {
-                echo "Error updating product: " . $conn->error;
+                echo "Lỗi khi cập nhật sản phẩm: " . $stmt->error;
             }
+            $stmt->close();
         }
-    } else {
-        // Nếu idProduct rỗng, in ra thông báo lỗi
-        echo "Error: Product ID is empty";
-    }
+    } elseif (isset($_POST['deleteProductID'])) {
+        // Handle product deletion
+        $productID = mysqli_real_escape_string($conn, $_POST['deleteProductID']);
 
-    // Đóng kết nối cơ sở dữ liệu
-    $conn->close();
+        // Delete product from database
+        $sql = "DELETE FROM products WHERE idProduct=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $productID);
+        if ($stmt->execute()) {
+            echo "Sản phẩm đã được xóa thành công";
+        } else {
+            echo "Lỗi khi xóa sản phẩm: " . $stmt->error;
+        }
+        $stmt->close();
+    } else {
+        // If no data from the form, redirect back to the previous page or homepage
+        header("Location: http://localhost/Gr9-Web/admin/products.php");
+        exit();
+    }
 }
+
+// Close database connection
+$conn->close();
 ?>
