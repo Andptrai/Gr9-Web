@@ -222,6 +222,7 @@
                     if (data.image3) {
                         document.getElementById('currentProductImage3').src = data.image3;
                     }
+                    
                 })
                 .catch(error => console.error('Error:', error));
             });

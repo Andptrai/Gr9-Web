@@ -73,9 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } elseif (isset($_POST['deleteProductID'])) {
         // Xử lý xóa sản phẩm
-        $productID = mysqli_real_escape_string($conn, $_POST['deleteProductID']);
+        require '../php/connect.php';
 
-        // Sử dụng câu lệnh chuẩn bị để xóa sản phẩm
+        $productID = $_POST['deleteProductID'];
+
+        // Xóa sản phẩm từ cơ sở dữ liệu
         $sql = "DELETE FROM products WHERE idProduct=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $productID);
@@ -85,14 +87,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Lỗi khi xóa sản phẩm: " . $stmt->error;
         }
         $stmt->close();
+        $conn->close();
     } else {
         // Nếu không có dữ liệu từ biểu mẫu, chuyển hướng về trang trước đó hoặc trang chủ
-        header("Location: http://localhost/Gr9-Web/admin/products.php");
+        header("Location: " . $_SERVER['HTTP_REFERER']);
         exit();
     }
 }
-header('Location: ' . $_SERVER['HTTP_REFERER']);
-
-// Đóng kết nối cơ sở dữ liệu
-$conn->close();
 ?>
