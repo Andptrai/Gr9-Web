@@ -40,14 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        // Thêm dữ liệu vào cơ sở dữ liệu với các đường dẫn hình ảnh
-        $sql = "INSERT INTO products (`name`, `category`, `image`, `image2`, `image3`) VALUES ('$productName', '$category', '$image_paths[0]', '$image_paths[1]', '$image_paths[2]')";
+        // Thêm dữ liệu vào cơ sở dữ liệu với các đường dẫn hình ảnh, sử dụng prepared statement
+        $stmt = $conn->prepare("INSERT INTO products (`name`, `category`, `image`, `image2`, `image3`) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $productName, $category, $image_paths[0], $image_paths[1], $image_paths[2]);
 
-        if ($conn->query($sql) === TRUE) {
+        if ($stmt->execute()) {
             echo "New record created successfully";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
+        $stmt->close();
     } else {
         echo "Vui lòng điền đầy đủ thông tin sản phẩm.";
     }

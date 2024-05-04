@@ -23,10 +23,11 @@ if (isset($_GET['product_id'])) {
                 'category' => $row['category'],
                 'image' => $row['image'],
                 'image2' => $row['image2'],
-                'image3' => $row['image3']
+                'image3' => $row['image3'],
+                'description' => $row['description']
+
             ];
             header('Content-Type: application/json');
-            echo json_encode($productInfo);
         } // Thiếu cặp dấu ngoặc đóng ở đây
         $stmt->close();
     } else {

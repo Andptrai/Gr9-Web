@@ -72,7 +72,7 @@ include '../php/header.php';
 								</div>
 							</div>
 
-							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10" onclick="updateCart()">
 								Update Cart
 							</div>
 						</div>
@@ -360,6 +360,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
-
+	<script>
+		function updateCart(){
+			location.reload();
+		}
+	</script>
 </body>
 </html>
