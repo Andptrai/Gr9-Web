@@ -61,7 +61,7 @@
     // Lấy tất cả các mục trong giỏ hàng của một người dùng
     function getAllCartItems($iduser) {
         global $conn;
-        $select_items_query = "SELECT cart_items.*, products.name AS product_name, products.price, products.image AS product_img FROM cart_items INNER JOIN products ON cart_items.idProduct = products.idProduct INNER JOIN carts ON cart_items.cart_id = carts.cart_id WHERE carts.iduser = ?";
+        $select_items_query = "SELECT cart_items.*, products.name AS product_name, products.price AS product_price, products.image AS product_img FROM cart_items INNER JOIN products ON cart_items.idProduct = products.idProduct INNER JOIN carts ON cart_items.cart_id = carts.cart_id WHERE carts.iduser = ?";
         $stmt = mysqli_prepare($conn, $select_items_query);
         mysqli_stmt_bind_param($stmt, "i", $iduser);
         mysqli_stmt_execute($stmt);
