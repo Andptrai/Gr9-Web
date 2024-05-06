@@ -103,7 +103,7 @@ include '../php/header.php';
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
 								</span>
-
+						
 								<span class="block1-info stext-102 trans-04">
 									Spring 2018
 								</span>
