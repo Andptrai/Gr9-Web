@@ -1,6 +1,6 @@
 <?php
 include '../php/connect.php';
-include'../php/check_session.php';
+include '../php/check_session.php';
 // Kiểm tra xem liệu dữ liệu đã được gửi từ form hay không
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lấy thông tin vận chuyển và thanh toán từ form
