@@ -3,7 +3,6 @@ include '../php/header.php';
 ?>
 
 
-
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">

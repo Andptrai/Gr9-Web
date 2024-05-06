@@ -82,31 +82,17 @@ $conn->close();
 	
 	<!-- Header -->
 	<header class="header-v4">
-		<!-- Header desktop -->
+		 <!-- Header desktop  -->
 		<div class="container-menu-desktop">
-			<!-- Topbar -->
+			 <!-- Topbar  -->
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
-					<div class="left-top-bar">
-						Free shipping for standard order over $100
-					</div>
-
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							My Account
 						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
-						</a>
+   
 					</div>
 				</div>
 			</div>
@@ -215,19 +201,7 @@ $conn->close();
 				<li>
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
 							My Account
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							EN
-						</a>
-
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
 						</a>
 					</div>
 				</li>
@@ -283,8 +257,7 @@ $conn->close();
 				</form>
 			</div>
 		</div>
-	</header>
-
+	</header> 
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
     <div class="s-full js-hide-cart"></div>

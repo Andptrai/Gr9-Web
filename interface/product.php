@@ -254,78 +254,38 @@ include '../php/header.php';
 
 			<div class="row isotope-grid">
 			<div class="row">
-<?php
-// Kết nối đến cơ sở dữ liệu
-require '../php/connect.php';
+		
 
-// Truy vấn dữ liệu từ bảng products
-if(isset($_GET['search'])) {
-    // Lấy từ khóa tìm kiếm từ tham số trên URL và làm sạch nó
-    $searchKeyword = $_GET['search'];
-    $searchKeyword = mysqli_real_escape_string($conn, $searchKeyword); // Đảm bảo an toàn khi sử dụng trong truy vấn SQL
+			<?php foreach ($products as $product): ?>
+			<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
+				<div class="block2">
+					<div class="block2-pic hov-img0">
+						<img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
+						<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-product-id="<?php echo $product['idProduct']; ?>">
+							Quick View
+						</a>
 
-    // Truy vấn dữ liệu từ bảng products phù hợp với từ khóa tìm kiếm
-    $sql = "SELECT * FROM products WHERE name LIKE '%$searchKeyword%'";
-    $result = $conn->query($sql);
+					</div>
+					<div class="block2-txt flex-w flex-t p-t-14">
+						<div class="block2-txt-child1 flex-col-l ">
+							<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+								<?php echo $product['name']; ?>
+							</a>
 
-    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
-    if ($result->num_rows > 0) {
-        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
-        while($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-    } else {
-        echo "Không có sản phẩm nào .";
-    }
-} else {
-    // Nếu không có yêu cầu tìm kiếm, truy vấn tất cả các sản phẩm
-    $sql = "SELECT * FROM products";
-    $result = $conn->query($sql);
-
-    // Kiểm tra xem có sản phẩm nào được trả về từ truy vấn không
-    if ($result->num_rows > 0) {
-        // Nếu có ít nhất một sản phẩm, lặp qua từng dòng kết quả và lấy thông tin sản phẩm
-        while($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-    } else {
-        echo "Không có sản phẩm nào.";
-    }
-}
-
-$conn->close();
-?>
-
-<?php foreach ($products as $product): ?>
-<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
-    <div class="block2">
-        <div class="block2-pic hov-img0">
-            <img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
-            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1" data-product-id="<?php echo $product['idProduct']; ?>">
-    			Quick View
-			</a>
-
-        </div>
-        <div class="block2-txt flex-w flex-t p-t-14">
-            <div class="block2-txt-child1 flex-col-l ">
-				<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-					<?php echo $product['name']; ?>
-				</a>
-
-                <span class="stext-105 cl3">
-                    <?php echo $product['price']; ?>
-                </span>
-            </div>
-            <div class="block2-txt-child2 flex-r p-t-3">
-                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
-                    <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?>
+							<span class="stext-105 cl3">
+								<?php echo $product['price']; ?>
+							</span>
+						</div>
+						<div class="block2-txt-child2 flex-r p-t-3">
+							<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+								<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+								<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php endforeach; ?>
 
 
 </div>
