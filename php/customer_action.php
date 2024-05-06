@@ -31,25 +31,37 @@ switch ($action) {
          $email = $_POST['email'];
          $address = $_POST['address'];
          $phoneNumber = $_POST['phoneNumber'];
-        
+     
+         // Tạo mảng để lưu trữ các cặp trường giá trị cần cập nhật
+         $updateFields = array();
+         if (!empty($fullName)) {
+             $updateFields[] = "fullName = '$fullName'";
+         }
+         if (!empty($userName)) {
+             $updateFields[] = "userName = '$userName'";
+         }
+         if (!empty($email)) {
+             $updateFields[] = "email = '$email'";
+         }
+         if (!empty($address)) {
+             $updateFields[] = "address = '$address'";
+         }
+         if (!empty($phoneNumber)) {
+             $updateFields[] = "phoneNumber = '$phoneNumber'";
+         }
+     
+         // Chuyển mảng thành chuỗi để sử dụng trong truy vấn SQL
+         $updateString = implode(', ', $updateFields);
+     
          // Thực hiện cập nhật thông tin khách hàng
-         $sql = "UPDATE user SET fullName = '$fullName', userName = '$userName', email = '$email', address = '$address', phoneNumber = '$phoneNumber' WHERE iduser = $id";
+         $sql = "UPDATE user SET $updateString WHERE iduser = $id";
          if ($conn->query($sql) === TRUE) {
              echo "User information updated successfully";
          } else {
              echo "Error updating user information: " . $conn->error;
          }
         break;
-    // case 'delete':
-        // Xóa khách hàng
-        // Cần thêm mã để xóa khách hàng khỏi cơ sở dữ liệu
-        // $sql = "DELETE FROM user WHERE iduser = $id";
-        // if ($conn->query($sql) === TRUE) {
-        //     echo "User deleted successfully";
-        // } else {
-        //     echo "Error deleting user: " . $conn->error;
-        // }
-        // break;
+    
     case 'lock':
         // Khóa khách hàng
         // Cần thêm mã để khóa khách hàng trong cơ sở dữ liệu
