@@ -272,7 +272,7 @@ include '../php/header.php';
 								<?php echo $product['name']; ?>
 							</a>
 
-							<span class="stext-105 cl3">
+							<span class="stext-105 cl3">		
 								<?php echo $product['price']; ?>
 							</span>
 						</div>
