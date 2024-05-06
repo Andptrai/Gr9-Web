@@ -238,21 +238,21 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 
 /*---------------------------------------------*/
-.right-top-bar a {
+.top-bar a {
   font-family: Poppins-Regular;
   font-size: 12px;
   line-height: 1.8;
 
   height: 100%;
-  color: #b2b2b2;
+  color: black !important;
   border-right: 1px solid rgba(255,255,255,0.3);
 }
 
-.right-top-bar a:first-child {
+.top-bar a:first-child {
   border-left: 1px solid rgba(255,255,255,0.3);
 }
 
-.right-top-bar a:hover {
+.top-bar a:hover {
   color: #6c7ae0;
 }
 

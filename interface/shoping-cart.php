@@ -58,7 +58,7 @@ include '../php/header.php';
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="column-5">$ <?php echo number_format($total_cart_price); ?></td>
+                                    <td class="column-5">$ <?php echo number_format($item['product_price']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </table>
@@ -138,7 +138,7 @@ include '../php/header.php';
             </div>
         </div>
     </div>
-</form>
+	</form>
 
 		
 	

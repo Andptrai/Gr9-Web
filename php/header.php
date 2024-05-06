@@ -90,8 +90,8 @@ $conn->close();
 						Free shipping for standard order over $100
 					</div>
 
-					<div class="top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25" style="color: black;">
+					<div class="top-bar flex-w h-full" style="color: black !important ;">
+						<a href="#" class="flex-c-m trans-04 p-lr-25" >
 							My Account
 						</a>
 					</div>
