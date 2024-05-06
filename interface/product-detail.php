@@ -1,6 +1,5 @@
 <?php
 include '../php/header.php';
-include '../php//get_product_info.php'
 ?>
 
 
@@ -1078,6 +1077,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		function addtoCart() {
 			location.reload();
 		}
+		
 	</script>
 
 

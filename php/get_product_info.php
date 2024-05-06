@@ -2,10 +2,15 @@
 
 require '../php/connect.php';
 
+function returnJsonResponse($data) {
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
 if (isset($_GET['product_id'])) {
     $productId = $_GET['product_id'];
 
-    if(!empty($productId)) {
+    if (!empty($productId)) {
         // Sanitize input
         $productId = intval($productId);
 
@@ -25,21 +30,17 @@ if (isset($_GET['product_id'])) {
                 'image2' => $row['image2'],
                 'image3' => $row['image3'],
                 'description' => $row['description']
-
             ];
-            header('Content-Type: application/json');
-        } // Thiếu cặp dấu ngoặc đóng ở đây
+            returnJsonResponse($productInfo);
+        } else {
+            returnJsonResponse(['error' => 'Không tìm thấy sản phẩm với ID đã cung cấp.']);
+        }
         $stmt->close();
     } else {
-        // Return JSON response for error
-        header('Content-Type: application/json');
-        echo json_encode(['error' => 'ID sản phẩm không được để trống.']);
+        returnJsonResponse(['error' => 'ID sản phẩm không được để trống.']);
     }
 } else {
-    // Handle case where no product ID is provided
-    // Return JSON response for error
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'No product ID provided.']);
+    returnJsonResponse(['error' => 'Không có ID sản phẩm nào được cung cấp.']);
 }
 
 $conn->close();
