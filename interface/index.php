@@ -86,13 +86,13 @@ include '../php/header.php';
 	<!-- Banner -->
 	<div class="sec-banner bg0 p-t-80 p-b-50">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+			<div class="row ">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button  " data-filter=".women">
 					<!-- Block1 -->
-					<div class="block1 wrap-pic-w">
+					<div class="block1 wrap-pic-w " > 
 						<img src="images/banner-01.jpg" alt="IMG-BANNER">
 
-						<a href="product.php" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3" data-filter=".women">
+						<a href="#" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3" data-filter=".women">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Women
@@ -108,16 +108,16 @@ include '../php/header.php';
 									Shop Now
 								</div>
 							</div>
-						</a>
+						</div>
 					</div>
-				</div>
+				</button>
 
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".men">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
 						<img src="images/banner-02.jpg" alt="IMG-BANNER">
 
-						<a href="product.php" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<div  class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Men
@@ -133,16 +133,16 @@ include '../php/header.php';
 									Shop Now
 								</div>
 							</div>
-						</a>
+						</div>
 					</div>
-				</div>
+				</button>
 
-				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".watches">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
 						<img src="images/banner-03.jpg" alt="IMG-BANNER">
 
-						<a href="product.php" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<div  class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
 									Accessories
@@ -158,16 +158,16 @@ include '../php/header.php';
 									Shop Now
 								</div>
 							</div>
-						</a>
+						</div>
 					</div>
-				</div>
+				</button>
 			</div>
 		</div>
 	</div>
 
 
 	<!-- Product -->
-	<section class="bg0 p-t-23 p-b-140">
+	<section class="bg0 p-t-23 p-b-140"id="scroll-target">
 		<div class="container">
 			<div class="p-b-10">
 				<h3 class="ltext-103 cl5">
@@ -176,31 +176,33 @@ include '../php/header.php';
 			</div>
 
 			<div class="flex-w flex-sb-m p-b-52">
-				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-						All Products
-					</button>
+			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+					All Products
+				</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-						Women
-					</button>
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+					Women
+				</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
-						Men
-					</button>
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+					Men
+				</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-						Bag
-					</button>
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
+					Bag
+				</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
-						Shoes
-					</button>
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
+					Shoes
+				</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
-						Watches
-					</button>
-				</div>
+				<button class="filter-btn stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".watches">
+					Watches
+				</button>
+			</div>
+			
+
 
 				<div class="flex-w flex-c-m m-tb-10">
 					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
@@ -417,7 +419,7 @@ include '../php/header.php';
 				</div>
 			</div>
 
-			<div class="row isotope-grid">
+			<div class="row isotope-grid " >
 				<div class="row">
 
 
@@ -875,44 +877,71 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</script>
 <!--===============================================================================================-->
 	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Lấy tất cả các button chứa class "filter-button"
+    var filterButtons = document.querySelectorAll('button.filter-button[data-filter]');
+
+    // Lắng nghe sự kiện click trên các button
+    filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lấy giá trị data-filter của button được click
+            var filterValue = button.getAttribute('data-filter');
+            
+            // Tìm tất cả các sản phẩm có cùng danh mục và kích hoạt sự kiện click cho chúng
+            var targetProducts = document.querySelectorAll('.isotope-item' + filterValue);
+            targetProducts.forEach(function(targetProduct) {
+                targetProduct.click();
+            });
+
+            // Tìm phần tử cuối cùng có class "isotope-item" trong kết quả
+			var targetElement = document.getElementById('scroll-target');
+            
+            // Nếu phần tử đích tồn tại
+            if (targetElement) {
+                // Kéo trang xuống đến phần tử đích
+				targetElement.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Nếu không tìm thấy phần tử đích, cuộn trang về đầu trang
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+
+
+</script>
+
+
+
 <!--===============================================================================================-->
 	<script src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
-		$('.js-addwish-b2').on('click', function(e){
-			e.preventDefault();
-		});
-
-		$('.js-addwish-b2').each(function(){
-			var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to wishlist !", "success");
-
-				$(this).addClass('js-addedwish-b2');
-				$(this).off('click');
-			});
-		});
-
-		$('.js-addwish-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to wishlist !", "success");
-
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
-			});
-		});
-
-		/*---------------------------------------------*/
-
-		$('.js-addcart-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
-			});
-		});
-
-	</script>
+    // JavaScript code
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy tất cả các button có thuộc tính data-filter
+        var filterButtons = document.querySelectorAll('[data-filter]');
+        
+        // Lắng nghe sự kiện click trên các button
+        filterButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Lấy giá trị data-filter của button được click
+                var filterValue = button.getAttribute('data-filter');
+                
+                // Tìm tất cả các button dưới đây có cùng giá trị data-filter và kích hoạt sự kiện click cho chúng
+                var targetButtons = document.querySelectorAll('[data-filter="' + filterValue + '"]');
+                targetButtons.forEach(function(targetButton) {
+                    targetButton.click();
+                });
+            });
+        });
+    });
+</script>
 <!--===============================================================================================-->
 	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
