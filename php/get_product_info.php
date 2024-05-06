@@ -23,14 +23,12 @@ if (isset($_GET['product_id'])) {
                 'category' => $row['category'],
                 'image' => $row['image'],
                 'image2' => $row['image2'],
-                'image3' => $row['image3']
+                'image3' => $row['image3'],
+                'description' => $row['description']
+
             ];
-            // Return JSON response
-        } else {
-            // Return JSON response for error
-            echo json_encode(['error' => 'Sản phẩm không tồn tại.']);
-        }
-        
+            header('Content-Type: application/json');
+        } // Thiếu cặp dấu ngoặc đóng ở đây
         $stmt->close();
     } else {
         // Return JSON response for error

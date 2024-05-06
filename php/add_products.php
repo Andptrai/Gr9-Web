@@ -1,45 +1,59 @@
 <?php
-    require '../php/connect.php';
+require '../php/connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
-    if (isset($_POST['productName'], $_POST['category'], $_FILES['productImage']) &&
-        !empty($_POST['productName'])  && !empty($_POST['category'])) {
+    if (isset($_POST['productName'], $_POST['category'], $_FILES['productImage1'], $_FILES['productImage2'], $_FILES['productImage3']) &&
+        !empty($_POST['productName']) && !empty($_POST['category'])) {
 
         $productName = $_POST['productName'];
         $category = $_POST['category'];
-        // $productQuantity = $_POST['productQuantity'];
-        
-        // Kiểm tra loại và kích thước của tệp hình ảnh
+
         $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
-        $upload_file = $_FILES['productImage']['name'];
-        $file_extension = pathinfo($upload_file, PATHINFO_EXTENSION);
         $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/";
 
-        if (in_array($file_extension, $allowed_types) && $_FILES['productImage']['size'] > 0) {
-            $image_tmp = $_FILES['productImage']['tmp_name'];
-            $image_path = "../interface/images/" . $upload_file; // Đường dẫn tệp hình ảnh trong thư mục mục tiêu
-            
-            // Di chuyển file từ thư mục tạm thời vào thư mục mục tiêu
-            if (move_uploaded_file($image_tmp, $upload_directory . $upload_file)) {
-                // Thêm dữ liệu vào cơ sở dữ liệu với đường dẫn hình ảnh cụ thể
-                $sql = "INSERT INTO products (`name`,  `category`, `image`) VALUES ('$productName',  '$category', '$image_path')";
+        // Lặp qua các hình ảnh được tải lên
+        $image_paths = array();
+        for ($i = 1; $i <= 3; $i++) {
+            $input_name = "productImage$i";
+            if (isset($_FILES[$input_name]) && $_FILES[$input_name]['size'] > 0) {
+                $upload_file = $_FILES[$input_name]['name'];
+                $file_extension = pathinfo($upload_file, PATHINFO_EXTENSION);
 
-                if ($conn->query($sql) === TRUE) {
-                    echo "New record created successfully";
+                if (in_array($file_extension, $allowed_types)) {
+                    $image_tmp = $_FILES[$input_name]['tmp_name'];
+                    $image_path = "../interface/images/" . $upload_file;
+
+                    if (move_uploaded_file($image_tmp, $upload_directory . $upload_file)) {
+                        $image_paths[] = $image_path;
+                    } else {
+                        echo "Không thể di chuyển file.";
+                        exit;
+                    }
                 } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    echo "Loại hoặc kích thước của tệp không hợp lệ.";
+                    exit;
                 }
             } else {
-                echo "Không thể di chuyển file.";
+                echo "Vui lòng chọn tệp hình ảnh.";
+                exit;
             }
-        } else {
-            echo "Loại hoặc kích thước của tệp không hợp lệ.";
         }
+
+        // Thêm dữ liệu vào cơ sở dữ liệu với các đường dẫn hình ảnh, sử dụng prepared statement
+        $stmt = $conn->prepare("INSERT INTO products (`name`, `category`, `image`, `image2`, `image3`) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $productName, $category, $image_paths[0], $image_paths[1], $image_paths[2]);
+
+        if ($stmt->execute()) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
     } else {
         echo "Vui lòng điền đầy đủ thông tin sản phẩm.";
     }
 }
-header('Location: ' . $_SERVER['HTTP_REFERER']);
 
+header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

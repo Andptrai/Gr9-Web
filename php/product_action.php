@@ -1,4 +1,3 @@
-
 <?php
 // Kiểm tra xem yêu cầu là từ form chỉnh sửa hay nút xóa
 if(isset($_POST['productID']) && isset($_POST['productName']) && isset($_POST['category'])) {

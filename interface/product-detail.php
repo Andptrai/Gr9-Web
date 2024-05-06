@@ -138,7 +138,7 @@ include '../php//get_product_info.php'
 										</div>
 									</div>
 
-									<button type="button" id="btn-add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+									<button type="button" id="btn-add-to-cart" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail "onclick="addtoCart()" 
 										data-product-id="<?php echo $productInfo['id']; ?>"
 										data-product-name="<?php echo $productInfo['name']; ?>"
 										data-product-price="<?php echo $productInfo['price']; ?>">
@@ -199,7 +199,7 @@ include '../php//get_product_info.php'
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
 							<div class="how-pos2 p-lr-15-md">
 								<p class="stext-102 cl6">
-									Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc fringilla sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus enim, cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat interdum in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean tempor sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc nec laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum. Cras in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+								<?php echo $productInfo['description']; ?> 
 								</p>
 							</div>
 						</div>
@@ -908,7 +908,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                         </div>
                                     </div>
 
-                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" onclick="addtoCart()">
                                         Add to cart
                                     </button>
                                 </div>
@@ -1045,27 +1045,42 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
-	document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+		function isLoggedIn() {
+			return <?php echo ($isLoggedIn ? 'true' : 'false'); ?>;
+		}
 
-    var productId = this.getAttribute('data-product-id');
-    var productName = this.getAttribute('data-product-name');
-    var productPrice = this.getAttribute('data-product-price');
-    var quantity = document.querySelector('.num-product').value;
+		document.getElementById('btn-add-to-cart').addEventListener('click', function(event) {
+			event.preventDefault(); // Prevent the default form submission behavior
 
-    // Send AJAX request to addToCart.php
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '../php/addToCart.php', true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Handle the response from addToCart.php if needed
-            console.log(xhr.responseText);
-        }
-    };
-    xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
-});
-</script>
+			if(isLoggedIn()) {
+				var productId = this.getAttribute('data-product-id');
+				var productName = this.getAttribute('data-product-name');
+				var productPrice = this.getAttribute('data-product-price');
+				var quantity = document.querySelector('.num-product').value;
+
+				// Send AJAX request to addToCart.php
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '../php/addToCart.php', true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// Handle the response from addToCart.php if needed
+						console.log(xhr.responseText);
+					}
+				};
+				xhr.send('idProduct=' + productId + '&product_name=' + productName + '&product_price=' + productPrice + '&quantity=' + quantity);
+			} else {
+				alert("Vui lòng đăng nhập trước khi thêm vào giỏ hàng.");
+				window.location.href = '../interface/login_singup.html';
+			}
+		});
+
+		function addtoCart() {
+			location.reload();
+		}
+	</script>
+
+
 
 
 </body>
