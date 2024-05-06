@@ -36,31 +36,65 @@ include '../php/header.php';
                                 <th class="column-4">Quantity</th>
                                 <th class="column-5">Total</th>
                             </tr>
+							<?php
+								// Mảng để lưu trữ giỏ hàng sau khi gộp các sản phẩm trùng nhau
+								$merged_cart_items = [];
+
+								// Duyệt qua các sản phẩm trong giỏ hàng
+								foreach ($cart_items as $item) {
+									// Biến cờ để kiểm tra xem sản phẩm đã tồn tại trong mảng giỏ hàng mới hay chưa
+									$is_existing_item = false;
+
+									// Duyệt qua các sản phẩm đã gộp trong mảng giỏ hàng mới
+									foreach ($merged_cart_items as &$merged_item) {
+										// Nếu sản phẩm đã tồn tại trong mảng giỏ hàng mới
+										if ($merged_item['product_id'] === $item['product_id']) {
+											// Tăng số lượng sản phẩm
+											$merged_item['quantity'] += 1;
+											// Đặt cờ là sản phẩm đã tồn tại
+											$is_existing_item = true;
+											// Thoát khỏi vòng lặp trong
+											break;
+										}
+									}
+
+									// Nếu sản phẩm chưa tồn tại trong mảng giỏ hàng mới
+									if (!$is_existing_item) {
+										// Thêm sản phẩm vào mảng giỏ hàng mới
+										$merged_cart_items[] = $item;
+									}
+								}
+
+								// Sau khi gộp các sản phẩm trùng nhau, bạn có thể sử dụng mảng $merged_cart_items để hiển thị giỏ hàng trên trang web.
+									
+							?>
                             <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
-                            <?php foreach ($cart_items as $item): ?>
-                                <tr class="table_row">
-                                    <td class="column-1">
-                                        <div class="how-itemcart1">
-                                            <img src="<?php echo $item['product_img']?>" alt="IMG">
-                                        </div>
-                                    </td>
-                                    <td class="column-2"><?php echo $item['product_name']?></td>
-                                    <td class="column-3"><?php echo $item['product_price']?></td>
-                                    <td class="column-4">
-                                        <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <i class="fs-16 zmdi zmdi-minus"></i>
-                                            </div>
-                                            <!-- Số lượng sản phẩm -->
-                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
-                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                <i class="fs-16 zmdi zmdi-plus"></i>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="column-5">$ <?php echo number_format($item['product_price']) ?></td>
-                                </tr>
-                            <?php endforeach; ?>
+							<?php foreach ($merged_cart_items as $item): ?>
+								<tr class="table_row">
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img src="<?php echo $item['product_img']?>" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2"><?php echo $item['product_name']?></td>
+									<td class="column-3">$ <?php echo number_format($item['product_price']) ?></td>
+									<td class="column-4">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+											<!-- Số lượng sản phẩm -->
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $item['quantity'] ?>">
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</div>
+									</td>
+									<td class="column-5">$ <?php echo number_format($item['product_price'] * $item['quantity']) ?></td>
+								</tr>
+							<?php endforeach; ?>										
+
+
                         </table>
                     </div>
 
@@ -95,6 +129,7 @@ include '../php/header.php';
                         </div>
                     </div>
                     <!-- Thông tin vận chuyển -->
+					
                     <div class="flex-w flex-t bor12 p-t-15 p-b-30">
                         <div class="size-208 w-full-ssm">
                             <span class="stext-110 cl2">Shipping:</span>

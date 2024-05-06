@@ -300,23 +300,58 @@ if (isset($_GET['product_id'])) {
 
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
-                <?php foreach ($cart_items as $item): ?>
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="<?php echo $item['product_img']; ?>" alt="IMG">
-                        </div>
+                
+			<?php
+								// Mảng để lưu trữ giỏ hàng sau khi gộp các sản phẩm trùng nhau
+								$merged_cart_items = [];
 
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                <?php echo $item['product_name']; ?>
-                            </a>
+								// Duyệt qua các sản phẩm trong giỏ hàng
+								foreach ($cart_items as $item) {
+									// Biến cờ để kiểm tra xem sản phẩm đã tồn tại trong mảng giỏ hàng mới hay chưa
+									$is_existing_item = false;
 
-                            <span class="header-cart-item-info">
-                                <?php echo $item['quantity']; ?> x <?php echo $item['price']; ?>
-                            </span>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
+									// Duyệt qua các sản phẩm đã gộp trong mảng giỏ hàng mới
+									foreach ($merged_cart_items as &$merged_item) {
+										// Nếu sản phẩm đã tồn tại trong mảng giỏ hàng mới
+										if ($merged_item['product_id'] === $item['product_id']) {
+											// Tăng số lượng sản phẩm
+											$merged_item['quantity'] += 1;
+											// Đặt cờ là sản phẩm đã tồn tại
+											$is_existing_item = true;
+											// Thoát khỏi vòng lặp trong
+											break;
+										}
+									}
+
+									// Nếu sản phẩm chưa tồn tại trong mảng giỏ hàng mới
+									if (!$is_existing_item) {
+										// Thêm sản phẩm vào mảng giỏ hàng mới
+										$merged_cart_items[] = $item;
+									}
+								}
+
+								// Sau khi gộp các sản phẩm trùng nhau, bạn có thể sử dụng mảng $merged_cart_items để hiển thị giỏ hàng trên trang web.
+									
+							?>
+                            <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
+								
+							<?php foreach ($merged_cart_items as $item): ?>
+								<li class="header-cart-item flex-w flex-t m-b-12">
+									<div class="header-cart-item-img">
+										<img src="<?php echo $item['product_img']; ?>" alt="IMG">
+									</div>
+
+									<div class="header-cart-item-txt p-t-8">
+										<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+											<?php echo $item['product_name']; ?>
+										</a>
+
+										<span class="header-cart-item-info">
+											<?php echo $item['quantity']; ?> x <?php echo $item['price']; ?>
+										</span>
+									</div>
+								</li>
+							<?php endforeach; ?>
             </ul>
 
             <div class="w-full">
