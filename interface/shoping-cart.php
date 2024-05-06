@@ -138,8 +138,11 @@ include '../php/header.php';
                             <p class="stext-111 cl6 p-t-2">There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
                             <!-- Form nhập thông tin vận chuyển -->
                             <div class="p-t-15">
-                                <span class="stext-112 cl8">Calculate Shipping</span>
                                 
+								<span class="stext-112 cl8">Calculate Shipping</span>
+                                <div class="bor8 bg0 m-b-12">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="nameInput" name="name" placeholder="Name">
+								</div>
 								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
 								<select class="js-select2" id="citySelect" name="city" onchange="checkCity()">
 									<option value="">Select city...</option>
