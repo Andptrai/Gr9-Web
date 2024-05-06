@@ -706,6 +706,45 @@ include '../php/header.php';
 	</script>
 <!--===============================================================================================-->
 	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    // Lấy tất cả các button chứa class "filter-button"
+    var filterButtons = document.querySelectorAll('button.filter-button[data-filter]');
+
+    // Lắng nghe sự kiện click trên các button
+    filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lấy giá trị data-filter của button được click
+            var filterValue = button.getAttribute('data-filter');
+            
+            // Tìm tất cả các sản phẩm có cùng danh mục và kích hoạt sự kiện click cho chúng
+            var targetProducts = document.querySelectorAll('.isotope-item' + filterValue);
+            targetProducts.forEach(function(targetProduct) {
+                targetProduct.click();
+            });
+
+            // Tìm phần tử cuối cùng có class "isotope-item" trong kết quả
+			var targetElement = document.getElementById('scroll-target');
+            
+            // Nếu phần tử đích tồn tại
+            if (targetElement) {
+                // Kéo trang xuống đến phần tử đích
+				targetElement.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Nếu không tìm thấy phần tử đích, cuộn trang về đầu trang
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+
+
+</script>
 <!--===============================================================================================-->
 	<script src="vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
