@@ -1,5 +1,6 @@
 <?php
 include '../php/header.php';
+include '../php/check_session.php';
 ?>
 
 
@@ -139,15 +140,13 @@ include '../php/header.php';
                             <!-- Form nhập thông tin vận chuyển -->
                             <div class="p-t-15">
                                 <span class="stext-112 cl8">Calculate Shipping</span>
-                                <div class="bor8 bg0 m-b-12">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="city" name="city" placeholder="City">
+								<!-- Form nhập thông tin vận chuyển -->
+								<div class="bor8 bg0 m-b-22">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="fullname" placeholder="Full Name" value="<?php echo $fullName; ?>">
 								</div>
 								
-								<div class="bor8 bg0 m-b-12">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="districtInput" name="district" placeholder="District">
-								</div>
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Address">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Address" value="<?php echo $address; ?>">
 								</div>
 
                             </div>
@@ -171,9 +170,6 @@ include '../php/header.php';
         </div>
     </div>
 	</form>
-
-		
-	
 		
 
 	<!-- Footer -->
