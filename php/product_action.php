@@ -1,97 +1,66 @@
 <?php
-require '../php/connect.php';
+// Kiểm tra xem yêu cầu là từ form chỉnh sửa hay nút xóa
+if(isset($_POST['productID']) && isset($_POST['productName']) && isset($_POST['category'])) {
+    // Kết nối đến cơ sở dữ liệu
+    require 'connect.php';
 
-// Hàm di chuyển file ảnh vào thư mục mong muốn
-function moveImage($source, $destination) {
-    if (move_uploaded_file($source, $destination)) {
-        return true;
-    } else {
-        return false;
-    }
-}
+    // Lấy dữ liệu từ form chỉnh sửa
+    $productID = $_POST['productID'];
+    $productName = $_POST['productName'];
+    $category = $_POST['category'];
 
-// Hàm để kiểm tra xem có thay đổi trong thông tin sản phẩm hay không và di chuyển file ảnh
-function checkChanges($conn, $productID, &$productName, &$category, &$newImage1, &$newImage2, &$newImage3) {
-    $sql = "SELECT name, category, image, image2, image3 FROM products WHERE idProduct=?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $productID);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    // Kiểm tra xem có hình mới được tải lên không
+    if(isset($_FILES['newProductImage']) && $_FILES['newProductImage']['error'] === UPLOAD_ERR_OK) {
+        // Xử lý hình mới
+        $newImage = $_FILES['newProductImage'];
+        $uploadDir = "../interface/images/"; // Thay đổi đường dẫn nếu cần
+        $imageName = uniqid() . "_" . basename($newImage["name"]);
+        $targetFile = $uploadDir . $imageName;
 
-    $oldProductName = $row['name'];
-    $oldCategory = $row['category'];
-    $oldImage1 = $row['image'];
-    $oldImage2 = $row['image2'];
-    $oldImage3 = $row['image3'];
-
-    // Kiểm tra xem có thay đổi trong thông tin sản phẩm hay không
-    if ($productName === $oldProductName && $category === $oldCategory) {
-        // Không có thay đổi, sử dụng các giá trị cũ
-        $productName = $oldProductName;
-        $category = $oldCategory;
-        $newImage1 = isset($_FILES["newProductImage1"]) && $_FILES["newProductImage1"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage1"]["name"]) : $oldImage1;
-        $newImage2 = isset($_FILES["newProductImage2"]) && $_FILES["newProductImage2"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage2"]["name"]) : $oldImage2;
-        $newImage3 = isset($_FILES["newProductImage3"]) && $_FILES["newProductImage3"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage3"]["name"]) : $oldImage3;
-    } else {
-        // Có thay đổi, sử dụng các giá trị mới
-        $newImage1 = isset($_FILES["newProductImage1"]) ? "../interface/images/" . basename($_FILES["newProductImage1"]["name"]) : $oldImage1;
-        $newImage2 = isset($_FILES["newProductImage2"]) ? "../interface/images/" . basename($_FILES["newProductImage2"]["name"]) : $oldImage2;
-        $newImage3 = isset($_FILES["newProductImage3"]) ? "../interface/images/" . basename($_FILES["newProductImage3"]["name"]) : $oldImage3;
-    }
-
-    // Di chuyển file ảnh mới vào thư mục mong muốn
-    moveImage($_FILES["newProductImage1"]["tmp_name"], $newImage1);
-    moveImage($_FILES["newProductImage2"]["tmp_name"], $newImage2);
-    moveImage($_FILES["newProductImage3"]["tmp_name"], $newImage3);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['productID'], $_POST['productName'], $_POST['category'])) {
-        $productID = $_POST['productID'];
-        $productName = $_POST['productName'];
-        $category = $_POST['category'];
-
-        // Kiểm tra các trường bắt buộc
-        if (!empty($productName) && !empty($category)) {
-            // Kiểm tra xem có thay đổi trong thông tin sản phẩm hay không
-            checkChanges($conn, $productID, $productName, $category, $newImage1, $newImage2, $newImage3);
-
-            // Sử dụng câu lệnh chuẩn bị để cập nhật thông tin sản phẩm
-            $sql = "UPDATE products SET name=?, category=?, image=?, image2=?, image3=? WHERE idProduct=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssi", $productName, $category, $newImage1, $newImage2, $newImage3, $productID);
-
-            if ($stmt->execute()) {
-                echo "Thông tin sản phẩm đã được cập nhật thành công.";
+        // Di chuyển hình mới đến thư mục upload
+        if(move_uploaded_file($newImage["tmp_name"], $targetFile)) {
+            // Cập nhật thông tin sản phẩm với hình mới
+            $sql = "UPDATE products SET name='$productName', category='$category', image='$targetFile' WHERE idProduct='$productID'";
+            if($conn->query($sql) === TRUE) {
+                echo "Sản phẩm đã được cập nhật thành công";
+               
             } else {
-                echo "Lỗi khi cập nhật thông tin sản phẩm: " . $stmt->error;
+                echo "Lỗi: " . $sql . "<br>" . $conn->error;
             }
-            $stmt->close();
         } else {
-            echo "Tên sản phẩm và danh mục là bắt buộc.";
+            echo "Có lỗi khi tải lên hình mới";
         }
-    } elseif (isset($_POST['deleteProductID'])) {
-        // Xử lý xóa sản phẩm
-        require '../php/connect.php';
-
-        $productID = $_POST['deleteProductID'];
-
-        // Xóa sản phẩm từ cơ sở dữ liệu
-        $sql = "DELETE FROM products WHERE idProduct=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $productID);
-        if ($stmt->execute()) {
-            echo "Sản phẩm đã được xóa thành công";
-        } else {
-            echo "Lỗi khi xóa sản phẩm: " . $stmt->error;
-        }
-        $stmt->close();
-        $conn->close();
     } else {
-        // Nếu không có dữ liệu từ biểu mẫu, chuyển hướng về trang trước đó hoặc trang chủ
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        exit();
+        // Không có hình mới, chỉ cập nhật thông tin sản phẩm
+        $sql = "UPDATE products SET name='$productName', category='$category' WHERE idProduct='$productID'";
+        if($conn->query($sql) === TRUE) {
+            echo "Sản phẩm đã được cập nhật thành công";
+        } else {
+            echo "Lỗi: " . $sql  . "<br>" . $conn->error;
+        }
     }
+
+    // Đóng kết nối cơ sở dữ liệu
+    $conn->close();
+} elseif(isset($_POST['deleteProductID'])) {
+    // Xử lý xóa sản phẩm
+    require 'connect.php';
+
+    $productID = $_POST['deleteProductID'];
+
+    // Xóa sản phẩm từ cơ sở dữ liệu
+    $sql = "DELETE FROM products WHERE idProduct='$productID'";
+    if($conn->query($sql) === TRUE) {
+        echo "Sản phẩm đã được xóa thành công";
+    } else {
+        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+    }
+
+    // Đóng kết nối cơ sở dữ liệu
+    $conn->close();
+} else {
+    // Nếu không có dữ liệu từ form hoặc nút xóa, chuyển hướng về trang không tồn tại hoặc trang chính
+    header("Location: http://localhost/Gr9-Web/admin/products.php"); // Thay đổi đường dẫn nếu cần
+//    exit();
 }
 ?>
