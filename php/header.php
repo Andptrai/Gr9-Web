@@ -120,10 +120,6 @@ $conn->close();
 								<a href="product.php">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.php">Features</a>
-							</li>
-
 							<li>
 								<a href="blog.html">Blog</a>
 							</li>
@@ -221,10 +217,6 @@ $conn->close();
 
 				<li>
 					<a href="product.php">Shop</a>
-				</li>
-
-				<li>
-					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
 
 				<li>
