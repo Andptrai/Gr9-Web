@@ -1,9 +1,7 @@
 <?php
 include '../php/header.php';
-include '../php/check_session.php';
+
 ?>
-
-
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -146,7 +144,7 @@ include '../php/check_session.php';
 								</div>
 								
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Address" value="<?php echo $address; ?>">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>">
 								</div>
 
                             </div>

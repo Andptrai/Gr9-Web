@@ -276,12 +276,12 @@ include '../php/header.php';
 								<?php echo $product['price']; ?>
 							</span>
 						</div>
-						<div class="block2-txt-child2 flex-r p-t-3">
+						<!-- <div class="block2-txt-child2 flex-r p-t-3">
 							<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 								<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
 								<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
 							</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -579,11 +579,11 @@ include '../php/header.php';
 
 							<!--  -->
 							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
-								<div class="flex-m bor9 p-r-10 m-r-11">
+								<!-- <div class="flex-m bor9 p-r-10 m-r-11">
 									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
 										<i class="zmdi zmdi-favorite"></i>
 									</a>
-								</div>
+								</div> -->
 
 								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
 									<i class="fa fa-facebook"></i>
