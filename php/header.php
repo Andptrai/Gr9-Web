@@ -172,6 +172,10 @@ if (isset($_GET['product_id'])) {
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 						
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
+						<i class="zmdi zmdi-account"></i> <span>Account</span>
+						</div>
+						
 					</div>
 				</nav>
 			</div>	
