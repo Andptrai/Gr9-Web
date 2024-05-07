@@ -35,40 +35,12 @@ include '../php/header.php';
                                 <th class="column-4">Quantity</th>
                                 <th class="column-5">Total</th>
                             </tr>
-							<?php
-								// Mảng để lưu trữ giỏ hàng sau khi gộp các sản phẩm trùng nhau
-								$merged_cart_items = [];
-
-								// Duyệt qua các sản phẩm trong giỏ hàng
-								foreach ($cart_items as $item) {
-									// Biến cờ để kiểm tra xem sản phẩm đã tồn tại trong mảng giỏ hàng mới hay chưa
-									$is_existing_item = false;
-
-									// Duyệt qua các sản phẩm đã gộp trong mảng giỏ hàng mới
-									foreach ($merged_cart_items as &$merged_item) {
-										// Nếu sản phẩm đã tồn tại trong mảng giỏ hàng mới
-										if ($merged_item['product_id'] === $item['product_id']) {
-											// Tăng số lượng sản phẩm
-											$merged_item['quantity'] += 1;
-											// Đặt cờ là sản phẩm đã tồn tại
-											$is_existing_item = true;
-											// Thoát khỏi vòng lặp trong
-											break;
-										}
-									}
-
-									// Nếu sản phẩm chưa tồn tại trong mảng giỏ hàng mới
-									if (!$is_existing_item) {
-										// Thêm sản phẩm vào mảng giỏ hàng mới
-										$merged_cart_items[] = $item;
-									}
-								}
-
-								// Sau khi gộp các sản phẩm trùng nhau, bạn có thể sử dụng mảng $merged_cart_items để hiển thị giỏ hàng trên trang web.
-									
-							?>
+							
                             <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
-							<?php foreach ($merged_cart_items as $item): ?>
+							<?php foreach ($cart_items as $item): ?>
+								<?php
+								$total_item_price = $item['product_price'] * $item['quantity'];
+								?>
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1">
@@ -76,22 +48,24 @@ include '../php/header.php';
 										</div>
 									</td>
 									<td class="column-2"><?php echo $item['product_name']?></td>
-									<td class="column-3">$ <?php echo number_format($item['product_price']) ?></td>
+									<td class="column-3"><?php echo $item['product_price']?></td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 											<!-- Số lượng sản phẩm -->
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $item['quantity'] ?>">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $item['quantity']?>" data-price="<?php echo $item['product_price'] ?>">
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
 									</td>
-									<td class="column-5">$ <?php echo number_format($item['product_price'] * $item['quantity']) ?></td>
+									<td class="column-5">$ <span class="total-item-price"><?php echo number_format($total_item_price,2) ?></span></td>
 								</tr>
-							<?php endforeach; ?>										
+							<?php endforeach; ?>
+
+								
 
 
                         </table>
@@ -124,7 +98,7 @@ include '../php/header.php';
                             <span class="stext-110 cl2">Subtotal:</span>
                         </div>
                         <div class="size-209">
-                            <span class="mtext-110 cl2">$<?php echo number_format($total_cart_price); ?></span>
+							<span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
                         </div>
                     </div>
                     <!-- Thông tin vận chuyển -->
@@ -156,7 +130,7 @@ include '../php/header.php';
                             <span class="mtext-101 cl2">Total:</span>
                         </div>
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2">$<?php echo number_format($total_cart_price); ?></span>
+                            <span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
                         </div>
                     </div>
                     <!-- Nút "Proceed to Checkout" -->
@@ -236,6 +210,7 @@ include '../php/header.php';
 							</a>
 						</li>
 					</ul>
+					
 				</div>
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
@@ -362,9 +337,58 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script>
-		function updateCart(){
-			location.reload();
+	$(document).ready(function(){
+		// Bắt sự kiện khi số lượng sản phẩm thay đổi
+		$('.num-product').on('change', function() {
+			updateTotalPrice($(this));
+		});
+
+		// Bắt sự kiện khi nút cộng trừ được click
+		$('.btn-num-product-down').on('click', function () {
+			var numInput = $(this).next();
+			var numProduct = Number(numInput.val());
+			if (numProduct > 0) {
+				numInput.val(numProduct - 1);
+				updateTotalPrice(numInput);
+			}
+		});
+
+		$('.btn-num-product-up').on('click', function () {
+			var numInput = $(this).prev();
+			numInput.val(Number(numInput.val()) + 1);
+			updateTotalPrice(numInput);
+		});
+
+		// Hàm cập nhật tổng giá của sản phẩm
+		function updateTotalPrice(inputElement) {
+			var pricePerProduct = Number(inputElement.data('price'));
+			var quantity = Number(inputElement.val());
+			var totalItemPrice = quantity * pricePerProduct;
+			// Hiển thị tổng giá mới trong cột column-5 của sản phẩm
+			var row = inputElement.closest('.table_row');
+			row.find('.column-5').text('$ ' + totalItemPrice.toFixed(2));
+			
+			// Gọi hàm tính tổng giá của giỏ hàng khi số lượng sản phẩm thay đổi
+			updateTotalCartPrice();
 		}
+
+		// Hàm tính lại tổng giá của tất cả các sản phẩm trong giỏ hàng
+		function updateTotalCartPrice() {
+			var totalCartPrice = 0;
+			$('.column-5').each(function() {
+				var totalItemPrice = parseFloat($(this).text().replace('$', '').trim());
+				if (!isNaN(totalItemPrice)) {
+					totalCartPrice += totalItemPrice;
+				}
+			});
+			$('.total-cart-price').text('$ ' + totalCartPrice.toFixed(2));
+		}
+
+	});
 	</script>
+
+
+   
+</script>
 </body>
 </html>

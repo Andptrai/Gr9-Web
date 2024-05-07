@@ -33,30 +33,43 @@
     // Thêm một mục vào giỏ hàng
     function addItemToCart($iduser, $idProduct, $quantity) {
         global $conn;
-        
-        // Kiểm tra xem đã có giỏ hàng cho người dùng chưa
+    
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng của người dùng chưa
         $cart_id = getCartIdByUserId($iduser);
-        
-        // Nếu không có giỏ hàng, thêm một giỏ hàng mới
-        if ($cart_id === null) {
-            // Thêm giỏ hàng mới
-            if(!addNewCart($iduser)) {
-                // Nếu thêm giỏ hàng mới không thành công, return false
+        $existing_item_query = "SELECT * FROM cart_items WHERE cart_id = ? AND idProduct = ?";
+        $stmt = mysqli_prepare($conn, $existing_item_query);
+        mysqli_stmt_bind_param($stmt, "ii", $cart_id, $idProduct);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+    
+        // Nếu sản phẩm đã tồn tại trong giỏ hàng
+        if(mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            $existing_quantity = $row['quantity'];
+            $new_quantity = $existing_quantity + $quantity;
+    
+            // Cập nhật số lượng sản phẩm trong giỏ hàng
+            $update_quantity_query = "UPDATE cart_items SET quantity = ? WHERE cart_id = ? AND idProduct = ?";
+            $stmt = mysqli_prepare($conn, $update_quantity_query);
+            mysqli_stmt_bind_param($stmt, "iii", $new_quantity, $cart_id, $idProduct);
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            } else {
                 return false;
             }
-            $cart_id = getCartIdByUserId($iduser);
-        }
-
-        // Thêm một mục vào giỏ hàng
-        $insert_item_query = "INSERT INTO cart_items (cart_id, idProduct, quantity) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $insert_item_query);
-        mysqli_stmt_bind_param($stmt, "iii", $cart_id, $idProduct, $quantity);
-        if(mysqli_stmt_execute($stmt)) {
-            return true;
         } else {
-            return false;
+            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm mới một mục vào giỏ hàng
+            $insert_item_query = "INSERT INTO cart_items (cart_id, idProduct, quantity) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $insert_item_query);
+            mysqli_stmt_bind_param($stmt, "iii", $cart_id, $idProduct, $quantity);
+            if(mysqli_stmt_execute($stmt)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
+    
 
     // Lấy tất cả các mục trong giỏ hàng của một người dùng
     function getAllCartItems($iduser) {
@@ -98,10 +111,15 @@
         $cart_items = getAllCartItems($iduser);
         $total_price = 0;
         foreach ($cart_items as $item) {
-            $total_price += $item['price'] * $item['quantity'];
+            // Lấy giá của sản phẩm và số lượng từ mảng $item
+            $price = $item['product_price'];
+            $quantity = $item['quantity'];
+            // Tính tổng giá trị cho từng sản phẩm và cộng vào tổng giá trị của giỏ hàng
+            $total_price += $price * $quantity;
         }
         return $total_price;
     }
+    
 
     // Xử lý các hành động thêm giỏ hàng và thêm mục vào giỏ hàng từ form hoặc các sự kiện khác ở đây
     if(isset($_SESSION['iduser'])) {

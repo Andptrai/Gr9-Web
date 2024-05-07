@@ -204,6 +204,9 @@ if (isset($_GET['product_id'])) {
 				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " >
+						<i class="zmdi zmdi-account"></i> <span><?php echo $fullName?></span>
+				</div>
 			</div>
 
 			<!-- Button show menu -->
@@ -296,43 +299,8 @@ if (isset($_GET['product_id'])) {
         </div>
 
         <div class="header-cart-content flex-w js-pscroll">
-            <ul class="header-cart-wrapitem w-full">
-                
-			<?php
-								// Mảng để lưu trữ giỏ hàng sau khi gộp các sản phẩm trùng nhau
-								$merged_cart_items = [];
-
-								// Duyệt qua các sản phẩm trong giỏ hàng
-								foreach ($cart_items as $item) {
-									// Biến cờ để kiểm tra xem sản phẩm đã tồn tại trong mảng giỏ hàng mới hay chưa
-									$is_existing_item = false;
-
-									// Duyệt qua các sản phẩm đã gộp trong mảng giỏ hàng mới
-									foreach ($merged_cart_items as &$merged_item) {
-										// Nếu sản phẩm đã tồn tại trong mảng giỏ hàng mới
-										if ($merged_item['product_id'] === $item['product_id']) {
-											// Tăng số lượng sản phẩm
-											$merged_item['quantity'] += 1;
-											// Đặt cờ là sản phẩm đã tồn tại
-											$is_existing_item = true;
-											// Thoát khỏi vòng lặp trong
-											break;
-										}
-									}
-
-									// Nếu sản phẩm chưa tồn tại trong mảng giỏ hàng mới
-									if (!$is_existing_item) {
-										// Thêm sản phẩm vào mảng giỏ hàng mới
-										$merged_cart_items[] = $item;
-									}
-								}
-
-								// Sau khi gộp các sản phẩm trùng nhau, bạn có thể sử dụng mảng $merged_cart_items để hiển thị giỏ hàng trên trang web.
-									
-							?>
-                            <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
-								
-							<?php foreach ($merged_cart_items as $item): ?>
+            <ul class="header-cart-wrapitem w-full">	
+							<?php foreach ($cart_items as $item): ?>
 								<li class="header-cart-item flex-w flex-t m-b-12">
 									<div class="header-cart-item-img">
 										<img src="<?php echo $item['product_img']; ?>" alt="IMG">
@@ -344,7 +312,7 @@ if (isset($_GET['product_id'])) {
 										</a>
 
 										<span class="header-cart-item-info">
-											<?php echo $item['quantity']; ?> x <?php echo $item['price']; ?>
+											<?php echo $item['quantity']; ?> x <?php echo $item['product_price']; ?>
 										</span>
 									</div>
 								</li>
