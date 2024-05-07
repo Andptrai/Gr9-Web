@@ -38,32 +38,35 @@ include '../php/header.php';
 							
                             <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
 							<?php foreach ($cart_items as $item): ?>
-								<?php
-								$total_item_price = $item['product_price'] * $item['quantity'];
-								?>
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="<?php echo $item['product_img']?>" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2"><?php echo $item['product_name']?></td>
-									<td class="column-3"><?php echo $item['product_price']?></td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-											<!-- Số lượng sản phẩm -->
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $item['quantity']?>" data-price="<?php echo $item['product_price'] ?>">
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-									<td class="column-5">$ <span class="total-item-price"><?php echo number_format($total_item_price,2) ?></span></td>
-								</tr>
-							<?php endforeach; ?>
+                                <?php
+                                $total_item_price = $item['product_price'] * $item['quantity'];
+                                ?>
+								
+                                <tr class="table_row">
+								<input type="hidden" name="idProduct[]" value="<?php echo $item['idProduct']; ?>">
+
+                                    <td class="column-1">
+                                        <div class="how-itemcart1">
+                                            <img src="<?php echo $item['product_img']?>" alt="IMG">
+                                        </div>
+                                    </td>
+                                    <td class="column-2"><?php echo $item['product_name']?></td>
+                                    <td class="column-3"><?php echo $item['product_price']?></td>
+                                    <td class="column-4">
+                                        <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-minus"></i>
+                                            </div>
+                                            <!-- Số lượng sản phẩm -->
+                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product[]" value="<?php echo $item['quantity']?>" data-price="<?php echo $item['product_price'] ?>">
+                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="column-5">$ <span class="total-item-price"><?php echo number_format($total_item_price,2) ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
 
 								
 
@@ -98,7 +101,7 @@ include '../php/header.php';
                             <span class="stext-110 cl2">Subtotal:</span>
                         </div>
                         <div class="size-209">
-							<span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
+						<span class="mtext-110 cl2 total-cart-price">$<span id="total-cart-price"><?php echo number_format($total_cart_price, 2); ?></span></span>
                         </div>
                     </div>
                     <!-- Thông tin vận chuyển -->
@@ -130,7 +133,7 @@ include '../php/header.php';
                             <span class="mtext-101 cl2">Total:</span>
                         </div>
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
+						<span class="mtext-110 cl2 total-cart-price">$<span id="total-cart-price"><?php echo number_format($total_cart_price, 2); ?></span></span>
                         </div>
                     </div>
                     <!-- Nút "Proceed to Checkout" -->
@@ -386,7 +389,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 	});
 	</script>
+	<script>
+		// Bắt sự kiện khi người dùng nhấn nút "Update Cart"
+			function updateCart() {
+		var productQuantities = [];
+		$('.num-product').each(function() {
+			var productId = $(this).closest('.table_row').find('input[name="idProduct[]"]').val();
+			var quantity = $(this).val();
+			productQuantities.push({id: productId, quantity: quantity});
+		});
 
+		// Gửi dữ liệu lên server thông qua AJAX
+		$.ajax({
+			type: 'POST',
+			url: '../php/update_cart.php', // Đường dẫn tới file PHP xử lý
+			data: {productQuantities: productQuantities},
+			success: function(response) {
+				// Xử lý phản hồi từ máy chủ nếu cần
+				console.log(response);
+			}
+		});
+	}
+
+
+
+	</script>
 
    
 </script>
