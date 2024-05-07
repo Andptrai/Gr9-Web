@@ -22,7 +22,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $role = $row['role'];
         $iduser= $row['iduser'];
         $fullName= $row['fullName'];
+        $userName= $row['userName'];
+        $email= $row['email'];
         $address = $row['address'];
+        $phoneNumber = $row['phoneNumber'];
         $isLocked = $row['locked']; // Lấy trạng thái khóa của người dùng
         
         // Kiểm tra trạng thái khóa
@@ -33,9 +36,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
         
         $_SESSION['isLoggedIn'] = true;
-        $_SESSION['fullName'] = $fullName;
         $_SESSION['iduser'] = $iduser;
+        $_SESSION['fullName'] = $fullName;
+        $_SESSION['userName'] = $userName;
+        $_SESSION['email'] = $email;
         $_SESSION['address'] = $address;
+        $_SESSION['phoneNumber'] = $phoneNumber;
 
         // Lưu vai trò vào session và chuyển hướng tới trang tương ứng
         $_SESSION['role'] = $role;
