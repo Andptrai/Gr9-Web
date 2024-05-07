@@ -102,7 +102,7 @@ if (isset($_GET['product_id'])) {
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
-<!--===============================================================================================-->
+<!--========================= ======================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
@@ -172,10 +172,13 @@ if (isset($_GET['product_id'])) {
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a> -->
 						
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " >
-							<i class="zmdi zmdi-account"></i> <span><?php echo $fullName?></span>
-						</div>
-						
+						<a href="../interface/profile.php">
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+								<i class="zmdi zmdi-account"></i>
+								<span><?php echo $fullName?></span>
+							</div>
+						</a>
+
 					</div>
 				</nav>
 			</div>	
