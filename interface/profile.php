@@ -74,7 +74,7 @@ session_start();
 // Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
     // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
-    header('Location: login.php');
+    header('Location: login_singup.html');
     exit();
 }
 

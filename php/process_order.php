@@ -1,41 +1,51 @@
 <?php
+// Kết nối đến cơ sở dữ liệu
 include '../php/connect.php';
-include '../php/check_session.php';
+include '../php/addToCart.php';
+
 // Kiểm tra xem liệu dữ liệu đã được gửi từ form hay không
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Lấy thông tin vận chuyển và thanh toán từ form
-    $shipping_address = $_POST['shipping_address'];
-    $payment_method = $_POST['payment_method'];
+    // Lấy thông tin vận chuyển từ form
+    $shipping_address = $_POST['address'];
+    // Lấy user_id từ session
+    $user_id = $_SESSION['iduser']; 
 
-    // Lấy user_id từ session hoặc bất kỳ nguồn dữ liệu nào phù hợp khác
-    $user_id = $_SESSION['iduser']; // Ví dụ, giả sử user_id được lưu trong session
-
-    // Thêm thông tin đơn hàng vào cơ sở dữ liệu
-    $sql = "INSERT INTO orders (user_id, shipping_address, payment_method) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $user_id, $shipping_address, $payment_method);
-    $stmt->execute();
+    // Thêm thông tin đơn hàng vào bảng orders
+    $sql_order = "INSERT INTO orders (user_id, delivery_location) VALUES (?, ?)";
+    $stmt_order = $conn->prepare($sql_order);
+    $stmt_order->bind_param("is", $user_id, $shipping_address);
+    $stmt_order->execute();
 
     // Lấy ID của đơn hàng mới được thêm vào
     $order_id = $conn->insert_id;
 
-    // Tiến hành truy vấn SQL để chuyển đổi giỏ hàng thành đơn hàng
-    $sql = "INSERT INTO order_items (order_id, product_id, quantity) SELECT ?, idProduct, quantity FROM cart_items WHERE cart_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ii", $order_id, $cart_id);
-    $stmt->execute();
+    // Thêm các mục đơn hàng vào bảng order_items
+    $sql_order_item = "INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)";
+    $stmt_order_item = $conn->prepare($sql_order_item);
 
-    // Sau khi chuyển đổi xong, xóa giỏ hàng
-    $sql = "DELETE FROM cart_items WHERE cart_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $cart_id);
-    $stmt->execute();
+    // Lặp qua các sản phẩm trong giỏ hàng và thêm vào đơn hàng
+    foreach ($cart_items as $item) {
+        $product_id = $item['idProduct'];
+        $quantity = $item['quantity'];
+        $unit_price = $item['product_price'];
 
-    // Redirect hoặc hiển thị thông báo thành công
-    header("Location: success.php");
-    exit();
+        $stmt_order_item->bind_param("iiid", $order_id, $product_id, $quantity, $unit_price);
+        $stmt_order_item->execute();
+    }
+
+    // Xóa các mục giỏ hàng của người dùng từ bảng cart_items
+    $sql_delete_cart_items = "DELETE FROM cart_items WHERE cart_id IN (SELECT cart_id FROM carts WHERE iduser = ?)";
+    $stmt_delete_cart_items = $conn->prepare($sql_delete_cart_items);
+    $stmt_delete_cart_items->bind_param("i", $user_id);
+    $stmt_delete_cart_items->execute();
+
+    // Sau khi thêm đơn hàng và các mục đơn hàng, cũng như xóa các mục giỏ hàng, bạn có thể tiếp tục xử lý, chẳng hạn chuyển hướng hoặc hiển thị thông báo thành công.
+
+    // Chẳng hạn:
+    // header("Location: success.php");
+    // exit();
+
+    // Đóng kết nối
+    $conn->close();
 }
-
-// Đóng kết nối
-$conn->close();
 ?>
