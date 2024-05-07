@@ -124,7 +124,7 @@ if (isset($_GET['product_id'])) {
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="" class="logo">
+					<a href="index.php" class="logo">
 						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
@@ -168,12 +168,12 @@ if (isset($_GET['product_id'])) {
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<!-- <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
+						</a> -->
 						
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " >
-						<i class="zmdi zmdi-account"></i> <span><?php echo $fullName?></span>
+							<i class="zmdi zmdi-account"></i> <span><?php echo $fullName?></span>
 						</div>
 						
 					</div>

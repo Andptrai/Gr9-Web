@@ -1,8 +1,7 @@
 <?php
 include '../php/header.php';
+
 ?>
-
-
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -112,26 +111,14 @@ include '../php/header.php';
                             <p class="stext-111 cl6 p-t-2">There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
                             <!-- Form nhập thông tin vận chuyển -->
                             <div class="p-t-15">
-                                
-								<span class="stext-112 cl8">Calculate Shipping</span>
-                                <div class="bor8 bg0 m-b-12">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="nameInput" name="name" placeholder="Name">
-								</div>
-								<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-								<select class="js-select2" id="citySelect" name="city" onchange="checkCity()">
-									<option value="">Select city...</option>
-									<option value="HO_CHI_MINH">HO CHI MINH</option>
-									<option value="HA_NOI">HA NOI</option>
-									<option value="DA_NANG">DA NANG</option>
-									<option value="HAI_PHONG">HAI PHONG</option>
-								</select>
-								<div class="dropDownSelect2"></div>
-								</div>
-								<div class="bor8 bg0 m-b-12">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="districtInput" name="district" placeholder="District">
-								</div>
+                                <span class="stext-112 cl8">Calculate Shipping</span>
+								<!-- Form nhập thông tin vận chuyển -->
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Address">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="fullname" placeholder="Full Name" value="<?php echo $fullName; ?>">
+								</div>
+								
+								<div class="bor8 bg0 m-b-22">
+									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>">
 								</div>
 
                             </div>
@@ -155,9 +142,6 @@ include '../php/header.php';
         </div>
     </div>
 	</form>
-
-		
-	
 		
 
 	<!-- Footer -->
@@ -313,39 +297,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<i class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
-<script>
-	function checkCity() {
-    var citySelect = document.getElementById("citySelect");
-    var districtInput = document.getElementById("districtInput");
-    var selectedCity = citySelect.value;
 
-    if (selectedCity === "") {
-        districtInput.classList.remove("hide");
-        districtInput.setAttribute("placeholder", "District");
-    } else {
-        districtInput.classList.add("hide");
-        switch (selectedCity) {
-            case "HO_CHI_MINH":
-                districtInput.setAttribute("placeholder", "Quận 1");
-                break;
-            case "HA_NOI":
-                districtInput.setAttribute("placeholder", "Quận Hoàn Kiếm");
-                break;
-            case "DA_NANG":
-                districtInput.setAttribute("placeholder", "District in Da Nang");
-                break;
-            case "HAI_PHONG":
-                districtInput.setAttribute("placeholder", "District in Hai Phong");
-                break;
-            default:
-                districtInput.setAttribute("placeholder", "District");
-                districtInput.classList.remove("hide");
-                break;
-        }
-    }
-}
-
-</script>
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

@@ -22,18 +22,20 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $role = $row['role'];
         $iduser= $row['iduser'];
         $fullName= $row['fullName'];
+        $address = $row['address'];
         $isLocked = $row['locked']; // Lấy trạng thái khóa của người dùng
         
         // Kiểm tra trạng thái khóa
         if ($isLocked == 1) {
             // Nếu người dùng bị khóa, chuyển hướng về trang đăng nhập với thông báo
-            echo "đăng nhập đi lon ơi";
+            echo "Your account is locked. Please contact with to explained";
             exit();
         }
         
         $_SESSION['isLoggedIn'] = true;
         $_SESSION['fullName'] = $fullName;
         $_SESSION['iduser'] = $iduser;
+        $_SESSION['address'] = $address;
 
         // Lưu vai trò vào session và chuyển hướng tới trang tương ứng
         $_SESSION['role'] = $role;
