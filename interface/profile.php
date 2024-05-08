@@ -124,17 +124,17 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
 
                         <div class="md-3">
                             <label class="small mb-1" for="email">Email</label>
-                            <input class="form-control" id="email" type="email" type="text" value="<?php echo $email; ?>">
+                            <input class="form-control" id="email"  type="text" value="<?php echo $email; ?>">
                         </div>
 
                         <div class="mb-3">
                             <label class="small mb-1" for="address">Address</label>
-                            <input class="form-control" id="address" type="text" type="text" value="<?php echo $address; ?>">
+                            <input class="form-control" id="address"  type="text" value="<?php echo $address; ?>">
                         </div>
 
                         <div class="mb-3">
                             <label class="small mb-1" for="phoneNumber">Phone number</label>
-                            <input class="form-control" id="phoneNumber" type="tel"  type="text" value="<?php echo $phoneNumber; ?>">
+                            <input class="form-control" id="phoneNumber"   type="text" value="<?php echo $phoneNumber; ?>">
                         </div>
 
                         <button class="btn btn-primary" type="button">Save changes</button>
