@@ -8,13 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Lấy thông tin vận chuyển từ form
     $shipping_address = $_POST['address'];
     $payment_method = $_POST['payment_method'];
+    $fullName = $_POST['fullname'];
+
     // Lấy user_id từ session
     $user_id = $_SESSION['iduser']; 
 
     // Thêm thông tin đơn hàng vào bảng orders
-    $sql_order = "INSERT INTO orders (user_id, delivery_location, payment_method) VALUES (?, ?, ?)";
+    $sql_order = "INSERT INTO orders (user_id, name, delivery_location, payment_method) VALUES (?, ?, ?, ?)";
     $stmt_order = $conn->prepare($sql_order);
-    $stmt_order->bind_param("iss", $user_id, $shipping_address, $payment_method);
+    $stmt_order->bind_param("isss", $user_id, $fullName, $shipping_address, $payment_method);
     $stmt_order->execute();
 
     // Lấy ID của đơn hàng mới được thêm vào
