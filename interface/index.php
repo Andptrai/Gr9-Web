@@ -92,7 +92,7 @@ include '../php/header.php';
 	<div class="sec-banner bg0 p-t-80 p-b-50">
 		<div class="container">
 			<div class="row ">
-				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button  " data-filter=".women">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button  " data-filter=".Women">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w " > 
 						<img src="images/banner-01.jpg" alt="IMG-BANNER">
@@ -117,7 +117,7 @@ include '../php/header.php';
 					</div>
 				</button>
 
-				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".men">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".Men">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
 						<img src="images/banner-02.jpg" alt="IMG-BANNER">
@@ -142,7 +142,7 @@ include '../php/header.php';
 					</div>
 				</button>
 
-				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".watches">
+				<button class="col-md-6 col-xl-4 p-b-30 m-lr-auto filter-button" data-filter=".Watches">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
 						<img src="images/banner-03.jpg" alt="IMG-BANNER">
