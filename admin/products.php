@@ -80,6 +80,14 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label for="productName" class="form-label">Price</label>
+                        <input type="text" class="form-control" id="price" name="price" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Description</label>
+                        <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+                    </div>
+                    <div class="mb-3">
                         <label for="productImage1" class="form-label">Image1</label>
                         <input type="file" class="form-control" id="productImage1" name="productImage1" required>
                     </div>

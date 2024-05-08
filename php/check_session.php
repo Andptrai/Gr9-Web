@@ -10,7 +10,7 @@ if (isset($_SESSION['fullName']) && isset($_SESSION['iduser'])) {
     $isLoggedIn = true; // Set isLoggedIn to true since the user is logged in
 
     // Hiển thị thông báo chào mừng và nút đăng xuất
-    // echo "<a href='../php/logout.php'>Đăng xuất</a>";
+     echo "<a href='../php/logout.php'>Đăng xuất</a>";
 } else {
     // Người dùng chưa đăng nhập, hiển thị nội dung đăng nhập
     // echo "Xin chào, bạn chưa đăng nhập. <a href='../interface/login_singup.html'>Đăng nhập</a>";
