@@ -54,7 +54,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         }
     } else {
         // Đăng nhập không thành công, thông báo lỗi hoặc chuyển hướng về trang đăng nhập với thông báo
-        header('Location: login.php?error=1');
+        header('Location: login_signup.html?error=1');
         exit();
     }
 } else {

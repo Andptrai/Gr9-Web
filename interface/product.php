@@ -2,13 +2,9 @@
 include '../php/header.php';
 ?>
 
-	<section class="bg0 p-t-23 p-b-140">
-		<div class="container">
-			<div class="p-b-10">
-				<h3 class="ltext-103 cl5">
-					Product Overview
-				</h3>
-			</div>
+<div class="bg0 p-t-23 p-b-140">
+	<div class="container">
+			
 
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
@@ -298,7 +294,7 @@ include '../php/header.php';
 				</a>
 			</div>
 		</div>
-	</section>
+</div>
 
 
 	

@@ -156,6 +156,7 @@
                             <label for="editProductName" class="form-label">Product Name</label>
                             <input type="text" class="form-control" id="editProductName" name="productName" required>
                         </div>
+                        
                         <div class="mb-3">
                             <label for="editCategory" class="form-label">Category</label>
                             <select class="form-select" id="editCategory" name="category" required>
@@ -165,6 +166,14 @@
                                 <option value="Shoes">Shoes</option>
                                 <option value="Watches">Watches</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescription" class="form-label">Description</label>
+                            <textarea type="text" class="form-control" id="editDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editProductPrice" class="form-label">Price</label>
+                            <input type="text" class="form-control" id="editProductPrice" name="price" required>
                         </div>
                         <div class="mb-3">
                             <label for="currentProductImage1" class="form-label">Current Image1</label>
@@ -208,8 +217,15 @@
         editButtons.forEach(button => {
             button.addEventListener('click', function(event) {
                 const productId = button.getAttribute('data-productid');
-                const productName = button.parentNode.querySelector('.card-title').textContent;
-                const category = button.parentNode.querySelector('.card-text').textContent.split(':')[1].trim();
+                // Assuming 'button' is inside the card element
+                const card = button.closest('.card');
+
+                // Select different elements within the card for each property
+                const productName = card.querySelector('.product-name').textContent;
+                const description = card.querySelector('.description').textContent;
+                const price = card.querySelector('.price').textContent;
+
+                const category = card.querySelector('.card-text').textContent.split(':')[1].trim();
 
                 // Lấy thông tin sản phẩm từ cơ sở dữ liệu (ví dụ: thông qua AJAX)
                 fetch('../php/get_product_info.php?product_id=' + productId)
@@ -219,6 +235,9 @@
                     document.getElementById('editProductID').value = productId;
                     document.getElementById('editProductName').value = productName;
                     document.getElementById('editCategory').value = category;
+                    document.getElementById('editDescription').value = description;
+                    document.getElementById('editProductPrice').value = price;
+
 
                     // Hiển thị hình ảnh sản phẩm hiện tại từ cơ sở dữ liệu
                     if (data.image) {
@@ -260,9 +279,8 @@
             });
         });
     });
-
-
 </script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -45,7 +45,7 @@ include '../php/header.php';
 									<div class="wrap-pic-w pos-relative">
 										<img src="<?php echo $productInfo['image2']; ?>" alt="IMG-PRODUCT">
 
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo $productInfo['image']; ?>">
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php echo $productInfo['image2']; ?>">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
