@@ -118,7 +118,6 @@ if (isset($_GET['product_id'])) {
 		 <!-- Header desktop  -->
 		<div class="container-menu-desktop">
 			 <!-- Topbar  -->
-			
 
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
@@ -167,12 +166,8 @@ if (isset($_GET['product_id'])) {
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-						<!-- <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a> -->
 						
-						<a href=".php">
+						<a href="">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
 								<i class="zmdi zmdi-account"></i>
 								<span><?php echo $fullName?></span>
