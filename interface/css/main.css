@@ -244,7 +244,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   line-height: 1.8;
 
   height: 100%;
-  color: black !important;
+  color: white ; 
   border-right: 1px solid rgba(255,255,255,0.3);
 }
 

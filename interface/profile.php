@@ -44,34 +44,35 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
                 <div class="card-body">
                     
                
-                    <form action="../php/process_signin.php" method="post">
-                        <div class="mb-3">
-                            <label class="small mb-1" for="fullName">Full Name</label>
-                            <input class="form-control" id="fullName" type="text" value="<?php echo $fullName; ?>">
-                        </div>
+				<form action="../php/process_signin.php" method="post">
+					<div class="mb-3">
+						<label class="small mb-1" for="fullName">Full Name</label>
+						<input class="form-control" id="fullName" name="fullName" type="text" value="<?php echo $fullName; ?>">
+					</div>
 
-                        <div class="md-3">
-                            <label class="small mb-1" for="userName">User name</label>
-                                <input class="form-control" id="userName" type="text" value="<?php echo $userName; ?>">
-                        </div>
+					<div class="mb-3">
+						<label class="small mb-1" for="userName">User name</label>
+						<input class="form-control" id="userName" name="userName" type="text" value="<?php echo $userName; ?>">
+					</div>
 
-                        <div class="md-3">
-                            <label class="small mb-1" for="email">Email</label>
-                            <input class="form-control" id="email"  type="text" value="<?php echo $email; ?>">
-                        </div>
+					<div class="mb-3">
+						<label class="small mb-1" for="email">Email</label>
+						<input class="form-control" id="email" name="email" type="text" value="<?php echo $email; ?>">
+					</div>
 
-                        <div class="mb-3">
-                            <label class="small mb-1" for="address">Address</label>
-                            <input class="form-control" id="address"  type="text" value="<?php echo $address; ?>">
-                        </div>
+					<div class="mb-3">
+						<label class="small mb-1" for="address">Address</label>
+						<input class="form-control" id="address" name="address" type="text" value="<?php echo $address; ?>">
+					</div>
 
-                        <div class="mb-3">
-                            <label class="small mb-1" for="phoneNumber">Phone number</label>
-                            <input class="form-control" id="phoneNumber"   type="text" value="<?php echo $phoneNumber; ?>">
-                        </div>
+					<div class="mb-3">
+						<label class="small mb-1" for="phoneNumber">Phone number</label>
+						<input class="form-control" id="phoneNumber" name="phoneNumber" type="text" value="<?php echo $phoneNumber; ?>">
+					</div>
 
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                    </form>
+					<button class="btn btn-primary" type="submit">Save changes</button>
+				</form>
+
                 </div>
             </div>
         </div>
@@ -80,59 +81,7 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
 <!-- Order History Section -->
         <div class="card mb-4">
             <div class="card-header">Order History</div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Order Number</th>
-                                <th>Customer</th>
-                                <th>Delivery Location</th>
-                                <th>Order Date</th>
-                                <th>Payment Method</th>
-                                <th>Order Status</th>
-                                <th>More Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-						<?php
-							include_once "../php/connect.php";
-							$sql = "SELECT * FROM orders WHERE user_id = ?";
-							$stmt = $conn->prepare($sql);
-							$stmt->bind_param("i", $iduser);
-							$stmt->execute();
-							$result = $stmt->get_result();
-
-
-							if ($result->num_rows > 0) {
-								while ($row = $result->fetch_assoc()) {
-									?>
-									<tr>
-										<td><?= $row["order_id"] ?></td>
-										<td><?= $row["name"] ?></td>
-										<td><?= $row["delivery_location"] ?></td>
-										<td><?= $row["order_date"] ?></td>
-										<td><?= $row["payment_method"] ?></td>
-										<td>
-											<?php if ($row["order_status"] == 0) { ?>
-												<button id="btn<?= $row['order_id'] ?>" class="btn btn-danger" onclick="ChangeOrderStatus('<?= $row['order_id'] ?>')">Pending</button>
-											<?php } else { ?>
-												<button id="btn<?= $row['order_id'] ?>" class="btn btn-success" onclick="ChangeOrderStatus('<?= $row['order_id'] ?>')">Delivered</button>
-											<?php } ?>
-										</td>
-										<td><a class="btn btn-primary openPopup" data-orderid="<?= $row['order_id'] ?>" href="javascript:void(0);">View</a></td>
-									</tr>
-									<?php
-								}
-							} else {
-								echo "<tr><td colspan='7'>No orders found.</td></tr>";
-							}
-						?>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
 <footer class="bg3 p-t-75 p-b-32">
