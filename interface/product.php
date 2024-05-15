@@ -343,33 +343,32 @@ include '../php/header.php';
 										</div>				
 									</a>	
 								<?php endfor; ?>
-
-								<!-- Hiển thị phân trang -->
-								
-
+							
 						</div>
 						
 					</div>
-					<div class="col-md-6">
-                <!-- Hiển thị phân trang -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <?php if ($currentPage > 1): ?>
-                            <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage - 1); ?>">&lsaquo;</a></li>
-                        <?php endif; ?>
-                        
-                        <?php for ($page = 1; $page <= $totalPages; $page++): ?>
-                            <li class="page-item <?php if ($page == $currentPage) echo 'active'; ?>"><a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
-                        <?php endfor; ?>
+					<div class="row justify-content-center text-center">
+            			<div class="col-md-12"> <!-- Sử dụng col-md-12 để chiếm toàn bộ chiều rộng của dòng -->
+							<!-- Hiển thị phân trang -->
+							<nav aria-label="Page navigation">
+								<ul class="pagination">
+									<?php if ($currentPage > 1): ?>
+										<li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage - 1); ?>">&lsaquo;</a></li>
+									<?php endif; ?>
+									
+									<?php for ($page = 1; $page <= $totalPages; $page++): ?>
+										<li class="page-item <?php if ($page == $currentPage) echo 'active'; ?>"><a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
+									<?php endfor; ?>
 
-                        <?php if ($currentPage < $totalPages): ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage + 1); ?>">&rsaquo;</a></li>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $totalPages; ?>">&raquo;</a></li>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
-            </div>
+									<?php if ($currentPage < $totalPages): ?>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage + 1); ?>">&rsaquo;</a></li>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo $totalPages; ?>">&raquo;</a></li>
+									<?php endif; ?>
+								</ul>
+							</nav>
+						</div>
+					</div>
 			</div>
 </div>
 
