@@ -78,14 +78,15 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
     </div>
 </div>
 <!-- Order History Section -->
-<div class="card mb-4">
-        <div class="card-header">Order History</div>
+        <div class="card mb-4">
+            <div class="card-header">Order History</div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Order Number</th>
+                                <th>Customer</th>
                                 <th>Delivery Location</th>
                                 <th>Order Date</th>
                                 <th>Payment Method</th>
@@ -94,36 +95,45 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $sql = "SELECT * FROM orders WHERE user_id = ?";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->bind_param("i", $userId);
-                            $stmt->execute();
-                            $result = $stmt->get_result();
+						<?php
+							include_once "../php/connect.php";
+							$sql = "SELECT * FROM orders WHERE user_id = ?";
+							$stmt = $conn->prepare($sql);
+							$stmt->bind_param("i", $iduser);
+							$stmt->execute();
+							$result = $stmt->get_result();
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <td><?= $row["order_id"] ?></td>
-                                        <td><?= $row["name"] ?></td>
-                                        <td><?= $row["delivery_location"] ?></td>
-                                        <td><?= $row["order_date"] ?></td>
-                                        <td><?= $row["payment_method"] ?></td>
-                                        
-                                        <td><a class="btn btn-primary openPopup" data-orderid="<?= $row['order_id'] ?>" href="javascript:void(0);">View</a></td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                echo "<tr><td colspan='7'>No orders found.</td></tr>";
-                            }
-                            ?>
+
+							if ($result->num_rows > 0) {
+								while ($row = $result->fetch_assoc()) {
+									?>
+									<tr>
+										<td><?= $row["order_id"] ?></td>
+										<td><?= $row["name"] ?></td>
+										<td><?= $row["delivery_location"] ?></td>
+										<td><?= $row["order_date"] ?></td>
+										<td><?= $row["payment_method"] ?></td>
+										<td>
+											<?php if ($row["order_status"] == 0) { ?>
+												<button id="btn<?= $row['order_id'] ?>" class="btn btn-danger" onclick="ChangeOrderStatus('<?= $row['order_id'] ?>')">Pending</button>
+											<?php } else { ?>
+												<button id="btn<?= $row['order_id'] ?>" class="btn btn-success" onclick="ChangeOrderStatus('<?= $row['order_id'] ?>')">Delivered</button>
+											<?php } ?>
+										</td>
+										<td><a class="btn btn-primary openPopup" data-orderid="<?= $row['order_id'] ?>" href="javascript:void(0);">View</a></td>
+									</tr>
+									<?php
+								}
+							} else {
+								echo "<tr><td colspan='7'>No orders found.</td></tr>";
+							}
+						?>
+
                         </tbody>
                     </table>
                 </div>
             </div>
-        
+        </div>
     </div>
 <footer class="bg3 p-t-75 p-b-32">
 		<div class="container">
@@ -278,7 +288,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 
 	<!-- Modal1 -->
-	
+	<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Order Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body" id="orderDetailsContent">
+                <!-- Content loaded via AJAX will be placed here -->
+            </div>
+        </div>
+    </div>
+</div>	
 
 
 <!-- search -->
@@ -488,6 +511,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         });
     });
 });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('.openPopup').on('click', function () {
+            var orderID = $(this).data('orderid');
+            $.ajax({
+				url: '../admin/order_details.php',
+                type: 'GET',
+                data: {order_id: orderID},
+                success: function (response) {
+                    $('#orderDetailsContent').html(response);
+                    $('#viewModal').modal('show');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('An error occurred while fetching order details.');
+                }
+            });
+        });
+    });
+
+    
 
 </script>
 

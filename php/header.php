@@ -1,7 +1,7 @@
 
 <?php 
   error_reporting(0);
-  include '../php/check_session.php';
+include '../php/check_session.php';
 
 include '../php/addToCart.php';
 ?>
