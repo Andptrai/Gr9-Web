@@ -120,16 +120,12 @@ if (isset($_GET['product_id'])) {
 	<header>
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
-<<<<<<< HEAD
-			 <!-- Topbar  -->
-=======
 			<!-- Topbar -->
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
 						Free shipping for standard order over $100
 					</div>
->>>>>>> 4de17fabd29f1a90a96c21152faac00c2f043eb5
 
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
@@ -198,16 +194,6 @@ if (isset($_GET['product_id'])) {
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-<<<<<<< HEAD
-						
-						<a href="">
-							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-								<i class="zmdi zmdi-account"></i>
-								<span><?php echo $fullName?></span>
-							</div>
-						</a>
-
-=======
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
 							<i class="zmdi zmdi-account"></i>
 						</div>
@@ -216,7 +202,6 @@ if (isset($_GET['product_id'])) {
 						<?php else: ?>
 							<button onclick="window.location.href='../interface/login_singup.html'">Đăng nhập</button>
 						<?php endif; ?>					
->>>>>>> 4de17fabd29f1a90a96c21152faac00c2f043eb5
 					</div>
 				</nav>
 			</div>	
