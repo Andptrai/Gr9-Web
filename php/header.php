@@ -1,5 +1,6 @@
 <?php 
 error_reporting(0);
+include '../php/check_session.php';
 include '../php/addToCart.php';
 ?>
 <?php
@@ -167,11 +168,7 @@ if (isset($_GET['product_id'])) {
 							<li>
 								<a href="product.php">Shop</a>
 							</li>
-
-							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.php">Features</a>
-							</li>
-
+							
 							<li>
 								<a href="blog.php">Blog</a>
 							</li>
@@ -187,17 +184,17 @@ if (isset($_GET['product_id'])) {
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+					<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
-
-
-						
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
+							<i class="zmdi zmdi-account"></i>
+						</div>
 					</div>
 				</nav>
 			</div>	
@@ -219,9 +216,9 @@ if (isset($_GET['product_id'])) {
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-
-
-				
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
+					<i class="zmdi zmdi-account"></i>
+				</div>
 			</div>
 
 			<!-- Button show menu -->

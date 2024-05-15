@@ -211,74 +211,69 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Xử lý sự kiện khi nút chỉnh sửa được nhấn
-        const editButtons = document.querySelectorAll('.edit-product');
-        editButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                const productId = button.getAttribute('data-productid');
-                // Assuming 'button' is inside the card element
-                const card = button.closest('.card');
+   document.addEventListener('DOMContentLoaded', function() {
+    // Xử lý sự kiện khi nút chỉnh sửa được nhấn
+    const editButtons = document.querySelectorAll('.edit-product');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const productId = button.getAttribute('data-productid');
+            // Assuming 'button' is inside the card element
+            const productName = button.parentNode.querySelector('.card-title').textContent;
+            const category = button.parentNode.querySelector('.card-text').textContent.split(':')[1].trim();
 
-                // Select different elements within the card for each property
-                const productName = card.querySelector('.product-name').textContent;
-                const description = card.querySelector('.description').textContent;
-                const price = card.querySelector('.price').textContent;
-
-                const category = card.querySelector('.card-text').textContent.split(':')[1].trim();
-
-                // Lấy thông tin sản phẩm từ cơ sở dữ liệu (ví dụ: thông qua AJAX)
-                fetch('../php/get_product_info.php?product_id=' + productId)
-                .then(response => response.json())
-                .then(data => {
-                    // Điền thông tin sản phẩm vào form chỉnh sửa
-                    document.getElementById('editProductID').value = productId;
-                    document.getElementById('editProductName').value = productName;
-                    document.getElementById('editCategory').value = category;
-                    document.getElementById('editDescription').value = description;
-                    document.getElementById('editProductPrice').value = price;
+            // Lấy thông tin sản phẩm từ cơ sở dữ liệu (ví dụ: thông qua AJAX)
+            fetch('../php/get_product_info.php?product_id=' + productId)
+            .then(response => response.json())
+            .then(data => {
+                // Điền thông tin sản phẩm vào form chỉnh sửa
+                document.getElementById('editProductID').value = productId;
+                document.getElementById('editProductName').value = productName;
+                document.getElementById('editCategory').value = category;
+                document.getElementById('editDescription').value = data.description; // Điền mô tả vào trường mô tả
+                document.getElementById('editProductPrice').value = data.price; // Điền giá vào trường giá
 
 
-                    // Hiển thị hình ảnh sản phẩm hiện tại từ cơ sở dữ liệu
-                    if (data.image) {
-                        document.getElementById('currentProductImage1').src = data.image;
-                    }
-                    if (data.image2) {
-                        document.getElementById('currentProductImage2').src = data.image2;
-                    }
-                    if (data.image3) {
-                        document.getElementById('currentProductImage3').src = data.image3;
-                    }
-                    
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
-
-        // Xử lý sự kiện khi nút xóa được nhấn
-        const deleteButtons = document.querySelectorAll('.delete-product');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                const productId = button.getAttribute('data-productid');
-                if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
-                    // Gửi yêu cầu xóa sản phẩm đến product_action.php bằng phương thức POST
-                    const formData = new FormData();
-                    formData.append('deleteProductID', productId);
-
-                    fetch('../php/product_action.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data); // Hiển thị thông báo từ product_action.php
-                        location.reload(); // Tải lại trang sau khi xóa sản phẩm
-                    })
-                    .catch(error => console.error('Error:', error));
+                // Hiển thị hình ảnh sản phẩm hiện tại từ cơ sở dữ liệu
+                if (data.image) {
+                    document.getElementById('currentProductImage1').src = data.image;
                 }
-            });
+                if (data.image2) {
+                    document.getElementById('currentProductImage2').src = data.image2;
+                }
+                if (data.image3) {
+                    document.getElementById('currentProductImage3').src = data.image3;
+                }
+                
+            })
+            .catch(error => console.error('Error:', error));
         });
     });
+
+    // Xử lý sự kiện khi nút xóa được nhấn
+    const deleteButtons = document.querySelectorAll('.delete-product');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const productId = button.getAttribute('data-productid');
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) {
+                // Gửi yêu cầu xóa sản phẩm đến product_action.php bằng phương thức POST
+                const formData = new FormData();
+                formData.append('deleteProductID', productId);
+
+                fetch('../php/product_action.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    alert(data); // Hiển thị thông báo từ product_action.php
+                    location.reload(); // Tải lại trang sau khi xóa sản phẩm
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
+    });
+});
+
 </script>
 
 

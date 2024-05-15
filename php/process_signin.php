@@ -27,7 +27,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $address = $row['address'];
         $phoneNumber = $row['phoneNumber'];
         $isLocked = $row['locked']; // Lấy trạng thái khóa của người dùng
-        
+        $Password = $row['Password'];
         // Kiểm tra trạng thái khóa
         if ($isLocked == 1) {
             // Nếu người dùng bị khóa, chuyển hướng về trang đăng nhập với thông báo
@@ -42,6 +42,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $_SESSION['email'] = $email;
         $_SESSION['address'] = $address;
         $_SESSION['phoneNumber'] = $phoneNumber;
+        $_SESSION['Password'] = $Password;
 
         // Lưu vai trò vào session và chuyển hướng tới trang tương ứng
         $_SESSION['role'] = $role;
