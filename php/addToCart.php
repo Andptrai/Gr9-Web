@@ -1,6 +1,7 @@
     <?php
     include '../php/connect.php'; // Kết nối đến cơ sở dữ liệu
 
+    include '../php/check_session.php';
     // Thêm giỏ hàng mới cho người dùng hiện tại
     function addNewCart($iduser) {
         global $conn;
