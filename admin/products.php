@@ -276,6 +276,18 @@
 
 </script>
 
+<script>
+    // Xử lý sự kiện khi nút tìm kiếm được nhấn
+    document.getElementById('btnNavbarSearch').addEventListener('click', function() {
+        const searchQuery = document.getElementById('navbarSearch').value.trim();
+        fetch('search.php?search=' + encodeURIComponent(searchQuery))
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('productList').innerHTML = data; // Thay thế nội dung danh sách sản phẩm với kết quả tìm kiếm
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
