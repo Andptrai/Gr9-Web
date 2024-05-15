@@ -213,11 +213,11 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .header-v3 .container-menu-desktop {
-  height: auto;
+  height: 84px;
 }
 
 .header-v4 .container-menu-desktop {
-  height: 124px;
+  height: 84px;
 }
 
 
@@ -270,12 +270,19 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 [ Menu ]*/
 
 .wrap-menu-desktop {
-  position: fixed;
+  position: relative;
   z-index: 1100;
+<<<<<<< HEAD
   background-color: black;
   color: #ffff;
   width: 100%;
   top:0;
+=======
+  background-color: white;
+  width: 100%;
+  height: 84px;
+  /* top: 40px; */
+>>>>>>> 4de17fabd29f1a90a96c21152faac00c2f043eb5
   left: 0px; 
 
 }
@@ -611,7 +618,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 [ Fixed menu desktop ]*/
 
 .fix-menu-desktop .wrap-menu-desktop {
-  height: 70px;
+  height: 30px;
   background-color: rgba(255,255,255,1);
   box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);
   -moz-box-shadow: 0 0px 3px 0px rgba(0,0,0,0.2);

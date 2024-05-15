@@ -3,11 +3,13 @@ require '../php/connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Kiểm tra xem tất cả các trường đã được gửi và không rỗng
-    if (isset($_POST['productName'], $_POST['category'], $_FILES['productImage1'], $_FILES['productImage2'], $_FILES['productImage3']) &&
+    if (isset($_POST['productName'], $_POST['category'],$_POST['price'],$_POST['description'], $_FILES['productImage1'], $_FILES['productImage2'], $_FILES['productImage3']) &&
         !empty($_POST['productName']) && !empty($_POST['category'])) {
 
         $productName = $_POST['productName'];
         $category = $_POST['category'];
+        $price = $_POST['price'];
+        $description=$_POST['description'];
 
         $allowed_types = array('jpg', 'jpeg', 'png', 'gif');
         $upload_directory = "C:/xampp/htdocs/Gr9-Web/interface/images/";
@@ -41,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Thêm dữ liệu vào cơ sở dữ liệu với các đường dẫn hình ảnh, sử dụng prepared statement
-        $stmt = $conn->prepare("INSERT INTO products (`name`, `category`, `image`, `image2`, `image3`) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $productName, $category, $image_paths[0], $image_paths[1], $image_paths[2]);
+        $stmt = $conn->prepare("INSERT INTO products (`name`, `category`,`price`,`description`, `image`, `image2`, `image3`) VALUES (?, ?, ? , ?, ?, ?, ?)");
+        $stmt->bind_param("sssssss", $productName, $category, $price, $description, $image_paths[0], $image_paths[1], $image_paths[2]);
 
         if ($stmt->execute()) {
             echo "New record created successfully";

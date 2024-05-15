@@ -5,8 +5,8 @@ function moveImage($source, $destination) {
     return move_uploaded_file($source, $destination);
 }
 
-function checkChanges($conn, $productID, &$productName, &$category, &$newImage1, &$newImage2, &$newImage3) {
-    $sql = "SELECT name, category, image, image2, image3 FROM products WHERE idProduct=?";
+function checkChanges($conn, $productID, &$productName, &$category, &$description, &$price, &$newImage1, &$newImage2, &$newImage3) {
+    $sql = "SELECT name, category, description, price, image, image2, image3 FROM products WHERE idProduct=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $productID);
     $stmt->execute();
@@ -15,10 +15,14 @@ function checkChanges($conn, $productID, &$productName, &$category, &$newImage1,
 
     $oldProductName = $row['name'];
     $oldCategory = $row['category'];
+    $oldDescription = $row['description'];
+    $oldPrice = $row['price'];
     $oldImage1 = $row['image'];
     $oldImage2 = $row['image2'];
     $oldImage3 = $row['image3'];
 
+    $newDescription = isset($_POST["description"]) ? $_POST["description"] : $oldDescription;
+    $newPrice = isset($_POST["price"]) ? $_POST["price"] : $oldPrice;
     $newImage1 = isset($_FILES["newProductImage1"]) && $_FILES["newProductImage1"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage1"]["name"]) : $oldImage1;
     $newImage2 = isset($_FILES["newProductImage2"]) && $_FILES["newProductImage2"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage2"]["name"]) : $oldImage2;
     $newImage3 = isset($_FILES["newProductImage3"]) && $_FILES["newProductImage3"]["size"] > 0 ? "../interface/images/" . basename($_FILES["newProductImage3"]["name"]) : $oldImage3;
@@ -35,22 +39,26 @@ function checkChanges($conn, $productID, &$productName, &$category, &$newImage1,
     moveImage($_FILES["newProductImage1"]["tmp_name"], $newImage1);
     moveImage($_FILES["newProductImage2"]["tmp_name"], $newImage2);
     moveImage($_FILES["newProductImage3"]["tmp_name"], $newImage3);
+
+    $description = $newDescription;
+    $price = $newPrice;
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['productID'], $_POST['productName'], $_POST['category'])) {
+    if (isset($_POST['productID'], $_POST['productName'], $_POST['category'], $_POST['description'], $_POST['price'])) {
         $productID = $_POST['productID'];
         $productName = $_POST['productName'];
         $category = $_POST['category'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
 
         if (!empty($productName) && !empty($category)) {
-            $newImage1 = $newImage2 = $newImage3 = "";
-            checkChanges($conn, $productID, $productName, $category, $newImage1, $newImage2, $newImage3);
+            $newDescription = $newPrice = $newImage1 = $newImage2 = $newImage3 = "";
+            checkChanges($conn, $productID, $productName, $category, $description, $price, $newImage1, $newImage2, $newImage3);
 
-            $sql = "UPDATE products SET name=?, category=?, image=?, image2=?, image3=? WHERE idProduct=?";
+            $sql = "UPDATE products SET name=?, category=?, description=?, price=?, image=?, image2=?, image3=? WHERE idProduct=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssssi", $productName, $category, $newImage1, $newImage2, $newImage3, $productID);
+            $stmt->bind_param("sssssssi", $productName, $category, $description, $price, $newImage1, $newImage2, $newImage3, $productID);
 
             if ($stmt->execute()) {
                 echo "Thông tin sản phẩm đã được cập nhật thành công.";

@@ -38,32 +38,35 @@ include '../php/header.php';
 							
                             <!-- Lặp qua các mục trong giỏ hàng và hiển thị thông tin -->
 							<?php foreach ($cart_items as $item): ?>
-								<?php
-								$total_item_price = $item['product_price'] * $item['quantity'];
-								?>
-								<tr class="table_row">
-									<td class="column-1">
-										<div class="how-itemcart1">
-											<img src="<?php echo $item['product_img']?>" alt="IMG">
-										</div>
-									</td>
-									<td class="column-2"><?php echo $item['product_name']?></td>
-									<td class="column-3"><?php echo $item['product_price']?></td>
-									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
-											</div>
-											<!-- Số lượng sản phẩm -->
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $item['quantity']?>" data-price="<?php echo $item['product_price'] ?>">
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
-											</div>
-										</div>
-									</td>
-									<td class="column-5">$ <span class="total-item-price"><?php echo number_format($total_item_price,2) ?></span></td>
-								</tr>
-							<?php endforeach; ?>
+                                <?php
+                                $total_item_price = $item['product_price'] * $item['quantity'];
+                                ?>
+								
+                                <tr class="table_row">
+								<input type="hidden" name="idProduct[]" value="<?php echo $item['idProduct']; ?>">
+
+                                    <td class="column-1">
+                                        <div class="how-itemcart1">
+                                            <img src="<?php echo $item['product_img']?>" alt="IMG">
+                                        </div>
+                                    </td>
+                                    <td class="column-2"><?php echo $item['product_name']?></td>
+                                    <td class="column-3"><?php echo $item['product_price']?></td>
+                                    <td class="column-4">
+                                        <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                            <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-minus"></i>
+                                            </div>
+                                            <!-- Số lượng sản phẩm -->
+                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product[]" value="<?php echo $item['quantity']?>" data-price="<?php echo $item['product_price'] ?>">
+                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                <i class="fs-16 zmdi zmdi-plus"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="column-5">$ <span class="total-item-price"><?php echo number_format($total_item_price,2) ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
 
 								
 
@@ -87,58 +90,73 @@ include '../php/header.php';
             </div>
 
             <!-- Tổng tiền và thông tin vận chuyển -->
-            <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                    <h4 class="mtext-109 cl2 p-b-30">
-                        Cart Totals
-                    </h4>
-                    <!-- Tổng tiền -->
-                    <div class="flex-w flex-t bor12 p-b-13">
-                        <div class="size-208">
-                            <span class="stext-110 cl2">Subtotal:</span>
-                        </div>
-                        <div class="size-209">
-							<span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
-                        </div>
-                    </div>
-                    <!-- Thông tin vận chuyển -->
-					
-                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                        <div class="size-208 w-full-ssm">
-                            <span class="stext-110 cl2">Shipping:</span>
-                        </div>
-                        <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                            <p class="stext-111 cl6 p-t-2">There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
-                            <!-- Form nhập thông tin vận chuyển -->
-                            <div class="p-t-15">
-                                <span class="stext-112 cl8">Calculate Shipping</span>
+			<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+				<div class="bor10 p-lr-40 p-t-30 p-b-40 m-lr-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+					<h4 class="mtext-109 cl2 p-b-30">
+						Cart Totals
+					</h4>
+					<!-- Tổng tiền -->
+					<div class="flex-w flex-t bor12 p-b-13">
+						<div class="size-208">
+							<span class="stext-110 cl2">Subtotal:</span>
+						</div>
+						<div class="size-209">
+							<span class="mtext-110 cl2 total-cart-price">$<span id="total-cart-price"><?php echo number_format($total_cart_price, 2); ?></span></span>
+						</div>
+					</div>
+					<!-- Thông tin vận chuyển -->
+					<div class="flex-w flex-t bor12 p-t-15 p-b-30">
+						<div class="size-208 w-full-ssm">
+							<span class="stext-110 cl2">Shipping:</span>
+						</div>
+						<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+							<!-- Form nhập thông tin vận chuyển và phương thức thanh toán -->
+							<div class="p-t-15">
+								<span class="stext-112 cl8">Calculate Shipping</span>
 								<!-- Form nhập thông tin vận chuyển -->
 								<div class="bor8 bg0 m-b-22">
 									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="fullname" placeholder="Full Name" value="<?php echo $fullName; ?>">
 								</div>
-								
 								<div class="bor8 bg0 m-b-22">
-									<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Address" value="<?php echo $address; ?>">
+									<textarea class="stext-111 cl8 plh3 size-111 p-lr-15" name="address" placeholder="Address"><?php echo $address; ?></textarea>
 								</div>
+							</div>
+							<!-- Kết thúc form nhập thông tin vận chuyển và phương thức thanh toán -->
+						</div>
+						<div class="size-208 w-full-ssm">
+							<span class="stext-110 cl2">Method Payment</span>
+						</div>
+						<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+							<div class="p-t-15">
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-secondary active">
+										<input type="radio" name="payment_method" id="option1" autocomplete="off" value="cash" checked> Cash
+									</label>
+									<label class="btn btn-secondary">
+										<input type="radio" name="payment_method" id="option2" autocomplete="off" value="bank_transfer"> Bank Transfer
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Kết thúc thông tin vận chuyển -->
 
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Tổng tiền -->
-                    <div class="flex-w flex-t p-t-27 p-b-33">
-                        <div class="size-208">
-                            <span class="mtext-101 cl2">Total:</span>
-                        </div>
-                        <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2 total-cart-price">$<?php echo number_format($total_cart_price); ?></span>
-                        </div>
-                    </div>
-                    <!-- Nút "Proceed to Checkout" -->
-                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
-                        Proceed to Checkout
-                    </button>
-                </div>
-            </div>
+					<!-- Tổng tiền -->
+					<div class="flex-w flex-t p-t-27 p-b-33">
+						<div class="size-208">
+							<span class="mtext-101 cl2">Total:</span>
+						</div>
+						<div class="size-209 p-t-1">
+							<span class="mtext-110 cl2 total-cart-price">$<span id="total-cart-price"><?php echo number_format($total_cart_price, 2); ?></span></span>
+						</div>
+					</div>
+					<!-- Nút "Proceed to Checkout" -->
+					<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" type="submit">
+						Proceed to Checkout
+					</button>
+				</div>
+			</div>
+
         </div>
     </div>
 	</form>
@@ -386,7 +404,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 	});
 	</script>
+	<script>
+		// Bắt sự kiện khi người dùng nhấn nút "Update Cart"
+			function updateCart() {
+		var productQuantities = [];
+		$('.num-product').each(function() {
+			var productId = $(this).closest('.table_row').find('input[name="idProduct[]"]').val();
+			var quantity = $(this).val();
+			productQuantities.push({id: productId, quantity: quantity});
+		});
 
+		// Gửi dữ liệu lên server thông qua AJAX
+		$.ajax({
+			type: 'POST',
+			url: '../php/update_cart.php', // Đường dẫn tới file PHP xử lý
+			data: {productQuantities: productQuantities},
+			success: function(response) {
+				// Xử lý phản hồi từ máy chủ nếu cần
+				console.log(response);
+			}
+		});
+	}
+
+
+
+	</script>
 
    
 </script>

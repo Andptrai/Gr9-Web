@@ -1,5 +1,8 @@
+
 <?php 
-error_reporting(0);
+  error_reporting(0);
+include '../php/check_session.php';
+
 include '../php/addToCart.php';
 ?>
 <?php
@@ -77,7 +80,7 @@ if (isset($_GET['product_id'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Product Detail</title>
+	<title>Home</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -114,12 +117,41 @@ if (isset($_GET['product_id'])) {
 <body class="animsition">
 	
 	<!-- Header -->
-	<header class="header-v4">
-		 <!-- Header desktop  -->
+	<header>
+		<!-- Header desktop -->
 		<div class="container-menu-desktop">
+<<<<<<< HEAD
 			 <!-- Topbar  -->
+=======
+			<!-- Topbar -->
+			<div class="top-bar">
+				<div class="content-topbar flex-sb-m h-full container">
+					<div class="left-top-bar">
+						Free shipping for standard order over $100
+					</div>
+>>>>>>> 4de17fabd29f1a90a96c21152faac00c2f043eb5
 
-			<div class="wrap-menu-desktop how-shadow1">
+					<div class="right-top-bar flex-w h-full">
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							Help & FAQs
+						</a>
+
+						<a href="profile.php" class="flex-c-m trans-04 p-lr-25">
+							My Account
+						</a>
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							EN
+						</a>
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25">
+							USD
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
@@ -130,42 +162,43 @@ if (isset($_GET['product_id'])) {
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li>
+							<li class="active-menu">
 								<a href="index.php">Home</a>
 								<ul class="sub-menu">
 									<li><a href="index.php">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
+									<li><a href="home-02.php">Homepage 2</a></li>
+									<li><a href="home-03.php">Homepage 3</a></li>
 								</ul>
 							</li>
 
 							<li>
 								<a href="product.php">Shop</a>
 							</li>
-
+							
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.php">Blog</a>
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="about.php">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.php">Contact</a>
 							</li>
 						</ul>
 					</div>	
 
 					<!-- Icon header -->
-					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+					<div class="wrap-icon-header flex-w flex-r-m m-r-15">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
 
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
+<<<<<<< HEAD
 						
 						<a href="">
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
@@ -174,6 +207,16 @@ if (isset($_GET['product_id'])) {
 							</div>
 						</a>
 
+=======
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
+							<i class="zmdi zmdi-account"></i>
+						</div>
+						<?php if ($isLoggedIn): ?>
+							<button onclick="window.location.href='../php/logout.php'">Đăng xuất</button>
+						<?php else: ?>
+							<button onclick="window.location.href='../interface/login_singup.html'">Đăng nhập</button>
+						<?php endif; ?>					
+>>>>>>> 4de17fabd29f1a90a96c21152faac00c2f043eb5
 					</div>
 				</nav>
 			</div>	
@@ -192,15 +235,11 @@ if (isset($_GET['product_id'])) {
 					<i class="zmdi zmdi-search"></i>
 				</div>
 
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="<?php echo $total_quantity; ?>">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
-
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-					<i class="zmdi zmdi-favorite-outline"></i>
-				</a>
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " >
-						<i class="zmdi zmdi-account"></i> <span><?php echo $fullName?></span>
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
+					<i class="zmdi zmdi-account"></i>
 				</div>
 			</div>
 
@@ -225,7 +264,19 @@ if (isset($_GET['product_id'])) {
 				<li>
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							Help & FAQs
+						</a>
+
+						<a href="profile.php" class="flex-c-m p-lr-10 trans-04">
 							My Account
+						</a>
+
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							EN
+						</a>
+
+						<a href="#" class="flex-c-m p-lr-10 trans-04">
+							USD
 						</a>
 					</div>
 				</li>
@@ -236,8 +287,8 @@ if (isset($_GET['product_id'])) {
 					<a href="index.php">Home</a>
 					<ul class="sub-menu-m">
 						<li><a href="index.php">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
+						<li><a href="home-02.php">Homepage 2</a></li>
+						<li><a href="home-03.php">Homepage 3</a></li>
 					</ul>
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -249,15 +300,19 @@ if (isset($_GET['product_id'])) {
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="blog.php">Blog</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="about.php">About</a>
+				</li>
+
+				<li>
+					<a href="contact.php">Contact</a>
 				</li>
 			</ul>
 		</div>
@@ -277,7 +332,7 @@ if (isset($_GET['product_id'])) {
 				</form>
 			</div>
 		</div>
-	</header> 
+	</header>
 	<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
     <div class="s-full js-hide-cart"></div>
@@ -324,7 +379,7 @@ if (isset($_GET['product_id'])) {
                         View Cart
                     </a>
 
-                    <a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+                    <a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
                         Check Out
                     </a>
                 </div>
