@@ -1,6 +1,5 @@
 <?php 
 error_reporting(0);
-include '../php/check_session.php';
 include '../php/addToCart.php';
 ?>
 <?php
@@ -168,7 +167,11 @@ if (isset($_GET['product_id'])) {
 							<li>
 								<a href="product.php">Shop</a>
 							</li>
-							
+
+							<li class="label1" data-label1="hot">
+								<a href="shoping-cart.php">Features</a>
+							</li>
+
 							<li>
 								<a href="blog.php">Blog</a>
 							</li>

@@ -10,7 +10,7 @@ session_start();
 // Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true) {
     // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
-    header('Location:http://localhost/Gr9-Web/interface/login_singup.html');
+    header('Location: login_singup.html');
     exit();
 }
 
@@ -20,7 +20,6 @@ $address = isset($_SESSION['address']) ? $_SESSION['address'] : '';
 $userName = isset($_SESSION['userName']) ? $_SESSION['userName'] : '';
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
 $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
-$Password = isset($_SESSION['Pasword']) ? $_SESSION['Pasword'] : '';
 ?>
 <div class="container-xl px-4 mt-4">
 
@@ -70,11 +69,6 @@ $Password = isset($_SESSION['Pasword']) ? $_SESSION['Pasword'] : '';
                             <label class="small mb-1" for="phoneNumber">Phone number</label>
                             <input class="form-control" id="phoneNumber"   type="text" value="<?php echo $phoneNumber; ?>">
                         </div>
-						<div class="mb-3">
-                            <label class="small mb-1" for="password">Password</label>
-                            <input class="form-control" id="password"   type="password" value="<?php echo $Password; ?>">
-                        </div>
-
 
                         <button class="btn btn-primary" type="submit">Save changes</button>
                     </form>
@@ -235,6 +229,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</span>
 	</div>
 
+	<!-- Modal1 -->
 	
 
 
