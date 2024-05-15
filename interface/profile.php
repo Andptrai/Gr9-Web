@@ -79,7 +79,7 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
 </div>
 <!-- Order History Section -->
 <div class="card mb-4">
-            <div class="card-header">Order History</div>
+        <div class="card-header">Order History</div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -123,7 +123,7 @@ $phoneNumber = isset($_SESSION['phoneNumber']) ? $_SESSION['phoneNumber'] : '';
                     </table>
                 </div>
             </div>
-        </div>
+        
     </div>
 <footer class="bg3 p-t-75 p-b-32">
 		<div class="container">

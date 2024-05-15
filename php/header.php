@@ -197,6 +197,11 @@ if (isset($_GET['product_id'])) {
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11  " >
 							<i class="zmdi zmdi-account"></i>
 						</div>
+						<?php if ($isLoggedIn): ?>
+							<button onclick="window.location.href='../php/logout.php'">Đăng xuất</button>
+						<?php else: ?>
+							<button onclick="window.location.href='../interface/login_singup.html'">Đăng nhập</button>
+						<?php endif; ?>					
 					</div>
 				</nav>
 			</div>	
