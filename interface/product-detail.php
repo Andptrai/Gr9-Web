@@ -81,7 +81,7 @@ include '../php/header.php';
 						
 					
 						<div class="p-t-33">
-							<div class="flex-w flex-r-m p-b-10">
+							<!-- <div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
 									Size
 								</div>
@@ -98,7 +98,7 @@ include '../php/header.php';
 										<div class="dropDownSelect2"></div>
 									</div>
 								</div>
-							</div>						
+							</div>						 -->
 
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
