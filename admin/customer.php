@@ -22,16 +22,17 @@
         </div>
     </form>
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">login</a></li>
-                <li><a class="dropdown-item" href="#!">register</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <?php if ($isLoggedIn): ?>
+						<li class="dropdown-item"><button onclick="window.location.href='../php/logout.php'">Đăng xuất</button></li>
+                        <?php else: ?>
+							<li class="dropdown-item"><button onclick="window.location.href='../interface/login_singup.html'">Đăng nhập</button></li>
+						<?php endif; ?>		
+                    </ul>
+                </li>
             </ul>
-        </li>
-    </ul>
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
@@ -50,6 +51,10 @@
                     <a class="nav-link" href="customer.php">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Khách hàng
+                    </a>
+                    <a class="nav-link" href="order.php">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Quản lý đơn hàng
                     </a>
                 </div>
             </div>
