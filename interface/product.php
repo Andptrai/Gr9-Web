@@ -306,32 +306,67 @@ include '../php/header.php';
 						<div class="row">
 
 
-							<?php foreach ($products as $product): ?>
-								<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-									<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
-									<div class="block2">
-										<div class="block2-pic hov-img0">
-											<img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
-											
+								<?php 
+									$productsPerPage = 8; // Số sản phẩm trên mỗi trang
+									$totalProducts = count($products); // Tổng số sản phẩm
+									$totalPages = ceil($totalProducts / $productsPerPage); // Tính tổng số trang
 
-										</div>
-										<div class="block2-txt flex-w flex-t p-t-14">
-											<div class="block2-txt-child1 flex-col-l ">
-												<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-													<?php echo $product['name']; ?>
-												</a>
+									// Kiểm tra trang hiện tại từ tham số GET, mặc định là trang đầu tiên
+									$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+									$currentPage = max(1, min($totalPages, intval($currentPage))); // Đảm bảo trang hiện tại hợp lệ
 
-												<span class="stext-105 cl3">
-													<?php echo $product['price']; ?>
-												</span>
+									// Tính vị trí bắt đầu và kết thúc của sản phẩm trên trang hiện tại
+									$start = ($currentPage - 1) * $productsPerPage;
+									$end = min($start + $productsPerPage, $totalProducts);
+
+									// Lặp qua danh sách sản phẩm cho trang hiện tại
+									for ($i = $start; $i < $end; $i++):
+										$product = $products[$i];
+								?>
+									<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+										<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
+											<div class="block2">
+												<div class="block2-pic hov-img0">
+													<img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
+												</div>
+												<div class="block2-txt flex-w flex-t p-t-14">
+													<div class="block2-txt-child1 flex-col-l">
+														<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+															<?php echo $product['name']; ?>
+														</a>
+														<span class="stext-105 cl3">
+															<?php echo $product['price']; ?>
+														</span>
+													</div>
+												</div>
 											</div>
-											
-										</div>
-									</div>
-									</div>				
-								</a>
-								
-							<?php endforeach; ?>
+										</div>				
+									</a>	
+								<?php endfor; ?>
+							
+						</div>
+						
+					</div>
+					<div class="row justify-content-center text-center">
+            			<div class="col-md-12"> <!-- Sử dụng col-md-12 để chiếm toàn bộ chiều rộng của dòng -->
+							<!-- Hiển thị phân trang -->
+							<nav aria-label="Page navigation">
+								<ul class="pagination">
+									<?php if ($currentPage > 1): ?>
+										<li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage - 1); ?>">&lsaquo;</a></li>
+									<?php endif; ?>
+									
+									<?php for ($page = 1; $page <= $totalPages; $page++): ?>
+										<li class="page-item <?php if ($page == $currentPage) echo 'active'; ?>"><a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
+									<?php endfor; ?>
+
+									<?php if ($currentPage < $totalPages): ?>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo ($currentPage + 1); ?>">&rsaquo;</a></li>
+										<li class="page-item"><a class="page-link" href="?page=<?php echo $totalPages; ?>">&raquo;</a></li>
+									<?php endif; ?>
+								</ul>
+							</nav>
 						</div>
 					</div>
 			</div>

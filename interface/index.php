@@ -428,31 +428,37 @@ include '../php/header.php';
 				<div class="row">
 
 
-					<?php foreach ($products as $product): ?>
+				<?php 
+					$count = 0; // Biến đếm
+					foreach ($products as $product):
+						if ($count >= 8) {
+							break; // Dừng vòng lặp nếu đã xuất ra 8 sản phẩm
+						}
+					?>
 						<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 							<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?php echo $product['category']; ?>">
-							<div class="block2">
-								<div class="block2-pic hov-img0">
-									<img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
-									
-
-								</div>
-								<div class="block2-txt flex-w flex-t p-t-14">
-									<div class="block2-txt-child1 flex-col-l ">
-										<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-											<?php echo $product['name']; ?>
-										</a>
-
-										<span class="stext-105 cl3">
-											<?php echo $product['price']; ?>
-										</span>
+								<div class="block2">
+									<div class="block2-pic hov-img0">
+										<img src="<?php echo $product['image']; ?>" alt="IMG-PRODUCT">
 									</div>
-									
+									<div class="block2-txt flex-w flex-t p-t-14">
+										<div class="block2-txt-child1 flex-col-l">
+											<a href="product-detail.php?product_id=<?php echo $product['idProduct']; ?>"  class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+												<?php echo $product['name']; ?>
+											</a>
+											<span class="stext-105 cl3">
+												<?php echo $product['price']; ?>
+											</span>
+										</div>
+									</div>
 								</div>
-							</div>
 							</div>				
 						</a>	
-					<?php endforeach; ?>
+					<?php 
+						$count++; // Tăng biến đếm
+					endforeach; 
+					?>
+
 				</div>
 			</div>
 
