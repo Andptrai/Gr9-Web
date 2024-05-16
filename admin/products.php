@@ -21,7 +21,7 @@
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" id="inputSearch"/>
             <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
         </div>
     </form>
@@ -278,8 +278,8 @@
 
 <script>
     // Xử lý sự kiện khi nút tìm kiếm được nhấn
-    document.getElementById('btnNavbarSearch').addEventListener('click', function() {
-        const searchQuery = document.getElementById('navbarSearch').value.trim();
+    document.getElementById('inputSearch').addEventListener('click', function() {
+        const searchQuery = document.getElementById('inputSearch').value.trim();
         fetch('search.php?search=' + encodeURIComponent(searchQuery))
         .then(response => response.text())
         .then(data => {
