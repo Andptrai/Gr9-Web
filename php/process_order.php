@@ -66,7 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // header("Location: success.php");
     // exit();
 
-    // Đóng kết nối
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+
     $conn->close();
 }
 ?>
